@@ -35,7 +35,7 @@ function c6789.initial_effect(c)
 end
 
 function c6789.filter(c)
-	return c:IsFaceup() and c:IsSetCard(0xd4) and c:IsCanTurnSet()
+	return c:IsFaceup() and c:IsSetCard(0xd3) and c:IsCanTurnSet()
 end
 function c6789.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:GetLocation()==LOCATION_MZONE and c6789.filter(chkc) end
