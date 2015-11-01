@@ -61,13 +61,13 @@ function c6506.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsReason(REASON_DESTROY) and c:IsReason(REASON_BATTLE+REASON_EFFECT) and c:IsPreviousLocation(LOCATION_ONFIELD) and bit.band(c:GetSummonType(),SUMMON_TYPE_XYZ)==SUMMON_TYPE_XYZ
 end
 function c6506.spfil1(c,e,tp)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x10d9) and c:GetLevel()>0 and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and Duel.IsExistingTarget(c6506.spfil2,tp,LOCATION_GRAVE,0,1,c,e,tp,c:GetLevel())
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x10df) and c:GetLevel()>0 and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and Duel.IsExistingTarget(c6506.spfil2,tp,LOCATION_GRAVE,0,1,c,e,tp,c:GetLevel())
 end
 function c6506.spfil2(c,e,tp,lv)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x10d9) and c:GetLevel()==lv and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x10df) and c:GetLevel()==lv and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c6506.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and chkc:IsSetCard(0x10d9) and chkc:IsCanBeSpecialSummoned(e,0,tp,false,false) end
+	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c6506.spfil1(chkc,e,tp) end
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>1 and Duel.IsExistingTarget(c6506.spfil1,tp,LOCATION_GRAVE,0,1,nil,e,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	local g1=Duel.SelectTarget(tp,c6506.spfil1,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)

@@ -62,7 +62,7 @@ function c6550.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
 function c6550.thfil(c)
-	return c:IsSetCard(0x10d9) and not c:IsCode(6550) and c:IsAbleToHand()
+	return c:IsSetCard(0x10df) and not c:IsCode(6550) and c:IsAbleToHand()
 end
 function c6550.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c6550.thfil,tp,LOCATION_DECK,0,1,nil) end

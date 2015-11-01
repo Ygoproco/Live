@@ -25,7 +25,7 @@ function c6552.initial_effect(c)
 end
 
 function c6552.spfil(c)
-	return c:IsFaceup() and c:IsSetCard(0x10d9)
+	return c:IsFaceup() and c:IsSetCard(0x10df)
 end
 function c6552.spcon(e,c)
 	if c==nil then return true end
@@ -38,7 +38,7 @@ function c6552.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
 function c6552.thfilter(c)
-	return c:IsSetCard(0xd9) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(0xdf) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function c6552.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c6552.thfilter,tp,LOCATION_DECK,0,1,nil) end

@@ -66,7 +66,7 @@ function c6509.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
 function c6509.spfil(c,e,tp)
-	return c:IsSetCard(0x10d9) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x10df) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c6509.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and c6509.spfil(chkc,e,tp) end

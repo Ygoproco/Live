@@ -17,7 +17,7 @@ function c6536.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetCode(c6536.descode)
+	e1:SetCost(c6536.descost)
 	e1:SetTarget(c6536.destg)
 	e1:SetOperation(c6536.desop)
 	c:RegisterEffect(e1)
@@ -59,7 +59,7 @@ end
 function c6536.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
-		Duel.Destroy(tp,REASON_EFFECT)
+		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end
 
