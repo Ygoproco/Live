@@ -12,10 +12,10 @@ function c6780.initial_effect(c)
 end
 
 function c6780.fil1(c,tp)
-	return c:IsLevelAbove(0) and Duel.IsExistingMatchingCard(c6780.fil2,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,c,c:GetRace(),c:GetAttribute(),c:GetLevel(),c:GetCode())
+	return c:IsLevelAbove(0) and Duel.IsExistingMatchingCard(c6780.fil2,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,c,c:GetOriginalRace(),c:GetOriginalAttribute(),c:GetOriginalLevel(),c:GetOriginalCode())
 end
 function c6780.fil2(c,rc,att,lv,cd)
-	return c:IsRace(rc) and c:IsAttribute(att) and c:GetLevel()==lv and c:GetCode()~=cd and c:IsAbleToHand()
+	return c:GetOriginalRace()==rc and c:GetOriginalAttribute()==att and c:GetOriginalLevel()==lv and c:GetOriginalCode()~=cd and c:IsAbleToHand()
 end
 function c6780.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckReleaseGroup(tp,c6780.fil1,1,nil,tp) end
@@ -30,7 +30,7 @@ end
 function c6780.op(e,tp,eg,ep,ev,re,r,rp)
 	local tc=e:GetLabelObject()
 	if not tc then return end
-	local g=Duel.SelectMatchingCard(tp,c6780.fil2,LOCATION_DECK+LOCATION_GRAVE,0,1,1,tc,tc:GetRace(),tc:GetAttribute(),tc:GetLevel(),tc:GetCode())
+	local g=Duel.SelectMatchingCard(tp,c6780.fil2,LOCATION_DECK+LOCATION_GRAVE,0,1,1,tc,tc:GetOriginalRace(),tc:GetOriginalAttribute(),tc:GetOriginalLevel(),tc:GetOriginalCode())
 	if g:GetCount()>0 then
 		Duel.SendtoHand(g,tp,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,g)
