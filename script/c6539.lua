@@ -72,17 +72,18 @@ function c6539.atkcon(e,tp,eg,ep,ev,re,r,rp)
 end
 function c6539.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToGraveAsCost() end
-	e:SetLabelObject(e:GetHandler():GetEquipTarget())
+	local tc=e:GetHandler():GetEquipTarget()
+	Duel.SetTargetCard(tc)
 	Duel.SendtoGrave(e:GetHandler(),REASON_COST)
 end
 function c6539.atkop(e,tp,eg,ep,ev,re,r,rp)
-	local tc=e:GetLabelObject()
-	if tc:IsRelateToEffect(e) then
-		local e2=Effect.CreateEffect(e:GetHandler())
-		e2:SetType(EFFECT_TYPE_EQUIP)
-		e2:SetCode(EFFECT_EXTRA_ATTACK)
-		e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-		e2:SetValue(2)
-		tc:RegisterEffect(e2)
+	local tc=Duel.GetFirstTarget()
+	if tc:IsFaceup() and tc:IsRelateToEffect(e) then
+		local e1=Effect.CreateEffect(e:GetHandler())
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_EXTRA_ATTACK)
+		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+		e1:SetValue(2)
+		tc:RegisterEffect(e1)
 	end
 end

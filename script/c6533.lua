@@ -88,9 +88,9 @@ function c6533.spop(e,tp,eg,ep,ev,re,r,rp)
 		local cg=sg1:Select(1-tp,1,1,nil)
 		local tc=cg:GetFirst()
 		if tc:IsCanBeSpecialSummoned(e,0,tp,false,false) then
-			Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACUP)
+			Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)
 			sg1:RemoveCard(tc)
 		end
-		Duel.SendtoGrave(sg,REASON_EFFECT)
+		Duel.SendtoGrave(sg1,REASON_EFFECT)
 	end
 end
