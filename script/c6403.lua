@@ -45,8 +45,8 @@ function c6403.target1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c6403.filter1(chkc) end
 	if chk==0 then return true end
 	local b=Duel.IsExistingTarget(c6403.filter1,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) and Duel.IsExistingMatchingCard(c6403.filter2,tp,LOCATION_HAND+LOCATION_DECK,0,1,nil)
-	local op=0
-	if b and Duel.SelectYesNo(tp,aux.Stringid(6403,1)) then
+	local op=1
+	if Duel.GetFlagEffect(tp,6403)==0 and b and Duel.SelectYesNo(tp,aux.Stringid(6403,1)) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 		local g=Duel.SelectTarget(tp,c6403.filter1,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
 		e:SetCategory(CATEGORY_TOHAND)
@@ -56,7 +56,7 @@ function c6403.target1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	e:SetLabel(op)
 end
 function c6403.operation(e,tp,eg,ep,ev,re,r,rp)
-	if e:GetLabel()==0 or not e:GetHandler():IsRelateToEffect(e) then return end
+	if not e:GetLabel()==1 or not e:GetHandler():IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
 	if not tc:IsRelateToEffect(e) then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
