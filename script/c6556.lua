@@ -59,7 +59,8 @@ function c6556.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,g:GetCount(),0,0)
 end
 function c6556.tdop(e,tp,eg,ep,ev,re,r,rp)
-	local tg=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
-	if not tg then return end
+	local tg=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(Card.IsRelateToEffect,nil,e)
+	if tg:GetCount()<=0 then return end
 	Duel.SendtoDeck(tg,nil,0,REASON_EFFECT)
+	Duel.ShuffleDeck(tp)
 end
