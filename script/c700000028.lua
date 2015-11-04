@@ -31,10 +31,10 @@ function c700000028.initial_effect(c)
 end
 
 function c700000028.efilter1(e,te)
-	return te:IsActiveType(TYPE_TRAP+TYPE_SPELL)
+	return te:IsActiveType(TYPE_TRAP+TYPE_SPELL) and te:GetOwnerPlayer()~=e:GetHandlerPlayer()
 end
 function c700000028.efilter2(e,re,rp)
-	return aux.tgoval(e,re,rp) and re:IsActiveType(TYPE_TRAP+TYPE_SPELL)
+	return aux.tgoval(e,re,rp) and re:IsActiveType(TYPE_TRAP+TYPE_SPELL) and te:GetOwnerPlayer()~=e:GetHandlerPlayer()
 end
 function c700000028.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local e5=Effect.CreateEffect(e:GetHandler())
