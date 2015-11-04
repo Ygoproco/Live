@@ -58,11 +58,13 @@ end
 function c6403.operation(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetLabel()==1 or not e:GetHandler():IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
-	if not tc:IsRelateToEffect(e) then return end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectMatchingCard(tp,c6403.filter2,tp,LOCATION_HAND+LOCATION_DECK,0,1,1,nil)
-	if g:GetCount()>0 and Duel.SendtoGrave(g,REASON_EFFECT)>0 then
-		Duel.SendtoHand(tc,nil,REASON_EFFECT)
+	if tc then
+		if not tc:IsRelateToEffect(e) then return end
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
+		local g=Duel.SelectMatchingCard(tp,c6403.filter2,tp,LOCATION_HAND+LOCATION_DECK,0,1,1,nil)
+		if g:GetCount()>0 and Duel.SendtoGrave(g,REASON_EFFECT)>0 then
+			Duel.SendtoHand(tc,nil,REASON_EFFECT)
+		end
 	end
 end
 
