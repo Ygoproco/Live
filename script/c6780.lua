@@ -30,7 +30,7 @@ end
 function c6780.op(e,tp,eg,ep,ev,re,r,rp)
 	local tc=e:GetLabelObject()
 	if not tc then return end
-	local g=Duel.SelectMatchingCard(tp,c6780.fil2,LOCATION_DECK+LOCATION_GRAVE,0,1,1,tc,tc:GetOriginalRace(),tc:GetOriginalAttribute(),tc:GetOriginalLevel(),tc:GetOriginalCode())
+	local g=Duel.SelectMatchingCard(tp,c6780.fil2,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,1,tc,tc:GetOriginalRace(),tc:GetOriginalAttribute(),tc:GetOriginalLevel(),tc:GetOriginalCode())
 	if g:GetCount()>0 then
 		Duel.SendtoHand(g,tp,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,g)

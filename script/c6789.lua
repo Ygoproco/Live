@@ -54,7 +54,7 @@ function c6789.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c6789.setop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsFaceup() and tc:IsRelateToEffect(e) then
+	if tc and tc:IsFaceup() and tc:IsRelateToEffect(e) and e:GetHandler():IsRelateToEffect(e) then
 		Duel.ChangePosition(tc,POS_FACEDOWN_DEFENCE)
 		e:GetHandler():AddCounter(0x37,1)
 	end
