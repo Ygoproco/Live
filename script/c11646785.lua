@@ -50,11 +50,11 @@ function c11646785.desfil(c)
 	return c:IsFaceup() and c:IsCanTurnSet()
 end
 function c11646785.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c11646785.filter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(c11646785.filter,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-	local g=Duel.SelectTarget(tp,c11646785.filter,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
-	Duel.SetOperationInfo(0,CATEGORY_POSITION,g,1,0,0)
+    if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc~=e:GetHandler() and c11646785.desfil(chkc) end
+    if chk==0 then return Duel.IsExistingTarget(c11646785.desfil,tp,LOCATION_MZONE,LOCATION_MZONE,1,e:GetHandler()) end
+    Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
+    local g=Duel.SelectTarget(tp,c11646785.desfil,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,e:GetHandler())
+    Duel.SetOperationInfo(0,CATEGORY_POSITION,g,1,0,0)
 end
 function c11646785.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
