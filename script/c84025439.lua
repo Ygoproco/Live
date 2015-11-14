@@ -97,6 +97,6 @@ function c84025439.spop(e,tp,eg,ep,ev,re,r,rp)
 		local sg3=g:Select(tp,1,1,nil)
 		sg1:Merge(sg2)
 		sg1:Merge(sg3)
-		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)
+		Duel.SpecialSummon(sg1,0,tp,tp,false,false,POS_FACEUP)
 	end
 end
