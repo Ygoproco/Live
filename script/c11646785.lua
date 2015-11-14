@@ -51,10 +51,11 @@ function c11646785.desfil(c)
 end
 function c11646785.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
     if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc~=e:GetHandler() and c11646785.desfil(chkc) end
-    if chk==0 then return Duel.IsExistingTarget(c11646785.desfil,tp,LOCATION_MZONE,LOCATION_MZONE,1,e:GetHandler()) end
+    if chk==0 then return e:GetHandler():GetFlagEffect(11646785)==0 and Duel.IsExistingTarget(c11646785.desfil,tp,LOCATION_MZONE,LOCATION_MZONE,1,e:GetHandler()) end
     Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
     local g=Duel.SelectTarget(tp,c11646785.desfil,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,e:GetHandler())
     Duel.SetOperationInfo(0,CATEGORY_POSITION,g,1,0,0)
+    e:GetHandler():RegisterFlagEffect(11646785,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 end
 function c11646785.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()

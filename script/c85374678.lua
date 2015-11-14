@@ -30,7 +30,7 @@ function c85374678.initial_effect(c)
 end
 
 function c85374678.spfil(c,e,tp)
-	return c:IsSetCard(0x10dd) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xdd) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c85374678.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
