@@ -58,8 +58,8 @@ function c61936647.operation(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterEffect(e1,true)
 		local e4=e1:Clone()
 		e4:SetCode(EFFECT_DESTROY_REPLACE)
-		e4:SetTarget(c25231813.reptg2)
-		e4:SetOperation(c25231813.repop2)
+		e4:SetTarget(c61936647.reptg2)
+		e4:SetOperation(c61936647.repop2)
 		tc:RegisterEffect(e4,true)
 	end
 end
