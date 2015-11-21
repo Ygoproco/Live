@@ -68,7 +68,7 @@ function c6624.op2(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) or (Duel.CheckLocation(tp,LOCATION_SZONE,6) or Duel.CheckLocation(tp,LOCATION_SZONE,7))==false then return end
 	local g=Duel.SelectMatchingCard(tp,c6624.fil2,tp,LOCATION_EXTRA,0,1,1,nil)
 	if g:GetCount()>0 then
-		Duel.MoveToField(tc,tp,tp,LOCATION_SZONE,POS_FACEUP,true)
+		Duel.MoveToField(g:GetFirst(),tp,tp,LOCATION_SZONE,POS_FACEUP,true)
 	end
 end
 
