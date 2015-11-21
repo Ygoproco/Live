@@ -17,6 +17,7 @@ function c85252081.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetRange(LOCATION_MZONE)
+    e1:SetCondition(c85252081.descon2)
 	e1:SetCost(c85252081.descost)
 	e1:SetTarget(c85252081.destg)
 	e1:SetOperation(c85252081.desop)
@@ -63,8 +64,11 @@ function c85252081.desop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 
+function c85252081.descon2(e,tp,eg,ep,ev,re,r,rp)
+    return not e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode,1,nil,12369277)
+end
 function c85252081.descon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetTurnPlayer()==1-tp and e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode,1,nil,12369277)
+    return e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode,1,nil,12369277)
 end
 
 function c85252081.mtfilter(c)

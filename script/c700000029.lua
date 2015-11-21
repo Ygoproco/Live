@@ -3,13 +3,7 @@
 function c700000029.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
-	e1:SetCode(EFFECT_FUSION_MATERIAL)
-	e1:SetCondition(c700000029.fscon)
-	e1:SetOperation(c700000029.fsop)
-	c:RegisterEffect(e1)
+	aux.AddFusionProcFun2(c,c700000029.mfilter1,c700000029.mfilter2,true)
 	--summon success
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
@@ -23,8 +17,10 @@ function c700000029.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 
-function c700000029.mfilter1(c,mg)
-	return (c:IsCode(62895219) or c:IsCode(6812)) and mg:IsExists(c700000029.mfilter2,1,c)
+function c700000029.mfilter1(c)
+	local code=c:GetCode()
+	return code==62895219 or code==14763299
+	--return (c:IsCode(62895219) or c:IsCode(6812)) and mg:IsExists(c700000029.mfilter2,1,c)
 end
 function c700000029.mfilter2(c)
 	return c:IsSetCard(0x9b)
