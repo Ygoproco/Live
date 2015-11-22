@@ -48,6 +48,7 @@ function c6404.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SelectTarget(tp,Card.IsFacedown,tp,0,LOCATION_SZONE,1,1,nil)
 end
 function c6404.operation(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	if tc:IsFacedown() and tc:IsRelateToEffect(e) then
 		local e1=Effect.CreateEffect(c)

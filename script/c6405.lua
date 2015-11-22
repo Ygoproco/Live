@@ -58,5 +58,5 @@ function c6405.rcon(e)
 	return e:GetOwner():IsHasCardTarget(e:GetHandler())
 end
 function c6405.indtg(e,c)
-	return e:GetHandler():IsHasCardTarget(c) and c:GetFlagEffect(76067258)~=0
+	return e:GetHandler():IsHasCardTarget(c) and c:GetFlagEffect(6405)~=0
 end
