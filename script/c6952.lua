@@ -4,7 +4,15 @@ function c6952.initial_effect(c)
 	--synchro summon
 	aux.AddSynchroProcedure(c,nil,aux.NonTuner(Card.IsSetCard,0xe0),1)
 	c:EnableReviveLimit()
-	--Limit summon (currently unscriptable)
+	--Limit summon
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetCode(EFFECT_MAX_MZONE)
+	e1:SetRange(LOCATION_MZONE)
+	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e1:SetTargetRange(1,1)
+	e1:SetValue(c6952.value)
+	c:RegisterEffect(e1)
 	--Negate
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(6952,0))
@@ -30,7 +38,12 @@ function c6952.initial_effect(c)
 	e5:SetOperation(c6952.operation)
 	c:RegisterEffect(e5)
 end
-
+function c6952.value(e,fp,rp,r)
+	if r~=LOCATION_REASON_TOFIELD then return 5 end
+	local limit=Duel.GetFieldGroupCount(rp,LOCATION_MZONE,0)+1
+	if limit>5 then limit=5	end
+	return limit>0 and limit or 5
+end
 function c6952.negcon(e,tp,eg,ep,ev,re,r,rp)
 	return re:GetHandler():IsLocation(LOCATION_GRAVE)
 end
