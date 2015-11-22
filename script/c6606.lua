@@ -15,16 +15,29 @@ function c6606.initial_effect(c)
 end
 
 function c6606.cfilter(c)
-	return (c:IsSetCard(0xae) or c:IsSetCard(0xaf)) and (c:IsFaceup() or c:IsLocation(LOCATION_HAND)) and c:IsAbleToGraveAsCost()
+	return (c:IsSetCard(0xae) or c:IsSetCard(0xaf)) and (c:IsFaceup() or c:IsLocation(LOCATION_HAND)) and not c:IsCode(6606) and c:IsAbleToGraveAsCost()
 end
 function c6606.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c6606.cfilter,tp,LOCATION_HAND+LOCATION_ONFIELD,0,1,nil) end
-	local g=Duel.SelectMatchingCard(tp,c6606.cfilter,tp,LOCATION_HAND+LOCATION_ONFIELD,0,1,1,nil)
-	Duel.SendtoGrave(g,REASON_COST)
+	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
+	if chk==0 then
+		if ft<0 then return false end
+		if ft==0 then 
+			return Duel.IsExistingMatchingCard(c6606.cfilter,tp,LOCATION_MZONE,0,1,nil) 
+		else
+			return Duel.IsExistingMatchingCard(c6606.cfilter,tp,LOCATION_HAND+LOCATION_ONFIELD,0,1,nil)
+		end
+	end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
+	if ft==0 then
+		local g=Duel.SelectMatchingCard(tp,c6606.cfilter,tp,LOCATION_MZONE,0,1,1,nil)
+		Duel.SendtoGrave(g,REASON_COST)
+	else
+		local g=Duel.SelectMatchingCard(tp,c6606.cfilter,tp,LOCATION_HAND+LOCATION_ONFIELD,0,1,1,nil)
+		Duel.SendtoGrave(g,REASON_COST)
+	end
 end
 function c6606.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) end
+	if chk==0 then return e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
 end
 function c6606.spop(e,tp,eg,ep,ev,re,r,rp)

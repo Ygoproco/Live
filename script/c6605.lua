@@ -43,7 +43,7 @@ function c6605.desfil1(c,tp)
 	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsDestructable() and Duel.IsExistingTarget(c6605.desfil2,tp,LOCATION_ONFIELD,0,1,c)
 end
 function c6605.desfil2(c)
-	return (c:IsSetCard(0xae) and c:IsSetCard(0xaf)) and c:IsDestructable() and not c:IsCode(6605)
+	return (c:IsSetCard(0xae) or c:IsSetCard(0xaf)) and c:IsDestructable() and not c:IsCode(6605)
 end
 function c6605.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end

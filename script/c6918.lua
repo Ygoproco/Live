@@ -53,7 +53,7 @@ end
 function c6918.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
-		Duel.Remove(tc,nil,REASON_EFFECT)
+		Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
 	end
 end
 
