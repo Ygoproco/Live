@@ -92,17 +92,24 @@ function c6697.spop(e,tp,eg,ep,ev,re,r,rp)
 	if not c:IsRelateToEffect(e) then return end
 	local ft=math.min(ft1,ft2)
 	if not Duel.IsPlayerCanSpecialSummonMonster(tp,6697+1,0,0x4011,0,0,1,RACE_FIEND,ATTRIBUTE_DARK) or not Duel.IsPlayerCanSpecialSummonMonster(tp,6697+1,0,0x4011,0,0,1,RACE_FIEND,ATTRIBUTE_DARK,1-tp) then return end
-	local token=Duel.CreateToken(tp,6697+1)
-	Duel.SpecialSummon(token,0,tp,tp,false,false,POS_FACEUP_DEFENCE)
-	token=Duel.CreateToken(tp,6697+1)
-	Duel.SpecialSummon(token,0,tp,1-tp,false,false,POS_FACEUP_DEFENCE)
-	ft=ft-1
-	while ft>0 and Duel.IsPlayerCanSpecialSummonMonster(tp,6697+1,0,0x4011,0,0,1,RACE_FIEND,ATTRIBUTE_DARK) and Duel.IsPlayerCanSpecialSummonMonster(tp,6697+1,0,0x4011,0,0,1,RACE_FIEND,ATTRIBUTE_DARK,1-tp) and Duel.SelectYesNo(tp,aux.Stringid(6697,1)) do
+	--local token=Duel.CreateToken(tp,6697+1)
+	--Duel.SpecialSummon(token,0,tp,tp,false,false,POS_FACEUP_DEFENCE)
+	--token=Duel.CreateToken(tp,6697+1)
+	--Duel.SpecialSummon(token,0,tp,1-tp,false,false,POS_FACEUP_DEFENCE)
+	--ft=ft-1
+	--while ft>0 and Duel.IsPlayerCanSpecialSummonMonster(tp,6697+1,0,0x4011,0,0,1,RACE_FIEND,ATTRIBUTE_DARK) and Duel.IsPlayerCanSpecialSummonMonster(tp,6697+1,0,0x4011,0,0,1,RACE_FIEND,ATTRIBUTE_DARK,1-tp) and Duel.SelectYesNo(tp,aux.Stringid(6697,1)) do
+		--token=Duel.CreateToken(tp,6697+1)
+		--Duel.SpecialSummon(token,0,tp,tp,false,false,POS_FACEUP_DEFENCE)
+		--token=Duel.CreateToken(tp,6697+1)
+		--Duel.SpecialSummon(token,0,tp,1-tp,false,false,POS_FACEUP_DEFENCE)
+		--ft=ft-1
+	--end
+	local token=nil
+	for i=1,ft do
 		token=Duel.CreateToken(tp,6697+1)
 		Duel.SpecialSummon(token,0,tp,tp,false,false,POS_FACEUP_DEFENCE)
 		token=Duel.CreateToken(tp,6697+1)
 		Duel.SpecialSummon(token,0,tp,1-tp,false,false,POS_FACEUP_DEFENCE)
-		ft=ft-1
 	end
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
