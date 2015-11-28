@@ -55,7 +55,7 @@ end
 function c700000023.lvcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c700000023.lvfilter,tp,LOCATION_MZONE,0,1,nil) end
 	local g=Duel.SelectMatchingCard(tp,c700000023.lvfilter,tp,LOCATION_MZONE,0,1,1,nil)
-	Duel.SendToExtra(g,POS_FACEUP,REASON_COST)
+	Duel.PSendToExtra(g,POS_FACEUP,REASON_EFFECT+REASON_COST)
 end
 function c700000023.lvtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and chkc:IsFaceup() end

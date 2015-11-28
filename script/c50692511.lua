@@ -35,7 +35,7 @@ function c50692511.splimit(e,c,sump,sumtype,sumpos,targetp,se)
 	return not c:IsSetCard(0xba)
 end
 function c50692511.filter1(c,e,tp)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xba) and Duel.IsExistingMatchingCard(c50692511.filter2,tp,LOCATION_HAND+LOCATION_DECK,0,1,nil,e,tp,c:GetCode())
+	return c:IsFaceup() and c:IsType(TYPE_MONSTER) and c:IsSetCard(0xba) and Duel.IsExistingMatchingCard(c50692511.filter2,tp,LOCATION_HAND+LOCATION_DECK,0,1,nil,e,tp,c:GetCode())
 end
 function c50692511.filter2(c,e,tp,cd)
 	return c:IsCode(cd) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
