@@ -20,7 +20,7 @@ function c6697.initial_effect(c)
 	--battle indestructable
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
-	e3:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
+	e3:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
 	e3:SetValue(1)
 	c:RegisterEffect(e3)
 	--atkup
@@ -48,7 +48,7 @@ end
 
 function c6697.sprfilter1(c,tp)
 	local lv=c:GetLevel()
-	return lv>4 and c:IsFaceup() and c:IsType(TYPE_TUNER) and c:IsAbleToGraveAsCost()
+	return lv>5 and c:IsFaceup() and c:IsType(TYPE_TUNER) and c:IsAbleToGraveAsCost()
 		and Duel.IsExistingMatchingCard(c6697.sprfilter2,tp,LOCATION_MZONE,0,1,nil,lv)
 end
 function c6697.sprfilter2(c,lv)
@@ -75,7 +75,7 @@ end
 
 function c6697.spcon(e,tp,eg,ep,ev,re,r,rp)
 	local ph=Duel.GetCurrentPhase()
-	return ph==PHASE_STANDBY
+	return ph==PHASE_MAIN1 or (ph==PHASE_MAIN2 and e:GetHandler():GetAttackAnnouncedCount()==0)
 end
 function c6697.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local ft1=Duel.GetLocationCount(tp,LOCATION_MZONE)

@@ -34,11 +34,11 @@ function c6696.xyzop(e,tp,chk)
 end
 
 function c6696.rmcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
-	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
+	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,2,REASON_COST) end
+	e:GetHandler():RemoveOverlayCard(tp,2,2,REASON_COST)
 end
 function c6696.rmfil(c)
-	return c:IsAbleToRemove() and c:IsFaceup()
+	return c:IsAbleToRemove() and c:IsFaceup() and bit.band(c:GetSummonType(),SUMMON_TYPE_SPECIAL)==SUMMON_TYPE_SPECIAL
 end
 function c6696.rmtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():GetFlagEffect(6696)==0 and Duel.IsExistingMatchingCard(c6696.rmfil,tp,0,LOCATION_MZONE,1,nil) end
@@ -59,8 +59,7 @@ end
 function c6696.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_EFFECT) end
 	if Duel.SelectYesNo(tp,aux.Stringid(6696,2)) then
-		local g=e:GetHandler():GetOverlayGroup()
-		Duel.SendtoGrave(g,REASON_EFFECT)
+		e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_EFFECT)
 		return true
 	else return false end
 end
