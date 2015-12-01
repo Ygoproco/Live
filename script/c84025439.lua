@@ -35,7 +35,7 @@ function c84025439.initial_effect(c)
 	e2:SetCode(EFFECT_CANNOT_TO_HAND)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetTargetRange(0,LOCATION_DECK)
-	e2:SetLabel(5)
+	e2:SetLabel(6)
 	e2:SetCondition(c84025439.condition)
 	c:RegisterEffect(e2)
 	--Special Summon
