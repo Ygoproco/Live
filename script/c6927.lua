@@ -75,7 +75,7 @@ function c6927.cfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0xe2)
 end
 function c6927.chaincon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(c6927.cfilter,tp,LOCATION_MZONE,0,1,e:GetHandler())
+	return Duel.IsExistingMatchingCard(c6927.cfilter,tp,LOCATION_MZONE,0,1,nil)
 end
 function c6927.chainop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.SetChainLimit(aux.FALSE)

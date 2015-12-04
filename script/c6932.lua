@@ -64,10 +64,10 @@ function c6932.cfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0xe2)
 end
 function c6932.chaincon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(c6932.cfilter,tp,LOCATION_MZONE,0,1,e:GetHandler())
+	return Duel.IsExistingMatchingCard(c6932.cfilter,tp,LOCATION_MZONE,0,1,nil)
 end
 function c6932.rmtarget(e,c)
-	return not c:IsLocation(0x80) and not c:IsSetCard(0xe2)
+	return not c:IsSetCard(0xe2)
 end
 
 function c6932.splimit(e,c,sump,sumtype,sumpos,targetp,se)
