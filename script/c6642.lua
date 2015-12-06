@@ -49,9 +49,9 @@ function c6642.operation(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_DISABLE)
 		if Duel.GetCurrentPhase()==PHASE_STANDBY then
-			e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+RESET_STANDBY)
+			e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_STANDBY,2)
 		else
-			e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+RESET_STANDBY,2)
+			e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_STANDBY)
 		end
 		tc:RegisterEffect(e1)
 		local e2=Effect.CreateEffect(c)
@@ -59,9 +59,9 @@ function c6642.operation(e,tp,eg,ep,ev,re,r,rp)
 		e2:SetCode(EFFECT_DISABLE_EFFECT)
 		e2:SetValue(RESET_TURN_SET)
 		if Duel.GetCurrentPhase()==PHASE_STANDBY then
-			e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+RESET_STANDBY)
+			e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_STANDBY,2)
 		else
-			e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+RESET_STANDBY,2)
+			e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_STANDBY)
 		end
 		tc:RegisterEffect(e2)
 		if tc:IsType(TYPE_TRAPMONSTER) then
@@ -69,9 +69,9 @@ function c6642.operation(e,tp,eg,ep,ev,re,r,rp)
 			e3:SetType(EFFECT_TYPE_SINGLE)
 			e3:SetCode(EFFECT_DISABLE_TRAPMONSTER)
 			if Duel.GetCurrentPhase()==PHASE_STANDBY then
-				e3:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+RESET_STANDBY)
+				e3:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_STANDBY,2)
 			else
-				e3:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+RESET_STANDBY,2)
+				e3:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_STANDBY)
 			end
 			tc:RegisterEffect(e3)
 		end
