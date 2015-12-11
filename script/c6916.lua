@@ -9,6 +9,7 @@ function c6916.initial_effect(c)
 	e1:SetRange(LOCATION_HAND)
 	e1:SetCondition(c6916.condition)
 	e1:SetCost(c6916.cost)
+	e1:SetTarget(c6916.target)
 	e1:SetOperation(c6916.operation)
 	c:RegisterEffect(e1)
 end
