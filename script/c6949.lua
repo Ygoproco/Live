@@ -56,7 +56,7 @@ function c6949.con(e,tp,eg,ep,ev,re,r,rp)
 	local a=Duel.GetAttacker()
 	local d=Duel.GetAttackTarget()
 	if a:IsControler(1-tp) then a,d=d,a end
-	return d:IsLevelAbove(5) and e:GetHandler():GetFlagEffect(6949)==0
+	return a==e:GetHandler() and d:IsLevelAbove(5) and e:GetHandler():GetFlagEffect(6949)==0
 end
 function c6949.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():GetFlagEffect(6949)==0 end
