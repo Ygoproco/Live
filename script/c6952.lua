@@ -33,10 +33,14 @@ function c6952.initial_effect(c)
 	e5:SetType(EFFECT_TYPE_QUICK_O)
 	e5:SetCode(EVENT_FREE_CHAIN)
 	e5:SetRange(LOCATION_MZONE)
+	e5:SetCondition(c6952.condition)
 	e5:SetCost(c6952.cost)
 	e5:SetTarget(c6952.target)
 	e5:SetOperation(c6952.operation)
 	c:RegisterEffect(e5)
+end
+function c6952.condition(e,tp,eg,ep,ev,re,r,rp)
+	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SYNCHRO
 end
 function c6952.value(e,fp,rp,r)
 	if r~=LOCATION_REASON_TOFIELD then return 5 end
