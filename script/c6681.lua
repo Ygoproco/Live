@@ -11,6 +11,7 @@ function c6681.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_QUICK_O)
 	e1:SetCode(EVENT_CHAINING)
 	e1:SetRange(LOCATION_MZONE)
+	e1:SetCountLimit(1)
 	e1:SetCondition(c6681.negcon)
 	e1:SetTarget(c6681.negtg)
 	e1:SetOperation(c6681.negop)
@@ -22,6 +23,7 @@ function c6681.initial_effect(c)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetCode(EVENT_ATTACK_ANNOUNCE)
 	e2:SetCondition(c6681.atkcon)
+	e2:SetCost(c6681.atkcost)
 	e2:SetOperation(c6681.atkop)
 	c:RegisterEffect(e2)
 	--ATK Up
@@ -50,7 +52,7 @@ function c6681.negop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=re:GetHandler()
 	if not tc:IsDisabled() then
 		Duel.NegateEffect(ev)
-		Duel.Overlay(c,eg)
+		Duel.Overlay(c,tc)
 	end
 end
 
