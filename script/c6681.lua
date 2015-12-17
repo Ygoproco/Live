@@ -52,7 +52,7 @@ function c6681.negop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=re:GetHandler()
 	if not tc:IsDisabled() then
 		Duel.NegateEffect(ev)
-		Duel.Overlay(c,tc)
+		Duel.Overlay(e:GetHandler(),tc)
 	end
 end
 
