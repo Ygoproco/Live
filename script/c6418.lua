@@ -31,7 +31,7 @@ function c6418.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return not Duel.IsExistingMatchingCard(c6418.cfilter,tp,LOCATION_HAND,0,1,nil) and e:GetHandler():GetFlagEffect(6418)==0 end
 	local g=Duel.GetFieldGroup(tp,LOCATION_HAND,0)
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
-	local e2=Effect.CreateEffect(c)
+	local e2=Effect.CreateEffect(e:GetHandler())
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_CANNOT_SSET)
 	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
