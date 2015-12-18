@@ -62,13 +62,17 @@ function c6946.operation(e,tp,eg,ep,ev,re,r,rp)
 		e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+RESET_END)
 		c:RegisterEffect(e2)
 		local e3=Effect.CreateEffect(c)
-		e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+		e3:SetType(EFFECT_TYPE_FIELD)
 		e3:SetRange(LOCATION_MZONE)
-		e3:SetCode(EVENT_DAMAGE_CALCULATING)
-		e3:SetCondition(c6946.indescon)
-		e3:SetOperation(c6946.indesop)
+		e3:SetTargetRange(0,LOCATION_MZONE)
+		e3:SetCode(EFFECT_DESTROY_REPLACE)
+		e3:SetTarget(c6946.reptg)
+		e3:SetValue(c6946.repval)
 		e3:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+RESET_END)
 		c:RegisterEffect(e3)
+		local g=Group.CreateGroup()
+		g:KeepAlive()
+		e3:SetLabelObject(g)
 		local e4=Effect.CreateEffect(c)
 		e4:SetType(EFFECT_TYPE_FIELD)
 		e4:SetRange(LOCATION_MZONE)
@@ -119,6 +123,26 @@ function c6946.indesop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetValue(1)
 	e1:SetReset(RESET_PHASE+PHASE_DAMAGE_CAL)
 	bc:RegisterEffect(e1,true)
+end
+
+function c6946.repfilter(c,tp)
+	return c:IsFaceup() and c:IsControler(1-tp) and c:IsLocation(LOCATION_MZONE) and c:IsReason(REASON_BATTLE) and c:GetFlagEffect(6946)==0
+end
+function c6946.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return eg:IsExists(c6946.repfilter,1,nil,tp) end
+	local g=eg:Filter(c6946.repfilter,nil,tp)
+	local tc=g:GetFirst()
+	while tc do
+		tc:RegisterFlagEffect(6946,RESET_EVENT+0x1fc0000+RESET_PHASE+RESET_END,EFFECT_FLAG_CLIENT_HINT,1,0,aux.Stringid(6946,2))
+		tc=g:GetNext()
+	end
+	e:GetLabelObject():Clear()
+	e:GetLabelObject():Merge(g)
+	return true
+end
+function c6946.repval(e,c)
+	local g=e:GetLabelObject()
+	return g:IsContains(c)
 end
 
 function c6946.damtg(e,tp,eg,ep,ev,re,r,rp,chk)
