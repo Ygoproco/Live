@@ -40,19 +40,20 @@ function c6114.target(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c6114.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if not c:IsRelateToEffect(e) then return end
-	local g=Duel.GetMatchingGroup(Card.IsDestructable,tp,LOCATION_MZONE,LOCATION_MZONE,c)
-	if Duel.Destroy(g,REASON_EFFECT)==0 then return end
-	local og=Duel.GetOperatedGroup()
-	local dmg=og:GetMaxGroup(Card.GetAttack)
-	local atk=Duel.Damage(1-tp,dmg,REASON_EFFECT)
-	if atk==0 then return end
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_SET_ATTACK_FINAL)
-	e1:SetValue(atk)
-	e1:SetReset(RESET_EVENT+0x1fe0000)
-	c:RegisterEffect(e1)
+	local g=Duel.GetMatchingGroup(Card.IsDestructable,tp,LOCATION_MZONE,LOCATION_MZONE,e:GetHandler())
+	if Duel.Destroy(g,REASON_EFFECT)~=0 then
+		local og=Duel.GetOperatedGroup()
+		local mg,matk=og:GetMaxGroup(Card.GetBaseAttack)
+		if matk>0 then
+			local dam=Duel.Damage(1-tp,matk,REASON_EFFECT)
+			local e1=Effect.CreateEffect(c)
+			e1:SetType(EFFECT_TYPE_SINGLE)
+			e1:SetCode(EFFECT_SET_ATTACK_FINAL)
+			e1:SetValue(dam)
+			e1:SetReset(RESET_EVENT+0x1ff0000)
+			c:RegisterEffect(e1)
+		end
+	end
 end
 
 function c6114.hvcon(e,tp,eg,ep,ev,re,r,rp)

@@ -42,7 +42,7 @@ function c6908.atkop(e,tp,eg,ep,ev,re,r,rp)
 		e2:SetCode(EFFECT_SET_ATTACK_FINAL)
 		e2:SetValue(c6908.value)
 		e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-		c:RegisterEffect(e2)
+		tc:RegisterEffect(e2)
 	end
 end
 function c6908.value(e,c)
