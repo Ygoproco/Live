@@ -37,15 +37,25 @@ end
 function c6970.spop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
-		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)
-		local lv=Duel.TossDice(tp,1)
-		local e1=Effect.CreateEffect(e:GetHandler())
+	if tc:IsRelateToEffect(e) and Duel.SpecialSummonStep(tc,0,tp,tp,false,false,POS_FACEUP) then
+		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
-		e1:SetCode(EFFECT_CHANGE_LEVEL)
-		e1:SetValue(lv)
-		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-		tc:RegisterEffect(e1)
+		e1:SetCode(EFFECT_DISABLE)
+		e1:SetReset(RESET_EVENT+0x1fe0000)
+		tc:RegisterEffect(e1,true)
+		local e2=Effect.CreateEffect(c)
+		e2:SetType(EFFECT_TYPE_SINGLE)
+		e2:SetCode(EFFECT_DISABLE_EFFECT)
+		e2:SetReset(RESET_EVENT+0x1fe0000)
+		tc:RegisterEffect(e2,true)
+		Duel.SpecialSummonComplete()
+		local lv=Duel.TossDice(tp,1)
+		local e3=Effect.CreateEffect(e:GetHandler())
+		e3:SetType(EFFECT_TYPE_SINGLE)
+		e3:SetCode(EFFECT_CHANGE_LEVEL)
+		e3:SetValue(lv)
+		e3:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+		tc:RegisterEffect(e3)
 	end
 end
 

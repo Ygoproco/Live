@@ -39,7 +39,7 @@ function c11317977.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoGrave(e:GetHandler(),REASON_COST+REASON_DISCARD)
 end
 function c11317977.fil1(c)
-	return (c:IsSetCard(0xe1) or c:IsSetCard(0x209)) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return (c:IsSetCard(0xe1) or c:IsSetCard(0x209)) and c:IsType(TYPE_MONSTER) and not c:IsCode(11317977) and c:IsAbleToHand()
 end
 function c11317977.tg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c11317977.fil1,tp,LOCATION_GRAVE,0,1,nil) end
