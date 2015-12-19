@@ -76,7 +76,7 @@ function c6913.op1(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c6913.rmop1(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Destroy(e:GetHandler(),REASON_COST)
+	Duel.Destroy(e:GetHandler(),REASON_COST+REASON_EFFECT)
 end
 
 function c6913.spcon2(e,tp,eg,ep,ev,re,r,rp)

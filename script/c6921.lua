@@ -49,14 +49,14 @@ end
 function c6921.spfilter(c,e,tp)
 	return c:IsSetCard(0xe0) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function c6921.cfilter(c)
+function c6921.cfilter(c,e,tp)
 	return c:IsType(TYPE_EFFECT) and c:IsAbleToGraveAsCost() and Duel.IsExistingMatchingCard(c6921.spfilter,tp,LOCATION_GRAVE,0,1,c,e,tp)
 end
 function c6921.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c6921.cfilter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(c6921.cfilter,tp,LOCATION_MZONE,0,1,nil) and Duel.GetLocationCount(tp,LOCATION_MZONE)>-1 end
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c6921.cfilter(chkc,e,tp) end
+	if chk==0 then return Duel.IsExistingTarget(c6921.cfilter,tp,LOCATION_MZONE,0,1,nil,e,tp) and Duel.GetLocationCount(tp,LOCATION_MZONE)>-1 end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-	local g=Duel.SelectTarget(tp,c6921.cfilter,tp,LOCATION_MZONE,0,1,1,nil)
+	local g=Duel.SelectTarget(tp,c6921.cfilter,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,0,0)
 end
 function c6921.spop(e,tp,eg,ep,ev,re,r,rp)
