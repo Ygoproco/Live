@@ -36,7 +36,7 @@ function c6418.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e2:SetCode(EFFECT_CANNOT_SSET)
 	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e2:SetTargetRange(1,0)
-	e2:SetReset(RESET_PHASE+RESET_END)
+	e2:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e2,tp)
 end
 function c6418.filter(c)
@@ -60,5 +60,5 @@ function c6418.countercon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(Card.IsControler,1,nil,tp)
 end
 function c6418.counterop(e,tp,eg,ep,ev,re,r,rp)
-	e:GetHandler():RegisterFlagEffect(6418,RESET_PHASE+RESET_END,0,1)
+	e:GetHandler():RegisterFlagEffect(6418,RESET_PHASE+PHASE_END,0,1)
 end

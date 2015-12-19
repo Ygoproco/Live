@@ -22,6 +22,7 @@ function c6949.initial_effect(c)
 	e2:SetCategory(CATEGORY_ATKCHANGE)
 	e2:SetCode(EVENT_PRE_DAMAGE_CALCULATE)
 	e2:SetRange(LOCATION_MZONE)
+	e2:SetCountLimit(1)
 	e2:SetCondition(c6949.con)
 	e2:SetCost(c6949.cost)
 	e2:SetOperation(c6949.op)
@@ -48,7 +49,7 @@ function c6949.disop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_UPDATE_ATTACK)
 		e1:SetValue(rc:GetAttack())
-		e1:SetReset(RESET_EVENT+0x1ff0000+RESET_PHASE+RESET_END)
+		e1:SetReset(RESET_EVENT+0x1ff0000+RESET_PHASE+PHASE_END)
 		e:GetHandler():RegisterEffect(e1)
 	end
 end
@@ -65,7 +66,7 @@ end
 function c6949.op(e,tp,eg,ep,ev,re,r,rp)
 	local a=Duel.GetAttacker()
 	local d=Duel.GetAttackTarget()
-	if not a:IsRelateToBattle() or a:IsFacedown() or not d or not d:IsRelateToBattle() or d:IsFacedown() then return end
+	if not a:IsRelateToBattle() or a:IsFacedown() or not d:IsRelateToBattle() or d:IsFacedown() then return end
 	if a:IsControler(1-tp) then a,d=d,a end
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetOwnerPlayer(tp)
