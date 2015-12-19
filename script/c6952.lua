@@ -45,7 +45,7 @@ end
 function c6952.value(e,fp,rp,r)
 	if r~=LOCATION_REASON_TOFIELD then return 5 end
 	local limit=Duel.GetFieldGroupCount(rp,LOCATION_MZONE,0)+1
-	if limit>5 then limit=5	end
+	if limit>5 then limit=5 end
 	return limit>0 and limit or 5
 end
 function c6952.negcon(e,tp,eg,ep,ev,re,r,rp)
@@ -84,7 +84,7 @@ function c6952.operation(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetRange(LOCATION_MZONE)
 		e1:SetCountLimit(1)
 		e1:SetOperation(c6952.desop)
-		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+RESET_END)
+		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
 		tc:RegisterEffect(e1)
 	end
 end

@@ -40,7 +40,7 @@ function c6693.ftarget(e,c)
 end
 function c6693.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) and not Duel.GetControl(tc,tp,RESET_BATTLE,1) then
+	if tc:IsRelateToEffect(e) and not Duel.GetControl(tc,tp,PHASE_BATTLE,1) then
 		if not tc:IsImmuneToEffect(e) and tc:IsAbleToChangeControler() then
 			Duel.Destroy(tc,REASON_EFFECT)
 		end
