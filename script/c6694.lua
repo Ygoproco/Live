@@ -23,7 +23,7 @@ function c6694.initial_effect(c)
 end
 
 function c6694.tgfilter(c)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSetCard(0xdf) and c:IsAbleToGrave()
+	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSetCard(0xdb) and c:IsAbleToGrave()
 end
 function c6694.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c6694.tgfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -42,14 +42,14 @@ function c6694.spcon(e,tp,eg,ep,ev,re,r,rp)
 end
 function c6694.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return not e:GetHandler():IsStatus(STATUS_CHAINING) and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,6694,0x10df,0x11,4,300,600,RACE_WARRIOR,ATTRIBUTE_DARK) end
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,6694,0x10db,0x11,4,300,600,RACE_WARRIOR,ATTRIBUTE_DARK) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
 end
 function c6694.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e)
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,6694,0x10df,0x11,4,300,600,RACE_WARRIOR,ATTRIBUTE_DARK) then
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,6694,0x10db,0x11,4,300,600,RACE_WARRIOR,ATTRIBUTE_DARK) then
 		c:SetStatus(STATUS_NO_LEVEL,false)
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
@@ -78,7 +78,7 @@ function c6694.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c6694.atkfil(c)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSetCard(0xdf)
+	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSetCard(0xdb)
 end
 function c6694.atkval(e,c)
 	return Duel.GetMatchingGroupCount(c6694.atkfil,c:GetControler(),LOCATION_GRAVE,0,nil)*300

@@ -41,7 +41,7 @@ function c6919.spop1(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c6919.spfilter(c,e,tp)
-	return c:IsSetCard(0xe0) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xdd) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c6919.cfilter(c)
 	return c:IsType(TYPE_EFFECT) and c:IsAbleToGraveAsCost()
