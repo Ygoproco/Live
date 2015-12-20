@@ -15,10 +15,11 @@ function c6688.initial_effect(c)
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(6688,1))
 	e2:SetCategory(CATEGORY_DISABLE)
-	e2:SetType(EFFECT_TYPE_IGNITION)
+	e2:SetType(EFFECT_TYPE_QUICK_O)
+	e2:SetCode(EVENT_FREE_CHAIN)
 	e2:SetRange(LOCATION_GRAVE)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e2:SetCondition(aux.exccon)
+	e2:SetCondition(c6688.negcon)
 	e2:SetCost(c6688.negcost)
 	e2:SetTarget(c6688.negtg)
 	e2:SetOperation(c6688.negop)
@@ -46,6 +47,9 @@ function c6688.activate(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 
+function c6688.negcon(e,tp,eg,ep,ev,re,r,rp)
+	return aux.exccon(e) and Duel.GetTurnPlayer()==tp
+end
 function c6688.negcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost() end
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
