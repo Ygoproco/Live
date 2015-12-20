@@ -24,10 +24,10 @@ function c6960.cfil1(c)
 	return c:IsFaceup() and c:IsCode(6960)
 end
 function c6960.condition(e,tp,eg,ep,ev,re,r,rp)
-	return not Duel.IsExistingMatchingCard(c6960.cfil1,tp,LOCATION_ONFIELD,0,1,nil) and Duel.GetMatchingGroupCount(Card.IsSetCard,tp,LOCATION_GRAVE,0,nil,0xe0)>=3
+	return not Duel.IsExistingMatchingCard(c6960.cfil1,tp,LOCATION_ONFIELD,0,1,nil) and Duel.GetMatchingGroupCount(Card.IsSetCard,tp,LOCATION_GRAVE,0,nil,0xdd)>=3
 end
 function c6960.spfilter(c,e,tp)
-	return c:IsSetCard(0xe0) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xdd) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c6960.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c6960.spfilter(chkc,e,tp) end
@@ -81,10 +81,10 @@ function c6960.antarget(e,c)
 	return c~=e:GetHandler():GetEquipTarget()
 end
 function c6960.atkcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(Card.IsSetCard,tp,LOCATION_GRAVE,0,1,nil,0xe0)
+	return Duel.IsExistingMatchingCard(Card.IsSetCard,tp,LOCATION_GRAVE,0,1,nil,0xdd)
 end
 function c6960.atkval(e,c)
-	return Duel.GetMatchingGroupCount(Card.IsSetCard,e:GetControler(),LOCATION_GRAVE,0,nil,0xe0)-1
+	return Duel.GetMatchingGroupCount(Card.IsSetCard,e:GetControler(),LOCATION_GRAVE,0,nil,0xdd)-1
 end
 
 function c6960.desop(e,tp,eg,ep,ev,re,r,rp)

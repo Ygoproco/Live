@@ -61,7 +61,7 @@ end
 function c6686.filter3(c,e,tp)
 	return c:IsRelateToEffect(e) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function c6686.operation(e,tp,eg,ep,ev,re,r,rp)
+function c6686.activate(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<3 then return end
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(c6686.filter3,nil,e,tp)
 	if g:GetCount()<3 then return end
