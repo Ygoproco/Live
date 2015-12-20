@@ -59,6 +59,7 @@ function c90162951.damtg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c90162951.damop(e,tp,eg,ep,ev,re,r,rp)
 	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
+	Duel.Hint(HINT_CARD,0,90162951)
 	Duel.Damage(p,d,REASON_EFFECT)
 end
 
