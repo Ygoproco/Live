@@ -26,44 +26,43 @@ end
 function c62829077.splimit(e,c,sump,sumtype,sumpos,targetp,se)
 	return not se:GetHandler()==e:GetHandler()
 end
-function c62829077.filter1(c,e,tp)
-	return c:IsType(TYPE_MONSTER) and c:IsCanBeEffectTarget(e) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+
+function c62829077.filter(c,e,tp)
+	return c:IsCanBeEffectTarget(e) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function c62829077.filter2(c,e,tp,mg)
-	if c:IsType(TYPE_XYZ) and c:IsSetCard(0x7f) and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false) then
-		return mg:FilterCount(Card.IsCanBeXyzMaterial,nil,c)>=3
-	end
+function c62829077.xyzfilter(c,mg)
+	if c.xyz_count~=3 then return false end
+	return c:IsSetCard(0x7f) and c:IsXyzSummonable(mg)
 end
-function c62829077.mfilter1(c,e,tp,exg)
-	return exg:IsExists(c62829077.mfilter2,1,nil,e,tp,c)
+function c62829077.mfilter1(c,exg)
+	return exg:IsExists(c62829077.mfilter2,1,nil,c)
 end
-function c62829077.mfilter2(c,e,tp,mc)
-	return c.xyz_filter(e,tp,mc)
-end
-function c62829077.xyz_filter(c,e,tp,mc)
-	return c:IsType(TYPE_XYZ) and c:IsSetCard(0x7f) and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false) and mc:IsCanBeXyzMaterial(c)
+function c62829077.mfilter2(c,mc)
+	return c.xyz_filter(mc)
 end
 function c62829077.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c62829077.filter1(chkc,e,tp) end
-	local mg=Duel.GetMatchingGroup(c62829077.filter1,tp,LOCATION_GRAVE,0,nil,e,tp)
-	if chk==0 then return mg:GetCount()>2 and Duel.IsExistingMatchingCard(c62829077.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg) end
-	local exg=Duel.GetMatchingGroup(c62829077.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg)
+	if chkc then return false end
+	local mg=Duel.GetMatchingGroup(c62829077.filter,tp,LOCATION_GRAVE,0,nil,e,tp)
+	if chk==0 then return Duel.IsPlayerCanSpecialSummonCount(tp,3)
+		and Duel.GetLocationCount(tp,LOCATION_MZONE)>2 and mg:GetCount()>2
+		and Duel.IsExistingMatchingCard(c62829077.xyzfilter,tp,LOCATION_EXTRA,0,1,nil,mg) end
+	local exg=Duel.GetMatchingGroup(c62829077.xyzfilter,tp,LOCATION_EXTRA,0,nil,mg)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local sg1=mg:FilterSelect(tp,c62829077.mfilter1,1,1,nil,e,tp,exg)
+	local sg1=mg:FilterSelect(tp,c62829077.mfilter1,1,1,nil,exg)
 	local tc1=sg1:GetFirst()
-	local exg2=exg:Filter(c62829077.mfilter2,nil,e,tp,tc1)
+	local exg2=exg:Filter(c62829077.mfilter2,nil,tc1)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local sg2=mg:FilterSelect(tp,c62829077.mfilter1,2,2,tc1,e,tp,exg2)
+	local sg2=mg:FilterSelect(tp,c62829077.mfilter1,2,2,tc1,exg2)
 	sg1:Merge(sg2)
 	Duel.SetTargetCard(sg1)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,sg1,3,0,0)
 end
-function c62829077.filter3(c,e,tp)
+function c62829077.filter2(c,e,tp)
 	return c:IsRelateToEffect(e) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function c62829077.activate(e,tp,eg,ep,ev,re,r,rp)
+function c62829077.operation(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<3 then return end
-	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(c62829077.filter3,nil,e,tp)
+	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(c62829077.filter2,nil,e,tp)
 	if g:GetCount()<3 then return end
 	local tc1=g:GetFirst()
 	local tc2=g:GetNext()
@@ -91,7 +90,7 @@ function c62829077.activate(e,tp,eg,ep,ev,re,r,rp)
 	tc3:RegisterEffect(e5)
 	Duel.SpecialSummonComplete()
 	Duel.BreakEffect()
-	local xyzg=Duel.GetMatchingGroup(c62829077.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,g)
+	local xyzg=Duel.GetMatchingGroup(c62829077.xyzfilter,tp,LOCATION_EXTRA,0,nil,g)
 	if xyzg:GetCount()>0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		local xyz=xyzg:Select(tp,1,1,nil):GetFirst()
