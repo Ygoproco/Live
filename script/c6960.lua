@@ -84,7 +84,7 @@ function c6960.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(Card.IsSetCard,tp,LOCATION_GRAVE,0,1,nil,0xdd)
 end
 function c6960.atkval(e,c)
-	return Duel.GetMatchingGroupCount(Card.IsSetCard,tp,LOCATION_GRAVE,0,nil,0xdd)-1
+	return Duel.GetMatchingGroupCount(Card.IsSetCard,e:GetHandler():GetControler(),LOCATION_GRAVE,0,nil,0xdd)-1
 end
 
 function c6960.desop(e,tp,eg,ep,ev,re,r,rp)

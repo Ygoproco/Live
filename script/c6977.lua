@@ -47,6 +47,7 @@ function c6977.activate(e,tp,eg,ep,ev,re,r,rp)
 		e3:SetCode(EVENT_PHASE+PHASE_END)
 		e3:SetCountLimit(1)
 		e3:SetOperation(c6977.ddop)
+		e3:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_DRAW)
 		tc:RegisterEffect(e3)
 	end
 end

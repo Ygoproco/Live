@@ -40,10 +40,10 @@ function c6114.target(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c6114.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local g=Duel.GetMatchingGroup(Card.IsDestructable,tp,LOCATION_MZONE,LOCATION_MZONE,e:GetHandler())
-	if Duel.Destroy(g,REASON_EFFECT)~=0 then
+	local g=Duel.GetMatchingGroup(Card.IsDestructable,tp,LOCATION_MZONE,LOCATION_MZONE,c)
+	if Duel.Destroy(g,REASON_EFFECT) then
 		local og=Duel.GetOperatedGroup()
-		local mg,matk=og:GetMaxGroup(Card.GetBaseAttack)
+		local mg,matk=og:GetMaxGroup(Card.GetAttack)
 		if matk>0 then
 			local dam=Duel.Damage(1-tp,matk,REASON_EFFECT)
 			local e1=Effect.CreateEffect(c)

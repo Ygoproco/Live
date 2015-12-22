@@ -61,14 +61,14 @@ function c6958.activate(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 
-function c6958.cfilter(c)
-	return c:IsSetCard(0xba) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemoveAsCost()
+function c6958.cfilter(c,e,tp)
+	return c:IsSetCard(0xba) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemoveAsCost() and Duel.IsExistingTarget(c6958.spfil,tp,LOCATION_GRAVE,0,1,c,e,tp)
 end
 function c6958.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost()
-		and Duel.IsExistingMatchingCard(c6958.cfilter,tp,LOCATION_GRAVE,0,1,nil) end
+		and Duel.IsExistingMatchingCard(c6958.cfilter,tp,LOCATION_GRAVE,0,1,nil,e,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g=Duel.SelectMatchingCard(tp,c6958.cfilter,tp,LOCATION_GRAVE,0,1,1,nil)
+	local g=Duel.SelectMatchingCard(tp,c6958.cfilter,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
 	g:AddCard(e:GetHandler())
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
 end
