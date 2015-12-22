@@ -62,8 +62,7 @@ function c6958.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c6958.cfilter(c,e,tp)
-	return c:IsSetCard(0xba) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemoveAsCost()
-		and Duel.IsExistingMatchingCard(c6958.spfil,tp,LOCATION_GRAVE,0,1,c,e,tp)
+	return c:IsSetCard(0xba) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemoveAsCost() and Duel.IsExistingTarget(c6958.spfil,tp,LOCATION_GRAVE,0,1,c,e,tp)
 end
 function c6958.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost()

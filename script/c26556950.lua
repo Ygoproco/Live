@@ -72,7 +72,7 @@ function c26556950.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
 function c26556950.desfil(c,atk)
-	return c:IsFaceup() and c:IsAttackBelow(atk) and c:IsDestructable()
+	return c:IsFaceup() and c:IsDefenceBelow(atk) and c:IsDestructable()
 end
 function c26556950.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

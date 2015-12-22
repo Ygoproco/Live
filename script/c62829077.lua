@@ -31,8 +31,20 @@ function c62829077.filter(c,e,tp)
 	return c:IsCanBeEffectTarget(e) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c62829077.xyzfilter(c,mg)
-	if c.xyz_count~=3 then return false end
-	return c:IsSetCard(0x7f) and c:IsXyzSummonable(mg)
+	if c.xyz_count~=3 or not c:IsSetCard(0x7f) or mg:GetCount()==0 then return false end
+	if c:IsCode(52653092) then
+		local mc=mg:GetFirst()
+		local rk=mc:GetRank()
+		if rk==0 or not mc:IsSetCard(0x48) then return false end
+		mc=mg:GetNext()
+		while mc do
+			if rk~=mc:GetRank() or not mc:IsSetCard(0x48) then return false end
+			mc=mg:GetNext()
+		end
+		return true
+	else
+		return c:IsXyzSummonable(mg)
+	end
 end
 function c62829077.mfilter1(c,exg)
 	return exg:IsExists(c62829077.mfilter2,1,nil,c)
@@ -60,9 +72,16 @@ end
 function c62829077.filter2(c,e,tp)
 	return c:IsRelateToEffect(e) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function c62829077.operation(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)<3 then return end
-	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(c62829077.filter2,nil,e,tp)
+function c62829077.activate(e,tp,eg,ep,ev,re,r,rp)
+	--Debug.Message("Beginning operations...")
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)<3 then 
+		--Debug.Message("Not enough locations.")
+		return 
+	end
+	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
+	--Debug.Message("There are " .. g:GetCount() .. " cards.")
+	g=g:Filter(c62829077.filter2,nil,e,tp)
+	--Debug.Message("There are " .. g:GetCount() .. " cards.")
 	if g:GetCount()<3 then return end
 	local tc1=g:GetFirst()
 	local tc2=g:GetNext()

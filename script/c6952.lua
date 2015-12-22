@@ -49,7 +49,8 @@ function c6952.value(e,fp,rp,r)
 	return limit>0 and limit or 5
 end
 function c6952.negcon(e,tp,eg,ep,ev,re,r,rp)
-	return re:GetHandler():IsLocation(LOCATION_GRAVE)
+	local loc=Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_LOCATION)
+	return Duel.IsChainNegatable(ev) and loc==LOCATION_GRAVE
 end
 function c6952.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
