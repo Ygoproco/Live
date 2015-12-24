@@ -32,7 +32,7 @@ end
 function c50584941.activate(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	local code=e:GetLabel()
-	if tc:IsFaceup() and tc:IsRelateToEffect() then
+	if tc:IsFaceup() and tc:IsRelateToEffect(e) then
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
