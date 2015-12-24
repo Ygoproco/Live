@@ -70,5 +70,6 @@ function c24590232.activate(e,tp,eg,ep,ev,re,r,rp)
 		end
 		Duel.Remove(g1,POS_FACEUP,REASON_EFFECT+REASON_COST)
 		Duel.SpecialSummon(ex,SUMMON_TYPE_SYNCHRO,tp,tp,false,false,POS_FACEUP)
+		ex:CompleteProcedure()
 	end
 end

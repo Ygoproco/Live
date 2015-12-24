@@ -9,6 +9,7 @@ function c6395.initial_effect(c)
 	--Negate effects
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(6395,0))
+	e2:SetCategory(CATEGORY_DISABLE)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e2:SetRange(LOCATION_SZONE)
@@ -46,39 +47,35 @@ function c6395.negfil2(c)
 	return c:IsFaceup() and c:IsRace(RACE_DRAGON) and (c:GetLevel()==7 or c:GetLevel()==8)
 end
 function c6395.condition(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(c6395.negfil1,1,nil) and Duel.IsExistingMatchingCard(c6395.negfil2,tp,LOCATION_MZONE,0,1,nil)
+	return Duel.IsExistingMatchingCard(c6395.negfil2,tp,LOCATION_MZONE,0,1,nil)
 end
 function c6395.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return true end
+	if chk==0 then return eg and eg:IsExists(c6395.negfil1,1,nil) end
+	local g=eg:Filter(c6395.negfil1,nil)
+	Duel.SetTargetCard(g)
+	Duel.SetOperationInfo(0,CATEGORY_DISABLE,g:GetCount(),0,0)
 end
-function c6395.filter(c,e)
-	return c6395.negfil1(c) and c:IsRelateToEffect(e)
+function c6395.disfilter(c,e)
+	return c:IsFaceup() and c:IsRelateToEffect(e)
 end
 function c6395.operation(e,tp,eg,ep,ev,re,r,rp)
-	if not e:GetHandler():IsRelateToEffect(e) then return end
-	local g=eg:Filter(c6395.filter,nil,e)
-	if g:GetCount()>0 then
-		local tc=g:GetFirst()
-		while tc do
-			local e1=Effect.CreateEffect(e:GetHandler())
-			e1:SetType(EFFECT_TYPE_SINGLE)
-			e1:SetCode(EFFECT_DISABLE)
-			e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+RESET_END)
-			tc:RegisterEffect(e1)
-			local e2=Effect.CreateEffect(e:GetHandler())
-			e2:SetType(EFFECT_TYPE_SINGLE)
-			e2:SetCode(EFFECT_DISABLE_EFFECT)
-			e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+RESET_END)
-			tc:RegisterEffect(e2)
-			if tc:IsType(TYPE_TRAPMONSTER) then
-				local e3=Effect.CreateEffect(e:GetHandler())
-				e3:SetType(EFFECT_TYPE_SINGLE)
-				e3:SetCode(EFFECT_DISABLE_TRAPMONSTER)
-				e3:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+RESET_END)
-				tc:RegisterEffect(e3)
-			end
-			tc=g:GetNext()
-		end
+	if e:GetLabel()==0 or not e:GetHandler():IsRelateToEffect(e) then return end
+	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(c6395.disfilter,nil,e)
+	local tc=g:GetFirst()
+	while tc do
+		Duel.NegateRelatedChain(tc,RESET_TURN_SET)
+		local e1=Effect.CreateEffect(e:GetHandler())
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_DISABLE)
+		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+		tc:RegisterEffect(e1)
+		local e2=Effect.CreateEffect(e:GetHandler())
+		e2:SetType(EFFECT_TYPE_SINGLE)
+		e2:SetCode(EFFECT_DISABLE_EFFECT)
+		e2:SetValue(RESET_TURN_SET)
+		e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+		tc:RegisterEffect(e2)
+		tc=g:GetNext()
 	end
 end
 
