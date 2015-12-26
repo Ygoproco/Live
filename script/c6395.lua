@@ -53,7 +53,7 @@ function c6395.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return eg and eg:IsExists(c6395.negfil1,1,nil) end
 	local g=eg:Filter(c6395.negfil1,nil)
 	Duel.SetTargetCard(g)
-	Duel.SetOperationInfo(0,CATEGORY_DISABLE,g:GetCount(),0,0)
+	Duel.SetOperationInfo(0,CATEGORY_DISABLE,g,g:GetCount(),0,0)
 end
 function c6395.disfilter(c,e)
 	return c:IsFaceup() and c:IsRelateToEffect(e)

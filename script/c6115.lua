@@ -18,7 +18,7 @@ function c6115.initial_effect(c)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetCountLimit(1)
-	e2:SetCondition(c6115.atkcon)
+	e2:SetTarget(c6115.atktg)
 	e2:SetOperation(c6115.atkop)
 	c:RegisterEffect(e2)
 end
@@ -33,8 +33,8 @@ end
 function c6115.atkfil(c,tp,atk)
 	return c:IsControler(1-tp) and c:GetAttack()>atk
 end
-function c6115.atkcon(e,tp,eg,ep,ev,re,r,rp)
-	return eg and eg:IsExists(c6115.atkfil,1,nil,tp,e:GetHandler():GetAttack())
+function c6115.atktg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return eg:IsExists(c6115.atkfil,1,nil,tp,e:GetHandler():GetAttack()) end
 end
 function c6115.atkop(e,tp,eg,ep,ev,re,r,rp)
 	if not c:IsRelateToEffect(e) then return end
