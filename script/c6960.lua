@@ -9,15 +9,14 @@ function c6960.initial_effect(c)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetCondition(c6960.condition)
 	e1:SetTarget(c6960.target)
-	e1:SetOperation(c6960.operation)
+	e1:SetOperation(c6960.activate)
 	c:RegisterEffect(e1)
-	--Banish
-	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
-	e2:SetCode(EVENT_LEAVE_FIELD)
-	e2:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
-	e2:SetOperation(c6960.desop)
-	c:RegisterEffect(e2)
+	--Remove
+	local e0=Effect.CreateEffect(c)
+	e0:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
+	e0:SetCode(EVENT_LEAVE_FIELD)
+	e0:SetOperation(c6960.rmop)
+	c:RegisterEffect(e0)
 end
 
 function c6960.cfil1(c)
@@ -41,7 +40,7 @@ end
 function c6960.eqlimit(e,c)
 	return e:GetLabelObject()==c
 end
-function c6960.operation(e,tp,eg,ep,ev,re,r,rp)
+function c6960.activate(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) then
@@ -69,25 +68,25 @@ function c6960.operation(e,tp,eg,ep,ev,re,r,rp)
 		e3:SetTargetRange(LOCATION_MZONE,0)
 		e3:SetTarget(c6960.antarget)
 		c:RegisterEffect(e3)
+		--Extra attack
 		local e4=Effect.CreateEffect(c)
 		e4:SetType(EFFECT_TYPE_EQUIP)
 		e4:SetCode(EFFECT_EXTRA_ATTACK)
-		e4:SetCondition(c6960.atkcon)
 		e4:SetValue(c6960.atkval)
 		c:RegisterEffect(e4)
 	end
 end
 function c6960.antarget(e,c)
-	return c~=e:GetHandler():GetEquipTarget()
-end
-function c6960.atkcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(Card.IsSetCard,tp,LOCATION_GRAVE,0,1,nil,0xdd)
+	local tc=e:GetHandler():GetEquipTarget()
+	return tc and c~=tc
 end
 function c6960.atkval(e,c)
-	return Duel.GetMatchingGroupCount(Card.IsSetCard,e:GetHandler():GetControler(),LOCATION_GRAVE,0,nil,0xdd)-1
+	local gc=Duel.GetMatchingGroupCount(Card.IsSetCard,e:GetHandler():GetControler(),LOCATION_GRAVE,0,nil,0xdd)
+	if gc==0 then return 0 else return gc-1 end
 end
 
-function c6960.desop(e,tp,eg,ep,ev,re,r,rp)
+function c6960.rmop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
 	local tc=c:GetFirstCardTarget()
 	if tc and tc:IsLocation(LOCATION_MZONE) then
 		Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)

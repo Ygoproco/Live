@@ -34,7 +34,7 @@ function c6115.atkfil(c,tp,atk)
 	return c:IsControler(1-tp) and c:GetAttack()>atk
 end
 function c6115.atkcon(e,tp,eg,ep,ev,re,r,rp)
-	return eg and eg:IsExists(c6115.atkfil,1,nil,tp,atk)
+	return eg and eg:IsExists(c6115.atkfil,1,nil,tp,e:GetHandler():GetAttack())
 end
 function c6115.atkop(e,tp,eg,ep,ev,re,r,rp)
 	if not c:IsRelateToEffect(e) then return end

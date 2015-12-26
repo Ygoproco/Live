@@ -25,7 +25,7 @@ end
 
 function c75902998.condition(e,tp,eg,ep,ev,re,r,rp)
 	local a=Duel.GetAttacker()
-	return a and a:GetControler()~=Duel.GetTurnPlayer() and a:GetFlagEffect(75902998)>0
+	return a and a:GetControler()~=tp and a:GetFlagEffect(75902998)>0
 end
 function c75902998.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	local bc=Duel.GetAttacker()

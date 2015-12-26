@@ -1,5 +1,5 @@
 --Scripted by Eerie Code
---Amorphage Olga
+--Amorphage Hyper
 function c6929.initial_effect(c)
 	--Pendulum Summon
 	aux.AddPendulumProcedure(c)
@@ -24,12 +24,15 @@ function c6929.initial_effect(c)
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD)
 	e3:SetRange(LOCATION_PZONE)
-	e3:SetCode(EFFECT_NO_EFFECT_DAMAGE)
+	e3:SetCode(EFFECT_CHANGE_DAMAGE)
 	e3:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e3:SetTargetRange(1,1)
 	e3:SetCondition(c6929.chaincon)
-	e3:SetValue(1)
+	e3:SetValue(c6929.damval)
 	c:RegisterEffect(e3)
+	local e3b=e3:Clone()
+	e3b:SetCode(EFFECT_NO_EFFECT_DAMAGE)
+	c:RegisterEffect(e3b)
 	--disable spsummon
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
@@ -71,6 +74,11 @@ function c6929.desop(e,tp,eg,ep,ev,re,r,rp)
 		local g=Duel.SelectReleaseGroup(tp,Card.IsReleasableByEffect,1,1,c)
 		Duel.Release(g,REASON_EFFECT)
 	else Duel.Destroy(c,REASON_EFFECT) end
+end
+
+function c6929.damval(e,re,val,r,rp,rc)
+	if bit.band(r,REASON_EFFECT)~=0 then return 0 end
+	return val
 end
 
 function c6929.cfilter(c)
