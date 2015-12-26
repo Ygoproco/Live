@@ -40,6 +40,6 @@ function c50584941.activate(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetCode(EFFECT_CHANGE_CODE)
 		e1:SetValue(code)
 		tc:RegisterEffect(e1)
-		tc:CopyEffect(code,RESET_EVENT+0x1fe0000,1)
+		tc:CopyEffect(code,RESET_EVENT+0x1fe0000,99)
 	end
 end
