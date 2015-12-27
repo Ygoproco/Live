@@ -37,8 +37,8 @@ function c6115.atktg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return eg:IsExists(c6115.atkfil,1,nil,tp,e:GetHandler():GetAttack()) end
 end
 function c6115.atkop(e,tp,eg,ep,ev,re,r,rp)
-	if not c:IsRelateToEffect(e) then return end
 	local c=e:GetHandler()
+	if not c:IsRelateToEffect(e) then return end
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)

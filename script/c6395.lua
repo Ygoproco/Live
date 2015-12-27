@@ -59,7 +59,7 @@ function c6395.disfilter(c,e)
 	return c:IsFaceup() and c:IsRelateToEffect(e)
 end
 function c6395.operation(e,tp,eg,ep,ev,re,r,rp)
-	if e:GetLabel()==0 or not e:GetHandler():IsRelateToEffect(e) then return end
+	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(c6395.disfilter,nil,e)
 	local tc=g:GetFirst()
 	while tc do
