@@ -12,8 +12,18 @@ function c6979.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c6979.condition(e,tp,eg,ep,ev,re,r,rp)
-	local tl=Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_LOCATION)
-	return rp~=tp and ((re:GetHandler():IsType(TYPE_PENDULUM) and tl==LOCATION_MZONE) or (tl==LOCATION_PZONE and not re:IsHasType(EFFECT_TYPE_ACTIVATE))) and Duel.IsChainNegatable(ev)
+	--local tl=Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_LOCATION)
+	--return rp~=tp and ((re:GetHandler():IsType(TYPE_PENDULUM) and tl==LOCATION_MZONE) or (tl==LOCATION_PZONE and not re:IsHasType(EFFECT_TYPE_ACTIVATE))) and Duel.IsChainNegatable(ev)
+	local rc=re:GetHandler()
+	--return rp~=tp and ((rc:IsLocation(LOCATION_MZONE) and rc:IsType(TYPE_PENDULUM)) or (rc:IsLocation(LOCATION_PZONE) and not re:IsHasType(EFFECT_TYPE_ACTIVATE))) and Duel.IsChainNegatable(ev)
+	--Debug.Message("Location: " .. rc:GetLocation())
+	--Debug.Message("Triggering location: " .. Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_LOCATION))
+	--Debug.Message("Original type: " .. rc:GetOriginalType())
+	if rc:IsLocation(LOCATION_MZONE) then
+		return rp~=tp and rc:IsType(TYPE_PENDULUM) and Duel.IsChainNegatable(ev)
+	else
+		return rp~=tp and bit.band(rc:GetOriginalType(),TYPE_PENDULUM)~=0 and not re:IsHasType(EFFECT_TYPE_ACTIVATE) and Duel.IsChainNegatable(ev)
+	end
 end
 function c6979.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
