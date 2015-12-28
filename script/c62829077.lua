@@ -30,18 +30,34 @@ end
 function c62829077.filter(c,e,tp)
 	return c:IsCanBeEffectTarget(e) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
+function c62829077.zxlfil1(c,mg)
+	if not c:IsRankAbove(1) then
+		--Debug.Message("Rank below 1")
+		return false
+	elseif not c:IsSetCard(0x48) then
+		--Debug.Message("Not a Number")
+		return false
+	elseif mg and not mg:IsExists(c62829077.zxlfil2,2,c,c:GetRank()) then
+		--Debug.Message("No other material")
+		return false
+	end
+	return true
+	--return c:IsRankAbove(1) and c:IsSetCard(0x48) and mg:IsExists(c62829077.zxlfil2,2,nil,c:GetRank())
+end
+function c62829077.zxlfil2(c,rk)
+	return c:GetRank()==rk and c:IsSetCard(0x48)
+end
 function c62829077.xyzfilter(c,mg)
-	if c.xyz_count~=3 or not c:IsSetCard(0x7f) or mg:GetCount()==0 then return false end
+	if c.xyz_count~=3 or not c:IsSetCard(0x7f) or mg:GetCount()==0 then 
+		--Debug.Message("Again from the start...")
+		return false 
+	end
 	if c:IsCode(52653092) then
-		local mc=mg:GetFirst()
-		local rk=mc:GetRank()
-		if rk==0 or not mc:IsSetCard(0x48) then return false end
-		mc=mg:GetNext()
-		while mc do
-			if rk~=mc:GetRank() or not mc:IsSetCard(0x48) then return false end
-			mc=mg:GetNext()
-		end
-		return true
+		local b=mg:IsExists(c62829077.zxlfil1,1,nil,mg)
+		local t=0
+		if b then t=1 end
+		--Debug.Message("Boolean: " .. t)
+		return b
 	else
 		return c:IsXyzSummonable(mg)
 	end
@@ -50,7 +66,11 @@ function c62829077.mfilter1(c,exg)
 	return exg:IsExists(c62829077.mfilter2,1,nil,c)
 end
 function c62829077.mfilter2(c,mc)
-	return c.xyz_filter(mc)
+	if c:IsCode(52653092) then
+		return mc:IsSetCard(0x48) and mc:IsRankAbove(1)
+	else
+		return c.xyz_filter(mc)
+	end
 end
 function c62829077.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end

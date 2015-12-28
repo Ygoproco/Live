@@ -50,6 +50,7 @@ function c52653092.initial_effect(c)
 	c:RegisterEffect(e6)
 end
 c52653092.xyz_number=0
+c52653092.xyz_count=3
 function c52653092.cfilter(c)
 	return c:IsSetCard(0x95) and c:GetType()==TYPE_SPELL and c:IsDiscardable()
 end
