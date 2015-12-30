@@ -13,7 +13,7 @@ function c6395.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e2:SetRange(LOCATION_SZONE)
-	e2:SetCondition(c6395.condition)
+	--e2:SetCondition(c6395.condition)
 	e2:SetTarget(c6395.target)
 	e2:SetOperation(c6395.operation)
 	c:RegisterEffect(e2)
@@ -50,7 +50,7 @@ function c6395.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c6395.negfil2,tp,LOCATION_MZONE,0,1,nil)
 end
 function c6395.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return eg and eg:IsExists(c6395.negfil1,1,nil) end
+	if chk==0 then return eg and eg:IsExists(c6395.negfil1,1,nil) and Duel.IsExistingMatchingCard(c6395.negfil2,tp,LOCATION_MZONE,0,1,nil) end
 	local g=eg:Filter(c6395.negfil1,nil)
 	Duel.SetTargetCard(g)
 	Duel.SetOperationInfo(0,CATEGORY_DISABLE,g,g:GetCount(),0,0)
