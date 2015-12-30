@@ -20,7 +20,7 @@ function c11193246.condition(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c11193246.cfilter,1,nil,tp)
 end
 function c11193246.filter(c)
-	return (c:IsSetCard(0xe1) or c:IsSetCard(0x209)) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(0xe1) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function c11193246.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(c11193246.filter,tp,LOCATION_DECK,0,1,nil) end

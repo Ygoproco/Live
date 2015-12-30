@@ -33,7 +33,7 @@ function c6946.initial_effect(c)
 end
 
 function c6946.matfil(c)
-	return c:IsSetCard(0xe1) or c:IsSetCard(0x209)
+	return c:IsSetCard(0xe1)
 end
 
 function c6946.condition(e,tp,eg,ep,ev,re,r,rp)
@@ -86,23 +86,23 @@ end
 function c6946.unop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local bc=c:GetBattleTarget()
-	if c:GetFlagEffect(6948)==0 then
+	if c:GetFlagEffect(6946+2)==0 then
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE+EFFECT_FLAG_CANNOT_DISABLE)
 		e1:SetCode(EFFECT_CANNOT_DIRECT_ATTACK)
 		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_BATTLE)
 		c:RegisterEffect(e1)
-		c:RegisterFlagEffect(6948,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_BATTLE,0,1)
+		c:RegisterFlagEffect(6946+2,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_BATTLE,0,1)
 	end
 	if bc then
 		if bc:GetFlagEffect(6946)>0 then
-			bc:RegisterFlagEffect(6947,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_BATTLE,0,1)
+			bc:RegisterFlagEffect(6946+1,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_BATTLE,0,1)
 		end
 	end
 end
 function c6946.valtg(e,c)
-	return c:GetFlagEffect(6947)>0
+	return c:GetFlagEffect(6946+1)>0
 end
 function c6946.vala(e,c)
 	return c==e:GetHandler()

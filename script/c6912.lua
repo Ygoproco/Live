@@ -38,7 +38,7 @@ function c6912.initial_effect(c)
 end
 
 function c6912.splimit(e,c,sump,sumtype,sumpos,targetp)
-	return not c:IsSetCard(0xe1) and not c:IsSetCard(0x209) and bit.band(sumtype,SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
+	return not c:IsSetCard(0xe1) and bit.band(sumtype,SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
 end
 
 function c6912.filter0(c)
@@ -48,7 +48,7 @@ function c6912.filter1(c,e)
 	return c:IsCanBeFusionMaterial() and c:IsAbleToRemove() and not c:IsImmuneToEffect(e)
 end
 function c6912.filter2(c,e,tp,m,f,chkf)
-	return c:IsType(TYPE_FUSION) and (c:IsSetCard(0xe1) or c:IsSetCard(0x209)) and (not f or f(c))
+	return c:IsType(TYPE_FUSION) and c:IsSetCard(0xe1) and (not f or f(c))
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(m,nil,chkf)
 end
 function c6912.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -105,5 +105,5 @@ function c6912.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c6912.prcfil(e,c)
-	return c:IsSetCard(0xe1) or c:IsSetCard(0x209)
+	return c:IsSetCard(0xe1)
 end

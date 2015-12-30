@@ -25,7 +25,7 @@ function c6908.initial_effect(c)
 end
 
 function c6908.atkfil(c)
-	return c:IsFaceup() and (c:IsSetCard(0xe1) or c:IsSetCard(0x209)) and not c:IsCode(6908) and c:IsAttackAbove(0)
+	return c:IsFaceup() and c:IsSetCard(0xe1) and not c:IsCode(6908) and c:IsAttackAbove(0)
 end
 function c6908.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c6908.atkfil(chkc) end
@@ -53,7 +53,7 @@ function c6908.spcon2(e,tp,eg,ep,ev,re,r,rp)
 	return bit.band(r,REASON_EFFECT+REASON_BATTLE)~=0 and e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end
 function c6908.spfilter(c,e,tp)
-	return (c:IsSetCard(0xe1) or c:IsSetCard(0x209)) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xe1) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c6908.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
