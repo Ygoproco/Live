@@ -41,7 +41,7 @@ function c6395.initial_effect(c)
 end
 
 function c6395.negfil1(c)
-	return c:IsFaceup() and not c:IsPreviousLocation(LOCATION_GRAVE)
+	return c:IsFaceup() and c:IsType(TYPE_EFFECT) and not c:IsPreviousLocation(LOCATION_GRAVE)
 end
 function c6395.negfil2(c)
 	return c:IsFaceup() and c:IsRace(RACE_DRAGON) and (c:GetLevel()==7 or c:GetLevel()==8)
