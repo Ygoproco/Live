@@ -49,6 +49,7 @@ function c6959.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SelectTarget(tp,c6959.tgfilter,tp,LOCATION_MZONE,0,1,1,nil)
 end
 function c6959.atkop(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 	local g=Duel.SelectMatchingCard(tp,c6959.cfilter,tp,LOCATION_DECK+LOCATION_HAND,0,1,1,nil,tc)
