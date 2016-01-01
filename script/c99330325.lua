@@ -27,7 +27,7 @@ function c99330325.filter1(c,e,tp)
 	--if c:IsSetCard(0xd3) and c:IsType(TYPE_MONSTER) then
 	--  if not c:IsCanBeSpecialSummoned(e,0,tp,false,true,POS_FACEUP_ATTACK) then
 			--Debug.Message("First card cannot be special summoned (no limit)")
-	--	  return false
+	--	return false
 	--  else return Duel.IsExistingMatchingCard(c99330325.filter2,tp,LOCATION_DECK,0,1,nil,e,tp,c:GetCode()) end
 	--else return false end
 	return c:IsSetCard(0xd3) and c:IsType(TYPE_MONSTER) and Duel.IsExistingMatchingCard(c99330325.filter2,tp,LOCATION_DECK,0,1,nil,e,tp,c:GetCode())
@@ -36,8 +36,8 @@ function c99330325.filter2(c,e,tp,cd)
 	--return c:IsSetCard(0xd3) and not c:IsCode(cd) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_ATTACK,1-tp)
 	--if c:IsSetCard(0xd3) and c:IsType(TYPE_MONSTER) and not c:IsCode(cd) then
 	--  if not c:IsCanBeSpecialSummoned(e,0,tp,false,true,POS_FACEUP_ATTACK,1-tp) then
-	--	  --Debug.Message("Second card cannot be special summoned (no limit)")
-	--	  return false
+	--	--Debug.Message("Second card cannot be special summoned (no limit)")
+	--	return false
 	--  else return true end
 	--else return false end
 	return c:IsSetCard(0xd3) and c:IsType(TYPE_MONSTER) and not c:IsCode(cd)
@@ -66,7 +66,7 @@ function c99330325.target(e,tp,eg,ep,ev,re,r,rp,chk)
 		if not Duel.IsExistingMatchingCard(Card.IsDestructable,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) then
 			--Debug.Message("No destructable card")
 			return false
-		else return Duel.IsExistingMatchingCard(c99330325.filter1,tp,LOCATION_DECK,0,1,nil,e,tp) end
+		else return Duel.IsPlayerCanSpecialSummon(tp) and Duel.IsExistingMatchingCard(c99330325.filter1,tp,LOCATION_DECK,0,1,nil,e,tp) end
 	end
 	local g=Duel.GetMatchingGroup(Card.IsDestructable,tp,LOCATION_MZONE,LOCATION_MZONE,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0)
