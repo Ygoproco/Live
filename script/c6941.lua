@@ -13,6 +13,7 @@ function c6941.initial_effect(c)
 	--
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
+	e2:SetRange(LOCATION_MZONE)
 	e2:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
 	e2:SetCondition(c6941.tgcon)
 	e2:SetValue(aux.tgval)
