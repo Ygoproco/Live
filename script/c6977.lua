@@ -25,7 +25,7 @@ function c6977.initial_effect(c)
 end
 
 function c6977.deffil(c)
-	return aux.nzdef(c) and c:IsPosition(POS_FACEUP_DEFENCE)
+	return aux.nzdef(c) and c:IsFaceup()
 end
 function c6977.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c6977.deffil(chkc) end
@@ -42,18 +42,17 @@ function c6977.activate(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
 		tc:RegisterEffect(e1)
 		local e3=Effect.CreateEffect(e:GetHandler())
-		e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
+		e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e3:SetRange(LOCATION_MZONE)
 		e3:SetCode(EVENT_PHASE+PHASE_END)
+		e3:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
 		e3:SetCountLimit(1)
 		e3:SetOperation(c6977.ddop)
-		e3:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_DRAW)
 		tc:RegisterEffect(e3)
 	end
 end
 function c6977.ddop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if not c:IsRelateToEffect(e) then return end
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_SET_DEFENCE_FINAL)
