@@ -62,15 +62,22 @@ function c62829077.xyzfilter(c,mg)
 		return c:IsXyzSummonable(mg)
 	end
 end
-function c62829077.mfilter1(c,exg)
-	return exg:IsExists(c62829077.mfilter2,1,nil,c)
+function c62829077.mfilter1(c,exg,rk)
+	return exg:IsExists(c62829077.mfilter2,1,nil,c,rk)
 end
-function c62829077.mfilter2(c,mc)
+function c62829077.mfilter2(c,mc,rk)
 	if c:IsCode(52653092) then
-		return mc:IsSetCard(0x48) and mc:IsRankAbove(1)
+		if rk then
+			return mc:IsSetCard(0x48) and mc:GetRank()==rk
+		else
+			return mc:IsSetCard(0x48) and mc:IsRankAbove(1) and Duel.IsExistingMatchingCard(c62829077.mfilter3,tp,LOCATION_GRAVE,0,2,mc,mc:GetRank())
+		end
 	else
 		return c.xyz_filter(mc)
 	end
+end
+function c62829077.mfilter3(c,rk)
+	return c:IsSetCard(0x48) and c:GetRank()==rk
 end
 function c62829077.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end
@@ -84,7 +91,7 @@ function c62829077.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local tc1=sg1:GetFirst()
 	local exg2=exg:Filter(c62829077.mfilter2,nil,tc1)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local sg2=mg:FilterSelect(tp,c62829077.mfilter1,2,2,tc1,exg2)
+	local sg2=mg:FilterSelect(tp,c62829077.mfilter1,2,2,tc1,exg2,tc1:GetRank())
 	sg1:Merge(sg2)
 	Duel.SetTargetCard(sg1)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,sg1,3,0,0)
