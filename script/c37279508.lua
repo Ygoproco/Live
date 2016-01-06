@@ -12,6 +12,7 @@ function c37279508.initial_effect(c)
 	e1:SetCode(EVENT_ATTACK_ANNOUNCE)
 	e1:SetCountLimit(1,37279508)
 	e1:SetCost(c37279508.atkcost)
+	e1:SetTarget(c37279508.atktg)
 	e1:SetOperation(c37279508.atkop)
 	c:RegisterEffect(e1)
 	--Special Summon
@@ -32,6 +33,9 @@ c37279508.xyz_number=37
 function c37279508.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
+end
+function c37279508.atktg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsFaceup,tp,0,LOCATION_MZONE,1,nil) end
 end
 function c37279508.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,0,LOCATION_MZONE,nil)
