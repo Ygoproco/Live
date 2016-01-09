@@ -50,13 +50,13 @@ function c50554729.thcon1(e,tp,eg,ep,ev,re,r,rp)
 end
 function c50554729.thfilter1(c,tp)
 	return c:IsType(TYPE_MONSTER) and c:IsReason(REASON_BATTLE+REASON_EFFECT)
-		and c:IsPreviousLocation(LOCATION_ONFIELD+LOCATION_HAND) and c:GetPreviousControler()==tp
+		and c:IsPreviousLocation(LOCATION_MZONE+LOCATION_HAND) and c:GetPreviousControler()==tp
 end
 function c50554729.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c50554729.thfilter2,1,nil,tp,r)
 end
 function c50554729.thfilter2(c,tp,r)
-	return c:IsType(TYPE_MONSTER) and bit.band(r,REASON_EFFECT)~=0 and c:IsPreviousLocation(LOCATION_ONFIELD+LOCATION_HAND) and c:GetPreviousControler()==tp
+	return c:IsType(TYPE_MONSTER) and c:IsPreviousLocation(LOCATION_ONFIELD+LOCATION_HAND) and c:GetPreviousControler()==tp
 end
 function c50554729.thfil(c)
 	return c:IsSetCard(0xe2) and c:IsAbleToHand()
