@@ -34,10 +34,10 @@ function c54063868.initial_effect(c)
 end
 function c54063868.condition(e,tp,eg,ep,ev,re,r,rp,chk)
 	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED)
-		and re:IsHasType(EFFECT_TYPE_ACTIVATE) and re:GetOwner():IsType(TYPE_TRAP) and Duel.IsChainNegatable(ev)
+		and re:IsHasType(EFFECT_TYPE_ACTIVATE) and re:GetActiveType()==TYPE_TRAP and Duel.IsChainNegatable(ev)
 end
 function c54063868.kozmo(c) 
-	return c:IsSetCard(0xd2) and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(0xd2) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemoveAsCost()
 end
 function c54063868.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c54063868.kozmo,tp,LOCATION_GRAVE,0,1,nil) end
