@@ -12,7 +12,7 @@ function c9032529.initial_effect(c)
 end
 
 function c9032529.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetFieldGroupCount(tp,LOCATION_HAND)~=0 end
+	if chk==0 then return Duel.GetFieldGroupCount(tp,LOCATION_HAND,0)>0 end
 end
 function c9032529.activate(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
