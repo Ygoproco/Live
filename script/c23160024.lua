@@ -42,7 +42,7 @@ function c23160024.initial_effect(c)
 end
 
 function c23160024.drfil(c,tp,r)
-	return c:IsType(TYPE_MONSTER) and bit.band(r,REASON_EFFECT)~=0 and c:IsPreviousLocation(LOCATION_ONFIELD) and c:GetPreviousControler()==tp
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xe2) and bit.band(r,REASON_EFFECT)~=0 and c:IsPreviousLocation(LOCATION_ONFIELD) and c:GetPreviousControler()==tp
 end
 function c23160024.drcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c23160024.drfil,1,nil,tp,r)

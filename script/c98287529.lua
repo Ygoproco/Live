@@ -18,7 +18,7 @@ function c98287529.initial_effect(c)
 	--Disable
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD)
-	e3:SetRange(LOCATION_PZONE)
+	e3:SetRange(LOCATION_MZONE)
 	e3:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
 	e3:SetTarget(c98287529.distg)
 	e3:SetCode(EFFECT_DISABLE)
