@@ -19,11 +19,11 @@ function c90162951.initial_effect(c)
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(90162951,1))
 	e3:SetCategory(CATEGORY_DAMAGE)
-	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
+	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e3:SetCondition(c90162951.damcon)
-	e3:SetTarget(c90162951.damtg)
+	--e3:SetCondition(c90162951.damcon)
+	--e3:SetTarget(c90162951.damtg)
 	e3:SetOperation(c90162951.damop)
 	c:RegisterEffect(e3)
 	--destroy
@@ -48,19 +48,23 @@ end
 function c90162951.damfil(c,sp)
 	return c:GetSummonPlayer()==sp
 end
-function c90162951.damcon(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(c90162951.damfil,1,nil,1-tp) and (not re:IsHasType(EFFECT_TYPE_ACTIONS) or re:IsHasType(EFFECT_TYPE_CONTINUOUS)) and e:GetHandler():GetOverlayCount()>0
-end
-function c90162951.damtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return true end
-	Duel.SetTargetPlayer(1-tp)
-	Duel.SetTargetParam(600)
-	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,600)
-end
+--function c90162951.damcon(e,tp,eg,ep,ev,re,r,rp)
+--	return eg:IsExists(c90162951.damfil,1,nil,1-tp) and (not re:IsHasType(EFFECT_TYPE_ACTIONS) or re:IsHasType(EFFECT_TYPE_CONTINUOUS)) and e:GetHandler():GetOverlayCount()>0
+--end
+--function c90162951.damtg(e,tp,eg,ep,ev,re,r,rp,chk)
+--	if chk==0 then return true end
+--	Duel.SetTargetPlayer(1-tp)
+--	Duel.SetTargetParam(600)
+--	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,600)
+--end
 function c90162951.damop(e,tp,eg,ep,ev,re,r,rp)
-	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
-	Duel.Hint(HINT_CARD,0,90162951)
-	Duel.Damage(p,d,REASON_EFFECT)
+	--local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
+	--Duel.Hint(HINT_CARD,0,90162951)
+	--Duel.Damage(p,d,REASON_EFFECT)
+	if eg:IsExists(c90162951.damfil,1,nil,1-tp) and e:GetHandler():GetOverlayCount()>0 then
+		Duel.Hint(HINT_CARD,0,90162951)
+		Duel.Damage(1-tp,600,REASON_EFFECT)
+	end
 end
 
 function c90162951.descost(e,tp,eg,ep,ev,re,r,rp,chk)

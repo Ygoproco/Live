@@ -43,13 +43,14 @@ function c86157908.atkfil(c)
 	return c:IsFaceup() and c:IsSetCard(0x9f) and c:GetAttack()>0
 end
 function c86157908.atktg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingTarget(c86157908.atkfil,tp,LOCATION_MZONE,0,1,nil) end
-	Duel.SelectTarget(tp,c86157908.atkfil,tp,LOCATION_MZONE,0,1,1,nil)
+	if chk==0 then return Duel.IsExistingTarget(c86157908.atkfil,tp,LOCATION_MZONE,0,1,Duel.GetAttacker()) end
+	Duel.SelectTarget(tp,c86157908.atkfil,tp,LOCATION_MZONE,0,1,1,Duel.GetAttacker())
 	Duel.SetOperationInfo(0,CATEGORY_ATKCHANGE,Duel.GetAttacker(),1,0,0)
 end
 function c86157908.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetFirstTarget()
 	local at=Duel.GetAttacker()
+	if g:IsRelateToEffect(e) and at:IsRelateToBattle() then
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetCategory(CATEGORY_ATKCHANGE)
 		e1:SetType(EFFECT_TYPE_SINGLE)
@@ -57,6 +58,7 @@ function c86157908.atkop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetValue(g:GetAttack())
 		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_BATTLE)
 		at:RegisterEffect(e1)
+	end
 end
 function c86157908.filter(c)
 	return c:GetAttack()>0 and c:IsSetCard(0x9f)
