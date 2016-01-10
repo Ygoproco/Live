@@ -10,14 +10,13 @@ function c70917315.initial_effect(c)
 	c:RegisterEffect(e9)
 	--destroy
 	local e4=Effect.CreateEffect(c)
-	e4:SetCategory(CATEGORY_RELEASE+CATEGORY_DESTROY)
 	e4:SetDescription(aux.Stringid(70917315,0))
-	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
+	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e4:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e4:SetRange(LOCATION_PZONE)
 	e4:SetCountLimit(1)
 	e4:SetCode(EVENT_PHASE+PHASE_STANDBY)
 	e4:SetCondition(c70917315.descon)
-	e4:SetTarget(c70917315.destg)
 	e4:SetOperation(c70917315.desop)
 	c:RegisterEffect(e4)
 	--act limit
@@ -66,11 +65,11 @@ function c70917315.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c70917315.desop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if c:IsFacedown() or not c:IsRelateToEffect(e) then return end
+	--if c:IsFacedown() or not c:IsRelateToEffect(e) then return end
 	if Duel.CheckReleaseGroup(tp,Card.IsReleasableByEffect,1,c) and Duel.SelectYesNo(tp,aux.Stringid(70917315,1)) then
 		local g=Duel.SelectReleaseGroup(tp,Card.IsReleasableByEffect,1,1,c)
 		Duel.Release(g,REASON_EFFECT)
-	else Duel.Destroy(c,REASON_EFFECT) end
+	else Duel.Destroy(c,REASON_RULE) end
 end
 
 function c70917315.cfilter(c)
