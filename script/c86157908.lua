@@ -42,7 +42,8 @@ end
 function c86157908.atkfil(c)
 	return c:IsFaceup() and c:IsSetCard(0x9f) and c:GetAttack()>0
 end
-function c86157908.atktg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c86157908.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsControler(1-tp) and chkc:IsLocation(LOCATION_MZONE) and chkc~=Duel.GetAttacker() and c86157908.atkfil(chkc) end
 	if chk==0 then return Duel.IsExistingTarget(c86157908.atkfil,tp,LOCATION_MZONE,0,1,Duel.GetAttacker()) end
 	Duel.SelectTarget(tp,c86157908.atkfil,tp,LOCATION_MZONE,0,1,1,Duel.GetAttacker())
 	Duel.SetOperationInfo(0,CATEGORY_ATKCHANGE,Duel.GetAttacker(),1,0,0)
@@ -64,7 +65,7 @@ function c86157908.filter(c)
 	return c:GetAttack()>0 and c:IsSetCard(0x9f)
 end
 function c86157908.rectg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and c86157908.filter(chkc) end
+	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and c86157908.filter(chkc) end
 	if chk==0 then return Duel.IsExistingTarget(c86157908.filter,tp,LOCATION_GRAVE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
 	local g=Duel.SelectTarget(tp,c86157908.filter,tp,LOCATION_GRAVE,0,1,1,nil)
