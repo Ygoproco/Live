@@ -40,7 +40,7 @@ function c6397.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c6397.repfilter(c,tp)
-	return c:IsFaceup() and c:IsRace(RACE_DRAGON) and c:IsOnField() and c:IsControler(tp) and c:IsReason(REASON_EFFECT+REASON_BATTLE)
+	return c:IsFaceup() and c:IsRace(RACE_DRAGON) and c:IsLocation(LOCATION_MZONE) and c:IsControler(tp) and c:IsReason(REASON_EFFECT+REASON_BATTLE)
 end
 function c6397.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToRemove() and eg:IsExists(c6397.repfilter,1,nil,tp) end

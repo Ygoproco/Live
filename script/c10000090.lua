@@ -60,7 +60,7 @@ function c10000090.initial_effect(c)
 end
 
 function c10000090.cfilter(c,tp)
-	return c:IsCode(10000010) and c:IsPreviousLocation(LOCATION_ONFIELD)
+	return c:IsCode(10000010) and c:IsControler(tp) and c:IsPreviousLocation(LOCATION_ONFIELD)
 end
 function c10000090.spcon1(e,tp,eg,ep,ev,re,r,rp)
 	if eg:IsExists(c10000090.cfilter,1,nil,tp) then
@@ -77,7 +77,7 @@ function c10000090.sptg1(e,tp,eg,ep,ev,re,r,rp,chk)
 			return false
 		end
 	  if not e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,true,true) then
---		Debug.Message("Cannot be summoned.")
+--	  Debug.Message("Cannot be summoned.")
 		  return false
 	  end
 	  return true
