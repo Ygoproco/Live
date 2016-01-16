@@ -105,9 +105,9 @@ function c6395.thcfil(c)
 	return c:IsRace(RACE_DRAGON) and (c:GetLevel()==7 or c:GetLevel()==8) and c:IsAbleToGraveAsCost()
 end
 function c6395.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c6395.thcfil,tp,LOCATION_ONFIELD+LOCATION_HAND,0,1,e:GetHandler()) end
+	if chk==0 then return Duel.IsExistingMatchingCard(c6395.thcfil,tp,LOCATION_MZONE+LOCATION_HAND,0,1,e:GetHandler()) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-	local g=Duel.SelectMatchingCard(tp,c6395.thcfil,tp,LOCATION_ONFIELD+LOCATION_HAND,0,1,1,e:GetHandler())
+	local g=Duel.SelectMatchingCard(tp,c6395.thcfil,tp,LOCATION_MZONE+LOCATION_HAND,0,1,1,e:GetHandler())
 	Duel.SendtoGrave(g,REASON_COST)
 end
 function c6395.thtg(e,tp,eg,ep,ev,re,r,rp,chk)

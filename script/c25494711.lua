@@ -56,7 +56,7 @@ function c25494711.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=e:GetHandler()
 	if tc:IsFaceup() and tc:IsRelateToEffect(e) then
 		local atk=0
-		local g=Duel.GetMatchingGroup(c25494711.atkfil,tp,LOCATION_MZONE,LOCATION_MZONE,tc)
+		local g=Duel.GetMatchingGroup(c25494711.atkfil,tp,LOCATION_MZONE,0,tc)
 		local bc=g:GetFirst()
 		while bc do
 			atk=atk+bc:GetAttack()
