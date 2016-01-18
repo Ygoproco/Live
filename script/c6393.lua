@@ -26,6 +26,7 @@ function c6393.initial_effect(c)
 	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e3:SetCountLimit(1)
 	e3:SetRange(LOCATION_GRAVE)
+	e3:SetLabelObject(e2)
 	e3:SetCondition(c6393.spcon)
 	e3:SetTarget(c6393.sptg)
 	e3:SetOperation(c6393.spop)
@@ -33,7 +34,7 @@ function c6393.initial_effect(c)
 end
 
 function c6393.rmcon(e,tp,eg,ep,ev,re,r,rp)
-	return c:GetPreviousLocation()==LOCATION_GRAVE
+	return e:GetHandler():GetPreviousLocation()==LOCATION_GRAVE
 end
 function c6393.rmfil(c)
 	return c:IsFaceup() and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToRemove()
