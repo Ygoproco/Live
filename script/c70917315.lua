@@ -73,18 +73,18 @@ function c70917315.desop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c70917315.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0xe2)
+	return c:IsFaceup() and c:IsSetCard(0xe0)
 end
 function c70917315.accon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c70917315.cfilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
 end
 function c70917315.aclimit(e,re,tp)
-	return re:IsActiveType(TYPE_SPELL) and not re:GetHandler():IsSetCard(0xe2) and not re:GetHandler():IsImmuneToEffect(e)
+	return re:IsActiveType(TYPE_SPELL) and not re:GetHandler():IsSetCard(0xe0) and not re:GetHandler():IsImmuneToEffect(e)
 end
 
 
 function c70917315.splimit(e,c,sump,sumtype,sumpos,targetp,se)
-	return not c:IsSetCard(0xe2) and c:IsLocation(LOCATION_EXTRA)
+	return not c:IsSetCard(0xe0) and c:IsLocation(LOCATION_EXTRA)
 end
 function c70917315.pdcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_PENDULUM 

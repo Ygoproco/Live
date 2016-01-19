@@ -1,5 +1,5 @@
 --Scripted by Eerie Code
---Arc Brave Dragon
+--Arkbrave Dragon
 function c6393.initial_effect(c)
 	--Banish
 	local e1=Effect.CreateEffect(c)
@@ -46,19 +46,20 @@ function c6393.rmtg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c6393.rmop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if not c:IsRelateToEffect(e) then return end
 	local g=Duel.GetMatchingGroup(c6393.rmfil,tp,0,LOCATION_ONFIELD,nil)
 	if g:GetCount()==0 then return end
 	local rm=Duel.Remove(g,POS_FACEUP,REASON_EFFECT)
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_UPDATE_ATTACK)
-	e1:SetValue(200*rm)
-	e1:SetReset(RESET_EVENT+0x1fe0000)
-	c:RegisterEffect(e1)
-	local e2=e1:Clone()
-	e2:SetCode(EFFECT_UPDATE_DEFENCE)
-	c:RegisterEffect(e2)
+	if c:IsFaceup() then
+		local e1=Effect.CreateEffect(c)
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_UPDATE_ATTACK)
+		e1:SetValue(200*rm)
+		e1:SetReset(RESET_EVENT+0x1fe0000)
+		c:RegisterEffect(e1)
+		local e2=e1:Clone()
+		e2:SetCode(EFFECT_UPDATE_DEFENCE)
+		c:RegisterEffect(e2)
+	end
 end
 
 function c6393.tgop(e,tp,eg,ep,ev,re,r,rp)
@@ -81,7 +82,7 @@ function c6393.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g,g:GetCount(),0,0)
 end
 function c6393.spop(e,tp,eg,ep,ev,re,r,rp)
-	if not Duel.GetLocationCount(tp,LOCATION_MZONE)>0 then return end
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)<1 then return end
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
 		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)

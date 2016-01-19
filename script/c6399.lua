@@ -38,21 +38,22 @@ function c6399.rmtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,1,0,0)
 end
 function c6399.rmop(e,tp,eg,ep,ev,re,r,rp)
-	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) and Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)>0 then
 		local bst=tc:GetLevel()
 		if tc:GetLevel()<tc:GetRank() then bst=tc:GetRank() end
-		local e1=Effect.CreateEffect(c)
-		e1:SetType(EFFECT_TYPE_SINGLE)
-		e1:SetCode(EFFECT_UPDATE_ATTACK)
-		e1:SetValue(bst*100)
-		e1:SetReset(RESET_EVENT+0x1fe0000)
-		c:RegisterEffect(e1)
-		local e2=e1:Clone()
-		e2:SetCode(EFFECT_UPDATE_DEFENCE)
-		c:RegisterEffect(e2)
+		if c:IsFaceup() then
+			local e1=Effect.CreateEffect(c)
+			e1:SetType(EFFECT_TYPE_SINGLE)
+			e1:SetCode(EFFECT_UPDATE_ATTACK)
+			e1:SetValue(bst*100)
+			e1:SetReset(RESET_EVENT+0x1fe0000)
+			c:RegisterEffect(e1)
+			local e2=e1:Clone()
+			e2:SetCode(EFFECT_UPDATE_DEFENCE)
+			c:RegisterEffect(e2)
+		end
 	end
 end
 

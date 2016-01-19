@@ -13,7 +13,7 @@ function c23160024.initial_effect(c)
 	e2:SetRange(LOCATION_FZONE)
 	e2:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
 	e2:SetValue(300)
-	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0xe2))
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0xe0))
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
 	e3:SetCode(EFFECT_UPDATE_DEFENCE)
@@ -42,7 +42,7 @@ function c23160024.initial_effect(c)
 end
 
 function c23160024.drfil(c,tp,r)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xe2) and c:IsPreviousLocation(LOCATION_ONFIELD) and c:GetPreviousControler()==tp
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xe0) and c:IsPreviousLocation(LOCATION_ONFIELD) and c:GetPreviousControler()==tp
 end
 function c23160024.drcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c23160024.drfil,1,nil,tp,r)
