@@ -32,10 +32,10 @@ function c47598941.initial_effect(c)
 end
 
 function c47598941.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0xe2)
+	return c:IsFaceup() and c:IsSetCard(0xe0)
 end
 function c47598941.atktg(e,c)
-	return not c:IsSetCard(0xe2)
+	return not c:IsSetCard(0xe0)
 end
 function c47598941.atkval(e,c)
 	return Duel.GetMatchingGroupCount(c47598941.cfilter,e:GetHandlerPlayer(),LOCATION_ONFIELD,0,nil)*-100
@@ -48,7 +48,7 @@ function c47598941.pccon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c47598941.pcfil,1,nil,tp)
 end
 function c47598941.pcfilter(c)
-	return c:IsSetCard(0xe2) and c:IsType(TYPE_PENDULUM) and not c:IsForbidden()
+	return c:IsSetCard(0xe0) and c:IsType(TYPE_PENDULUM) and not c:IsForbidden()
 end
 function c47598941.pctg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return (Duel.CheckLocation(tp,LOCATION_SZONE,6) or Duel.CheckLocation(tp,LOCATION_SZONE,7)) and Duel.IsExistingMatchingCard(c47598941.pcfilter,tp,LOCATION_DECK,0,1,nil) end

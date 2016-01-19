@@ -36,10 +36,10 @@ function c50554729.initial_effect(c)
 end
 
 function c50554729.tg(e,c)
-	return c:IsSetCard(0xe2)
+	return c:IsSetCard(0xe0)
 end
 function c50554729.filter(c)
-	return c:IsFaceup() and c:IsSetCard(0xe2)
+	return c:IsFaceup() and c:IsSetCard(0xe0)
 end
 function c50554729.val(e,c)
 	return Duel.GetMatchingGroupCount(c50554729.filter,c:GetControler(),LOCATION_ONFIELD,LOCATION_ONFIELD,nil)*100
@@ -59,7 +59,7 @@ function c50554729.thfilter2(c,tp,r)
 	return c:IsType(TYPE_MONSTER) and c:IsPreviousLocation(LOCATION_ONFIELD+LOCATION_HAND) and c:GetPreviousControler()==tp
 end
 function c50554729.thfil(c)
-	return c:IsSetCard(0xe2) and c:IsAbleToHand()
+	return c:IsSetCard(0xe0) and c:IsAbleToHand()
 end
 function c50554729.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c50554729.thfil,tp,LOCATION_DECK,0,1,nil) end
