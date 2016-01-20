@@ -38,7 +38,7 @@ function c47705572.initial_effect(c)
 end
 
 function c47705572.splimit(e,c,sump,sumtype,sumpos,targetp)
-	return not c:IsSetCard(0xe1) and bit.band(sumtype,SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
+	return not c:IsSetCard(0xdf) and bit.band(sumtype,SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
 end
 
 function c47705572.filter0(c)
@@ -48,7 +48,7 @@ function c47705572.filter1(c,e)
 	return c:IsCanBeFusionMaterial() and c:IsAbleToRemove() and not c:IsImmuneToEffect(e)
 end
 function c47705572.filter2(c,e,tp,m,f,chkf)
-	return c:IsType(TYPE_FUSION) and c:IsSetCard(0xe1) and (not f or f(c))
+	return c:IsType(TYPE_FUSION) and c:IsSetCard(0xdf) and (not f or f(c))
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(m,nil,chkf)
 end
 function c47705572.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -105,5 +105,5 @@ function c47705572.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c47705572.prcfil(e,c)
-	return c:IsSetCard(0xe1)
+	return c:IsSetCard(0xdf)
 end
