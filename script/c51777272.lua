@@ -33,7 +33,7 @@ function c51777272.initial_effect(c)
 end
 
 function c51777272.matfil(c)
-	return c:IsSetCard(0xe1)
+	return c:IsSetCard(0xdf)
 end
 
 function c51777272.condition(e,tp,eg,ep,ev,re,r,rp)

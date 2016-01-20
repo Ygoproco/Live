@@ -25,7 +25,7 @@ function c84812868.initial_effect(c)
 end
 
 function c84812868.filter(c,e,tp)
-	return c:IsSetCard(0xe1) and not c:IsCode(84812868) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xdf) and not c:IsCode(84812868) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c84812868.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c84812868.filter(chkc,e,tp) end
@@ -43,7 +43,7 @@ function c84812868.operation(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c84812868.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0xe1)
+	return c:IsFaceup() and c:IsSetCard(0xdf)
 end
 function c84812868.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_SZONE) and chkc:IsControler(1-tp) and chkc:IsAbleToHand() end

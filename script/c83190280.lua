@@ -33,7 +33,7 @@ function c83190280.initial_effect(c)
 end
 
 function c83190280.filter(c,e,tp)
-	return c:IsSetCard(0xe1) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xdf) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c83190280.tg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c83190280.filter(chkc,e,tp) end

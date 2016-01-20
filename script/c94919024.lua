@@ -48,7 +48,7 @@ function c94919024.atkop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c94919024.filter(c,tp)
-	return c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsSetCard(0xe1)
+	return c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsSetCard(0xdf)
 end
 function c94919024.condition(e,tp,eg,ep,ev,re,r,rp)
 	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return false end

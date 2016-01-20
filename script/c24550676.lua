@@ -43,7 +43,7 @@ function c24550676.initial_effect(c)
 end
 
 function c24550676.mat_filter(c)
-	return c:IsSetCard(0xe1)
+	return c:IsSetCard(0xdf)
 end
 
 function c24550676.splimit(e,se,sp,st)
