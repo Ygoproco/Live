@@ -66,6 +66,7 @@ function c24382602.atkop(e,tp,eg,ep,ev,re,r,rp)
 			local e2=e1:Clone()
 			e2:SetCode(EFFECT_UPDATE_DEFENCE)
 			tc:RegisterEffect(e2)
+		end
 	elseif Duel.IsPlayerCanDiscardDeck(tp,1) then
 		local cg=Duel.GetFieldGroup(tp,LOCATION_DECK,0)
 		Duel.ConfirmCards(1-tp,cg)
