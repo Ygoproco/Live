@@ -72,7 +72,6 @@ function c24382602.atkop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ConfirmCards(1-tp,cg)
 		Duel.ConfirmCards(tp,cg)
 		Duel.ShuffleDeck(tp)
-		end
 	end
 end
 function c24382602.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
