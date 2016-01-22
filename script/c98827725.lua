@@ -41,6 +41,6 @@ function c98827725.activate(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 
-function c98827725.condition(e,tp,eg,ep,ev,re,r,rp)
-	return not Duel.IsExistingMatchingCard(Card.IsType,tp,LOCATION_GRAVE,0,1,nil,TYPE_TRAP)
+function c98827725.condition(e)
+	return not Duel.IsExistingMatchingCard(Card.IsType,e:GetHandlerPlayer(),LOCATION_GRAVE,0,1,nil,TYPE_TRAP)
 end
