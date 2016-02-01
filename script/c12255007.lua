@@ -6,14 +6,12 @@ function c12255007.initial_effect(c)
 	--End BP
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(12255007,0))
-	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e1:SetRange(LOCATION_PZONE)
 	e1:SetCode(EVENT_ATTACK_ANNOUNCE)
 	e1:SetCountLimit(1)
 	e1:SetCondition(c12255007.condition)
 	e1:SetCost(c12255007.cost)
-	e1:SetTarget(c12255007.target)
 	e1:SetOperation(c12255007.activate)
 	c:RegisterEffect(e1)
 	--Limit
@@ -34,16 +32,10 @@ function c12255007.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local g=Duel.SelectReleaseGroup(tp,Card.IsSetCard,1,1,nil,0x9f)
 	Duel.Release(g,REASON_COST)
 end
-function c12255007.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	local tg=Duel.GetAttacker()
-	if chkc then return chkc==tg end
-	if chk==0 then return tg:IsOnField() and tg:IsCanBeEffectTarget(e) end
-	Duel.SetTargetCard(tg)
-end
 function c12255007.activate(e,tp,eg,ep,ev,re,r,rp)
-	Duel.NegateAttack()
-	Duel.BreakEffect()
-	Duel.SkipPhase(1-tp,PHASE_BATTLE,RESET_PHASE+PHASE_BATTLE,1)
+	if e:GetHandler():IsRelateToEffect(e) and Duel.NegateAttack() then
+		Duel.SkipPhase(1-tp,PHASE_BATTLE,RESET_PHASE+PHASE_BATTLE,1)
+	end
 end
 
 function c12255007.actcon(e,tp,eg,ep,ev,re,r,rp)
