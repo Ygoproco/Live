@@ -37,7 +37,7 @@ function c25494711.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentPhase()==PHASE_MAIN1
 end
 function c25494711.atkfil(c)
-	return c:IsFaceup() and c:IsSetCard(0xab)
+	return c:IsFaceup() and c:IsSetCard(0xab) and not c:IsCode(25494711)
 end
 function c25494711.atktg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
