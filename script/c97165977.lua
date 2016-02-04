@@ -40,7 +40,7 @@ function c97165977.initial_effect(c)
 end
 
 function c97165977.mat_filter(c)
-	return c:IsSetCard(0xdf)
+	return c:IsFusionSetCard(0xdf)
 end
 
 function c97165977.splimit(e,se,sp,st)
