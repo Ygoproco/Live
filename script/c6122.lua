@@ -45,7 +45,7 @@ function c6122.lvtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
 	Duel.SelectTarget(tp,c6112.lvfil,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil,lv)
 end
-function c6112.lvop(e,tp,eg,ep,ev,re,r,rp)
+function c6122.lvop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	local lv=e:GetLabel()
 	if tc:IsRelateToEffect(e) then
@@ -58,10 +58,10 @@ function c6112.lvop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 
-function c6112.thcon(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(c50554729.thfilter2,1,e:GetHandler(),tp,r)
+function c6122.thcon(e,tp,eg,ep,ev,re,r,rp)
+	return eg:IsExists(c6122.thfilter2,1,e:GetHandler(),tp,r)
 end
-function c6112.thfilter2(c,tp,r)
+function c6122.thfilter2(c,tp,r)
 	return c:IsType(TYPE_MONSTER) and c:IsPreviousLocation(LOCATION_ONFIELD+LOCATION_HAND) and c:GetPreviousControler()==tp
 end
 function c6122.thfil(c)
