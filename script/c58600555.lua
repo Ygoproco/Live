@@ -31,6 +31,8 @@ function c58600555.initial_effect(c)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCountLimit(1)
 	e3:SetCode(EVENT_CHANGE_POS)
+	e3:SetProperty(EFFECT_FLAG_DELAY)
+	e3:SetCondition(c58600555.condition)
 	e3:SetTarget(c58600555.target)
 	e3:SetOperation(c58600555.operation)
 	c:RegisterEffect(e3)
@@ -53,7 +55,7 @@ function c58600555.xyzcon(e,c,og)
 	if ct<1 and not og and Duel.IsExistingMatchingCard(c58600555.ovfilter,tp,LOCATION_MZONE,0,1,nil,tp,c) then
 		return true
 	end
-	return Duel.CheckXyzMaterial(c,c58600555.ovfilter2,5,2,2,og)
+	return Duel.CheckXyzMaterial(c,c58600555.ovfilter2,5,2,5,og)
 end
 function c58600555.xyzop(e,tp,eg,ep,ev,re,r,rp,c,og)
 	if og then
@@ -62,7 +64,7 @@ function c58600555.xyzop(e,tp,eg,ep,ev,re,r,rp,c,og)
 	else
 		local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 		local ct=-ft
-		local b1=Duel.CheckXyzMaterial(c,c58600555.ovfilter2,5,2,2,og)
+		local b1=Duel.CheckXyzMaterial(c,c58600555.ovfilter2,5,2,5,og)
 		local b2=ct<1 and Duel.IsExistingMatchingCard(c58600555.ovfilter,tp,LOCATION_MZONE,0,1,nil,tp,c)
 		if b2 and (not b1 or Duel.SelectYesNo(tp,aux.Stringid(58600555,0))) then
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_XMATERIAL)
@@ -75,7 +77,7 @@ function c58600555.xyzop(e,tp,eg,ep,ev,re,r,rp,c,og)
 			c:SetMaterial(mg)
 			Duel.Overlay(c,mg)
 		else
-			local mg=Duel.SelectXyzMaterial(tp,c,c58600555.ovfilter2,5,2,2)
+			local mg=Duel.SelectXyzMaterial(tp,c,c58600555.ovfilter2,5,2,5)
 			c:SetMaterial(mg)
 			Duel.Overlay(c,mg)
 		end
@@ -102,7 +104,14 @@ function c58600555.tdop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 
-
+function c58600555.posfil(c)
+	local np=c:GetPosition()
+	local pp=c:GetPreviousPosition()
+	return not c:IsStatus(STATUS_CONTINUOUS_POS) and ((np<3 and pp>3) or (pp<3 and np>3))
+end
+function c58600555.condition(e,tp,eg,ep,ev,re,r,rp)
+	return eg and eg:IsExists(c58600555.posfil,1,nil)
+end
 function c58600555.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsRace,tp,LOCATION_GRAVE,0,1,nil,RACE_INSECT) end
 end

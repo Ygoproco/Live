@@ -34,7 +34,7 @@ function c2519690.initial_effect(c)
 end
 
 function c2519690.mfilter1(c)
-	return c:IsSetCard(0xbd)
+	return c:IsFusionSetCard(0xbd)
 end
 function c2519690.mfilter2(c)
 	return c:IsRace(RACE_DRAGON)
