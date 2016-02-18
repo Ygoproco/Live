@@ -13,7 +13,7 @@ function c7004.initial_effect(c)
   local e1=Effect.CreateEffect(c)
   e1:SetCategory(CATEGORY_DESTROY+CATEGORY_TOHAND)
   e1:SetDescription(aux.Stringid(7004,0))
-  e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+  e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
   e1:SetCode(EVENT_PHASE+PHASE_END)
   e1:SetCountLimit(1)
   e1:SetRange(LOCATION_PZONE)
@@ -62,6 +62,7 @@ function c7004.thop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.SelectMatchingCard(tp,c7004.thfil,tp,LOCATION_EXTRA+LOCATION_GRAVE,0,1,1,nil)
 	if g:GetCount()>0 then
 	  Duel.SendTohand(g,tp,REASON_EFFECT)
+	  Duel.ConfirmCards(1-tp,g)
 	end
   end
 end
@@ -73,7 +74,7 @@ end
 function c7004.atkcon(e)
 	local ph=Duel.GetCurrentPhase()
 	local tp=Duel.GetTurnPlayer()
-	return tp==e:GetHandler():GetControler() and ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE
+	return tp==e:GetHandlerPlayer() and (ph==PHASE_BATTLE or ph==PHASE_DAMAGE or ph==PHASE_DAMAGE_CAL)
 end
 function c7004.atkfil(c)
 	return c:IsFaceup() and c:IsSetCard(0x9f)

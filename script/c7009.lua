@@ -37,7 +37,7 @@ function c7009.initial_effect(c)
 	e4:SetProperty(EFFECT_FLAG_DELAY)
 	e4:SetTarget(c7009.postg)
 	e4:SetOperation(c7009.posop)
-	c:RegisterEffect(e2)
+	c:RegisterEffect(e4)
 end
 
 function c7009.descon(e)
