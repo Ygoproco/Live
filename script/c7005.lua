@@ -1,13 +1,14 @@
 --Scripted by Eerie Code
 --Performapal Showdown
 function c7005.initial_effect(c)
-  local e1=Effect.CreateEffect(e1)
+  local e1=Effect.CreateEffect(c)
   e1:SetCategory(CATEGORY_POSITION)
   e1:SetType(EFFECT_TYPE_ACTIVATE)
   e1:SetCode(EVENT_FREE_CHAIN)
   e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
   e1:SetTarget(c7005.target)
   e1:SetOperation(c7005.operation)
+  c:RegisterEffect(e1)
 end
 
 function c7005.cfilter(c)
@@ -25,7 +26,7 @@ function c7005.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
   Duel.SetOperationInfo(0,CATEGORY_POSITION,g,g:GetCount(),0,0)
 end
 function c7005.operation(e,tp,eg,ep,ev,re,r,rp)
-  local tg=Duel.GetChaininfo(0,CHAININFO_TARGET_CARDS)
+  local tg=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
   local tc=tg:GetFirst()
   while tc do
 	if tc:IsRelateToEffect(e) and tc:IsFaceup() then
