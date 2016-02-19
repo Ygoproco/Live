@@ -49,7 +49,7 @@ function c7004.thcon(e,tp,eg,ep,ev,re,r,rp)
   return e:GetHandler():GetFlagEffect(7004)~=0
 end
 function c7004.thfil(c)
-  return ((c:IsLocation(LOCATION_EXTRA) and c:IsFaceup() and c:IsType(TYPE_PENDULUM)) or (c:IsLocation(LOCATION_GRAVE) and c:IsLevelAbove(7))) and c:IsAbleToHand()
+  return ((c:IsLocation(LOCATION_EXTRA) and c:IsFaceup() and c:IsType(TYPE_PENDULUM)) or (c:IsLocation(LOCATION_GRAVE))) and c:IsLevelAbove(7) and c:IsAbleToHand()
 end
 function c7004.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
   if chk==0 then return e:GetHandler():IsDestructable() and Duel.IsExistingMatchingCard(c7004.thfil,tp,LOCATION_EXTRA+LOCATION_GRAVE,0,1,nil) end
@@ -61,7 +61,7 @@ function c7004.thop(e,tp,eg,ep,ev,re,r,rp)
   if c:IsRelateToEffect(e) and Duel.Destroy(c,REASON_EFFECT)~=0 then
 	local g=Duel.SelectMatchingCard(tp,c7004.thfil,tp,LOCATION_EXTRA+LOCATION_GRAVE,0,1,1,nil)
 	if g:GetCount()>0 then
-	  Duel.SendTohand(g,tp,REASON_EFFECT)
+	  Duel.SendtoHand(g,tp,REASON_EFFECT)
 	  Duel.ConfirmCards(1-tp,g)
 	end
   end
