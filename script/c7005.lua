@@ -25,13 +25,12 @@ function c7005.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
   local g=Duel.SelectTarget(tp,c7005.filter,tp,0,LOCATION_MZONE,1,sc,nil)
   Duel.SetOperationInfo(0,CATEGORY_POSITION,g,g:GetCount(),0,0)
 end
+function c7005.filter2(c,e)
+	return c:IsFaceup() and c:IsRelateToEffect(e)
+end
 function c7005.operation(e,tp,eg,ep,ev,re,r,rp)
-  local tg=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
-  local tc=tg:GetFirst()
-  while tc do
-	if tc:IsRelateToEffect(e) and tc:IsFaceup() then
-	  Duel.ChangePosition(tc,POSITION_FACEDOWN_DEFENCE)
+  local tg=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(c7005.filter2,nil,e)
+	if tg:GetCount()>0 then
+		Duel.ChangePosition(tg,POS_FACEDOWN_DEFENCE)
 	end
-	tc=tg:GetNext()
-  end
 end
