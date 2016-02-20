@@ -28,7 +28,7 @@ end
 c7157.dark_magician_list=true
 
 function c7157.dtfil(c)
-	return c.dark_magician_list and c:IsAbleToHand()
+	return (c.dark_magician_list or c:IsCode(46986414)) and c:IsAbleToHand()
 end
 function c7157.dtop(e,tp,eg,ep,ev,re,r,rp,chk)
 	if Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)<3 or not e:GetHandler():IsRelateToEffect(e) then return end
