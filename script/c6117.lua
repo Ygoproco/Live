@@ -51,7 +51,7 @@ function c6117.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c6117.drcon(e,tp,eg,ep,ev,re,r,rp)
-	return ep~=tp and Duel.GetAttacker()==e:GetHandler() and Duel.GetAttackTarget()~=nil
+	return ep~=tp and Duel.GetAttacker()==e:GetHandler()
 end
 function c6117.drfil(c)
 	return c:IsFaceup() and c:IsSetCard(0xe1)
