@@ -63,7 +63,7 @@ function c7133.sptg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
   Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g,g:GetCount(),0,0)
 end
 function c7133.spop2(e,tp,eg,ep,ev,re,r,rp)
-  local tg=Duel.GetChaininfo(0,CHAININFO_TARGET_CARDS):Filter(Card.IsRelateToEffect,nil,e)
+  local tg=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(Card.IsRelateToEffect,nil,e)
   if tg:GetCount()>0 and Duel.GetLocationCount(tp,LOCATION_MZONE)>=tg:GetCount() then
 	Duel.SpecialSummon(tg,0,tp,tp,false,false,POS_FACEUP)
   end
