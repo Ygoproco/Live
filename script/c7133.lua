@@ -54,7 +54,7 @@ function c7133.spex(c)
 end
 function c7133.sptg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
   if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and c7133.spfil2(chkc,e,tp) end
-  if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.IsExistingTarget(c7133,tp,LOCATION_REMOVED,0,1,nil,e,tp) end
+  if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.IsExistingTarget(c7133.spfil2,tp,LOCATION_REMOVED,0,1,nil,e,tp) end
   local mt=1
   if Duel.IsExistingMatchingCard(c7133.spex,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) and not Duel.IsPlayerAffectedByEffect(tp,59822133) then mt=2 end
   local ft=math.min(mt,Duel.GetLocationCount(tp,LOCATION_MZONE))
