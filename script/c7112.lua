@@ -62,7 +62,10 @@ function c7112.operation(e,tp,eg,ep,ev,re,r,rp)
 		token:RegisterEffect(e1,true)
 		local e2=e1:Clone()
 		e2:SetCode(EFFECT_CANNOT_BE_SYNCHRO_MATERIAL)
-	  token:RegisterEffect(e2,true)
+		token:RegisterEffect(e2,true)
+		local e5=e1:Clone()
+		e5:SetCode(EFFECT_UNRELEASABLE_NONSUM)
+		token:RegisterEffect(e5,true)
 	end
 	Duel.SpecialSummonComplete()
 end

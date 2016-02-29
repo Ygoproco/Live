@@ -52,7 +52,7 @@ end
 
 function c7121.svcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=re:GetHandler()
-	return rp==tp and re:IsHasType(EFFECT_TYPE_ACTIVATE) and c:IsType(TYPE_SPELL+TYPE_TRAP) and Duel.GetTurnPlayer()~=tp and e:GetHandler():GetFlagEffect(1)>0
+	return rp==tp and re:IsActiveType(TYPE_SPELL+TYPE_TRAP) and Duel.GetTurnPlayer()~=tp and e:GetHandler():GetFlagEffect(1)>0
 end
 function c7121.costfilter(c)
 	return c:IsRace(RACE_SPELLCASTER)

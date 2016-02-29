@@ -65,7 +65,7 @@ end
 
 function c7117.spscon(e,tp,eg,ep,ev,re,r,rp)
 	local c=re:GetHandler()
-	return rp==tp and re:IsHasType(EFFECT_TYPE_ACTIVATE) and c:IsType(TYPE_SPELL+TYPE_TRAP) and Duel.GetTurnPlayer()~=tp and e:GetHandler():GetFlagEffect(7117)>0
+	return rp==tp and re:IsActiveType(TYPE_SPELL+TYPE_TRAP) and Duel.GetTurnPlayer()~=tp and e:GetHandler():GetFlagEffect(7117)>0
 end
 function c7117.spstg(e,tp,eg,ep,ev,re,r,rp,chk)
   local c=e:GetHandler()
@@ -81,11 +81,11 @@ end
 
 function c7117.spcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=re:GetHandler()
-	return rp==tp and re:IsHasType(EFFECT_TYPE_ACTIVATE) and c:IsType(TYPE_SPELL+TYPE_TRAP) and e:GetHandler():GetFlagEffect(7117+1)>0
+	return rp==tp and re:IsType(TYPE_SPELL+TYPE_TRAP) and e:GetHandler():GetFlagEffect(7117+1)>0
 end
 function c7117.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetFlagEffect(tp,7117)==0 end
-	Duel.RegisterFlagEffect(tp,7117,RESET_PHASE+PHASE_END,0,1)
+	if chk==0 then return Duel.GetFlagEffect(tp,7117+2)==0 end
+	Duel.RegisterFlagEffect(tp,7117+2,RESET_PHASE+PHASE_END,0,1)
 end
 function c7117.spfil(c,e,tp)
 	return c:IsCode(46986414) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
