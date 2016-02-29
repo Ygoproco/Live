@@ -18,12 +18,13 @@ function c7153.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,0,0)
 end
 function c7153.activate(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	if ft<1 then return end
 	local g=Duel.SelectMatchingCard(tp,c7153.filter,tp,LOCATION_HAND+LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil,e,tp)
 	if g:GetCount()>0 then
 		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
-		if ft>1 and not Duel.IsPlayerAffectedByEffect(tp,59822133) and Duel.IsPlayerCanSpecialSummon(tp,18027139,0,0x4011,0,0,1,RACE_BEAST,ATTRIBUTE_EARTH) and Duel.SelectYesNo(tp,aux.Stringid(7153,0)) then
+		if ft>1 and not Duel.IsPlayerAffectedByEffect(tp,59822133) and Duel.IsPlayerCanSpecialSummonMonster(tp,18027139,0,0x4011,0,0,1,RACE_BEAST,ATTRIBUTE_EARTH) and Duel.SelectYesNo(tp,aux.Stringid(7153,0)) then
 			Duel.BreakEffect()
 			ft=ft-1
 			for i=1,ft do
