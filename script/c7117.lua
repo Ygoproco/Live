@@ -81,7 +81,7 @@ end
 
 function c7117.spcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=re:GetHandler()
-	return rp==tp and re:IsType(TYPE_SPELL+TYPE_TRAP) and e:GetHandler():GetFlagEffect(7117+1)>0
+	return rp==tp and re:IsActiveType(TYPE_SPELL+TYPE_TRAP) and e:GetHandler():GetFlagEffect(7117+1)>0
 end
 function c7117.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetFlagEffect(tp,7117+2)==0 end
