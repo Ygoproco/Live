@@ -33,7 +33,7 @@ function c7144.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c7144.damcon(e,tp,eg,ep,ev,re,r,rp)
-	return ep~=tp and eg:GetFirst():GetBattleTarget():IsDefencePos() and eg:GetFirst():IsSetCard(0xe2)
+	return ep~=tp and eg and eg:GetFirst():GetBattleTarget():IsDefencePos() and eg:GetFirst():IsSetCard(0xe2)
 end
 function c7144.damop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(ep,ev*2)
