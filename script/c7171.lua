@@ -83,9 +83,10 @@ function c7171.sptg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 		local tc=tg:GetMaxGroup(Card.GetLevel):GetFirst()
 		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.IsExistingTarget(c7171.spfil,tp,LOCATION_GRAVE,0,1,nil,e,tp,tc)
 	end
-	e:SetLabelObject(tg:GetMaxGroup(Card.GetLevel):GetFirst())
+	local tc2=tg:GetMaxGroup(Card.GetLevel):GetFirst()
+	e:SetLabelObject(tc2)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g2=Duel.SelectTarget(tp,c7171.spfil,tp,LOCATION_GRAVE,0,1,1,nil,e,tp,tc)
+	local g2=Duel.SelectTarget(tp,c7171.spfil,tp,LOCATION_GRAVE,0,1,1,nil,e,tp,tc2)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g2,1,0,0)
 end
 
