@@ -34,7 +34,6 @@ function c65612386.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,0,0)
 end
 function c65612386.operation(e,tp,eg,ep,ev,re,r,rp)
-	if not e:GetHandler():IsRelateToEffect(e) then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local g=Duel.SelectMatchingCard(tp,c65612386.fil2,tp,LOCATION_DECK,0,1,1,nil,e:GetLabel())
 	if g:GetCount()>0 then
