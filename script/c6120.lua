@@ -8,13 +8,13 @@ function c6120.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
 	e1:SetCode(EVENT_BECOME_TARGET)
-	e1:SetRange(0xff)
+	e1:SetRange(LOCATION_PZONE)
 	e1:SetOperation(c6120.regop1)
 	c:RegisterEffect(e1)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
 	e2:SetCode(EVENT_CHAIN_SOLVED)
-	e2:SetRange(0xff)
+	e2:SetRange(LOCATION_PZONE)
 	e2:SetOperation(c6120.regop2)
 	c:RegisterEffect(e2)
 	e2:SetLabelObject(e1)
@@ -42,7 +42,7 @@ function c6120.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function c6120.regfilter(c)
-	return c:IsType(TYPE_PENDULUM) and c:IsFaceup() and c:IsSetCard(0x99)
+	return c:IsType(TYPE_PENDULUM) and c:IsType(TYPE_MONSTER) and c:IsFaceup() and c:IsSetCard(0x99)
 end
 function c6120.regop1(e,tp,eg,ep,ev,re,r,rp)
 	if rp==tp or not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) or eg:GetCount()~=1
@@ -53,14 +53,14 @@ end
 function c6120.regop2(e,tp,eg,ep,ev,re,r,rp)
 	local pe=e:GetLabelObject():GetLabelObject()
 	if pe and pe==re then
-		Duel.RegisterFlagEffect(tp,6120,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
+		e:GetHandler():RegisterFlagEffect(6120,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 	end
 end
 function c6120.penfilter(c)
 	return c:IsSetCard(0x99) and c:IsType(TYPE_PENDULUM) and c:IsFaceup() and not c:IsCode(6120) and not c:IsForbidden()
 end
 function c6120.spcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetFlagEffect(tp,6120)~=0
+	return e:GetHandler():GetFlagEffect(6120)~=0
 end
 function c6120.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
