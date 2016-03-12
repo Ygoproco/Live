@@ -42,7 +42,8 @@ end
 c63767246.xyz_number=38
 
 function c63767246.negcon(e,tp,eg,ep,ev,re,r,rp)
-	return re:IsActiveType(TYPE_SPELL) and re:IsHasType(EFFECT_TYPE_ACTIVATE) and Duel.IsChainDisablable(ev)
+	local loc=Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_LOCATION)
+	return re:IsActiveType(TYPE_SPELL) and loc==LOCATION_ONFIELD and Duel.IsChainDisablable(ev)
 end
 function c63767246.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
