@@ -25,7 +25,7 @@ function c19254117.initial_effect(c)
 end
 
 function c19254117.deffil(c)
-	return aux.nzdef(c) and c:IsPosition(POS_FACEUP_DEFENCE)
+	return aux.nzdef(c) and c:IsPosition(POS_FACEUP)
 end
 function c19254117.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c19254117.deffil(chkc) end
