@@ -60,7 +60,7 @@ function c7115.cfilter(c,tp)
 end
 function c7115.thcon2(e,tp,eg,ep,ev,re,r,rp)
   if not eg then return false end
-  return aux.exccon(e) and eg:IsExists(c7115.cfilter,nil,tp)
+  return aux.exccon(e) and eg:IsExists(c7115.cfilter,1,nil,tp)
 end
 function c7115.thtg2(e,tp,eg,ep,ev,re,r,rp,chk)
   if chk==0 then return e:GetHandler():IsAbleToHand() end
