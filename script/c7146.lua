@@ -22,7 +22,7 @@ function c7146.initial_effect(c)
 	e2:SetCondition(c7146.syncon)
 	e2:SetTarget(c7146.syntg)
 	e2:SetOperation(c7146.synop)
-	e2:SetValue(SUMMON_TYPE_SYNCHRO+0x10)
+	e2:SetValue(SUMMON_TYPE_SYNCHRO)
 	c:RegisterEffect(e2)
 	--indes
 	local e3=Effect.CreateEffect(c)
@@ -74,7 +74,7 @@ function c7146.initial_effect(c)
 	c:RegisterEffect(e7)
 end
 function c7146.matfilter1(c,syncard)
-	return c:IsType(TYPE_PENDULUM) and c:GetSummonType()==SUMMON_TYPE_PENDULUM and c:IsNotTuner() and c:IsFaceup() and c:IsCanBeSynchroMaterial(syncard)
+	return c:IsType(TYPE_PENDULUM) and bit.band(c:GetSummonType(),SUMMON_TYPE_PENDULUM)>0 and c:IsNotTuner() and c:IsFaceup() and c:IsCanBeSynchroMaterial(syncard)
 end
 function c7146.matfilter2(c,syncard)
 	return c:IsNotTuner() and c:IsFaceup() and c:IsType(TYPE_SYNCHRO) and c:IsCanBeSynchroMaterial(syncard)
@@ -156,6 +156,7 @@ function c7146.synop(e,tp,eg,ep,ev,re,r,rp,c,tuner,mg)
 	c:SetMaterial(g)
 	Duel.SendtoGrave(g,REASON_MATERIAL+REASON_SYNCHRO)
 	g:DeleteGroup()
+	c:RegisterFlagEffect(7146,RESET_EVENT+0x1fe0000,0,1)
 end
 function c7146.indcon(e,tp,eg,ep,ev,re,r,rp)
 	local a=Duel.GetAttacker()
@@ -196,7 +197,7 @@ function c7146.atkop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c7146.thcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SYNCHRO+0x10
+	return bit.band(e:GetHandler():GetSummonType(),SUMMON_TYPE_SYNCHRO)>0 and e:GetHandler():GetFlagEffect(7146)>0
 end
 function c7146.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and chkc:IsAbleToHand() end
