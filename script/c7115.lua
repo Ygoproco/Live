@@ -21,6 +21,7 @@ function c7115.initial_effect(c)
   e2:SetCategory(CATEGORY_TOHAND)
   e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
   e2:SetCode(EVENT_SPSUMMON_SUCCESS)
+  e2:SetProperty(EFFECT_FLAG_DELAY)
   e2:SetRange(LOCATION_GRAVE)
   e2:SetCountLimit(1,7115+1)
   e2:SetCondition(c7115.thcon2)
@@ -59,7 +60,7 @@ function c7115.cfilter(c,tp)
 end
 function c7115.thcon2(e,tp,eg,ep,ev,re,r,rp)
   if not eg then return false end
-  return aux.exccon(e) and eg:IsExists(c7115.cfilter,nil,tp)
+  return aux.exccon(e) and eg:IsExists(c7115.cfilter,1,nil,tp)
 end
 function c7115.thtg2(e,tp,eg,ep,ev,re,r,rp,chk)
   if chk==0 then return e:GetHandler():IsAbleToHand() end
