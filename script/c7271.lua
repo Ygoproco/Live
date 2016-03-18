@@ -53,7 +53,7 @@ function c7271.xyzfilter1(c,g)
   return g:IsExists(c7271.xyzfilter2,1,c,c)
 end
 function c7271.xyzfilter2(c,xc)
-  return c:GetRank()==xc:GetRank() and c:GetCode()==xc:GetCode()
+  return c:GetRank()==xc:GetRank() and c:IsCode(xc:GetCode())
 end
 function c7271.xyzcon(e,c,og,min,max)
   if c==nil then return true end
@@ -64,7 +64,7 @@ function c7271.xyzcon(e,c,og,min,max)
   else
 	mg=Duel.GetMatchingGroup(c7271.mfilter,tp,LOCATION_MZONE,0,nil,c)
 	end
-	return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1 and (not min or min<=2 and max>=2)   and mg:IsExists(c7271.xyzfilter1,1,nil,mg)
+	return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1 and (not min or min<=2 and max>=2) and mg:IsExists(c7271.xyzfilter1,1,nil,mg)
 end
 function c7271.xyzop(e,tp,eg,ep,ev,re,r,rp,c,og,min,max)
   local g=nil
