@@ -40,10 +40,10 @@ function c7216.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoGrave(e:GetHandler(),REASON_COST+REASON_DISCARD)
 end
 function c7216.filter(c)
-	return c:IsSetCard(0xe1) and c:IsFaceup()
+	return (c:IsSetCard(0x20a2) or c:IsSetCard(0x30a2)) and c:IsFaceup()
 end
 function c7216.cfilter(c)
-	return c:IsSetCard(0xe1) and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup())
+	return (c:IsSetCard(0x20a2) or c:IsSetCard(0x30a2)) and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup())
 end
 function c7216.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c7216.filter,tp,LOCATION_MZONE,0,1,nil) end
@@ -68,5 +68,5 @@ function c7216.operation(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c7216.indtg(e,c)
-	return c:IsSetCard(0xe1)
+	return (c:IsSetCard(0x20a2) or c:IsSetCard(0x30a2))
 end

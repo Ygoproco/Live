@@ -72,6 +72,13 @@ function c7146.initial_effect(c)
 	e7:SetTarget(c7146.pentg)
 	e7:SetOperation(c7146.penop)
 	c:RegisterEffect(e7)
+	--Check Material
+	local e0=Effect.CreateEffect(c)
+	e0:SetType(EFFECT_TYPE_SINGLE)
+	e0:SetCode(EFFECT_MATERIAL_CHECK)
+	e0:SetValue(c7146.valcheck)
+	e0:SetLabelObject(e5)
+	c:RegisterEffect(e0)
 end
 function c7146.matfilter1(c,syncard)
 	return c:IsType(TYPE_PENDULUM) and bit.band(c:GetSummonType(),SUMMON_TYPE_PENDULUM)>0 and c:IsNotTuner() and c:IsFaceup() and c:IsCanBeSynchroMaterial(syncard)
@@ -197,7 +204,7 @@ function c7146.atkop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c7146.thcon(e,tp,eg,ep,ev,re,r,rp)
-	return bit.band(e:GetHandler():GetSummonType(),SUMMON_TYPE_SYNCHRO)>0 and e:GetHandler():GetFlagEffect(7146)>0
+	return bit.band(e:GetHandler():GetSummonType(),SUMMON_TYPE_SYNCHRO)>0 and e:GetLabel()==1
 end
 function c7146.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and chkc:IsAbleToHand() end
@@ -227,5 +234,17 @@ function c7146.penop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
 		Duel.MoveToField(c,tp,tp,LOCATION_SZONE,POS_FACEUP,true)
+	end
+end
+
+function c7146.valfil(c)
+	return c:IsType(TYPE_TUNER) and c:IsType(TYPE_PENDULUM) and bit.band(c:GetSummonType(),SUMMON_TYPE_PENDULUM)>0
+end
+function c7146.valcheck(e,c)
+	local g=c:GetMaterial()
+	if not g:IsExists(Card.IsType,1,nil,TYPE_TUNER) or g:IsExists(c7146.valfil,1,nil) then
+		e:GetLabelObject():SetLabel(1)
+	else
+		e:GetLabelObject():SetLabel(0)
 	end
 end

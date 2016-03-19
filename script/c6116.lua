@@ -25,7 +25,7 @@ function c6116.initial_effect(c)
 end
 
 function c6116.thcfil(c)
-	return c:IsSetCard(0xe1) and not c:IsCode(6116)
+	return (c:IsSetCard(0x20a2) or c:IsSetCard(0x30a2)) and not c:IsCode(6116)
 end
 function c6116.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckReleaseGroup(tp,c6116.thcfil,1,nil) end

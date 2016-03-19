@@ -58,7 +58,7 @@ function c7215.regcon(e,tp,eg,ep,ev,re,r,rp)
 	return bit.band(r,REASON_EFFECT+REASON_BATTLE)~=0
 end
 function c7215.regfil(c,e)
-  return c:IsSetCard(0xe1) and c:IsAbleToHand() and c:IsCanBeEffectTarget(e)
+  return (c:IsSetCard(0x20a2) or c:IsSetCard(0x30a2)) and c:IsAbleToHand() and c:IsCanBeEffectTarget(e)
 end
 function c7215.regtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
   if chkc then return chkc~=e:GetHandler() and chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c7215.regfil(chkc,e) end
