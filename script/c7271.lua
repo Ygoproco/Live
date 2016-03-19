@@ -99,8 +99,8 @@ function c7271.xyzop(e,tp,eg,ep,ev,re,r,rp,c,og,min,max)
 end
 
 function c7271.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
-  if chk==0 then return c:CheckRemoveOverlayCard(tp,1,REASON_COST) end
-  c:RemoveOverlayCard(tp,1,1,REASON_COST)
+  if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
+  e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
 function c7271.atkop(e,tp,eg,ep,ev,re,r,rp)
   local c=e:GetHandler()
@@ -153,7 +153,7 @@ function c7271.desop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c7271.spcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetAttacker():IsControler(1-tp) and not Duel.GetAttackTarget() and Duel.GetMatchingGroupCount(nil,tp,LOCATION_HAND+LOCATION_ONFIELD,0,nil)=0
+	return Duel.GetAttacker():IsControler(1-tp) and not Duel.GetAttackTarget() and Duel.GetMatchingGroupCount(nil,tp,LOCATION_HAND+LOCATION_ONFIELD,0,nil)==0
 end
 function c7271.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 end
