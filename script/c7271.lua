@@ -31,6 +31,7 @@ function c7271.initial_effect(c)
   e3:SetCondition(c7271.descon)
   e3:SetTarget(c7271.destg)
   e3:SetOperation(c7271.desop)
+  c:RegisterEffect(e3)
   --Special Summon
   local e4=Effect.CreateEffect(c)
   e4:SetDescription(aux.Stringid(7271,2))

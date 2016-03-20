@@ -25,9 +25,13 @@ function c7216.initial_effect(c)
 	e2:SetValue(1)
 	c:RegisterEffect(e2)
 	--cannot be target
-	local e3=e2:Clone()
-	e3:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
-	e3:SetValue(aux.tgoval)
+	local e3=Effect.CreateEffect(c)
+	e3:SetType(EFFECT_TYPE_FIELD)
+	e3:SetRange(LOCATION_MZONE)
+	e3:SetProperty(EFFECT_FLAG_SET_AVAILABLE)
+	e3:SetTargetRange(0,0xff)
+	e3:SetCode(EFFECT_CANNOT_SELECT_EFFECT_TARGET)
+	e3:SetValue(c7216.tglimit)
 	c:RegisterEffect(e3)
 end
 
@@ -49,15 +53,16 @@ function c7216.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c7216.filter,tp,LOCATION_MZONE,0,1,nil) end
 end
 function c7216.operation(e,tp,eg,ep,ev,re,r,rp)
-	local tg=Duel.GetMatchingGroup(c7216.filter,tp,LOCATION_MZONE,0,nil):Filter(Card.IsRelateToEffect,nil,e)
+	local tg=Duel.GetMatchingGroup(c7216.filter,tp,LOCATION_MZONE,0,nil)
 	if tg:GetCount()==0 then return end
 	local cc=Duel.GetMatchingGroup(c7216.cfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,LOCATION_MZONE+LOCATION_GRAVE,nil):GetClassCount(Card.GetCode)
 	local tc=tg:GetFirst()
+	local atk=300*cc
 	while tc do
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_UPDATE_ATTACK)
-		e1:SetValue(300)
+		e1:SetValue(atk)
 		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
 		tc:RegisterEffect(e1)
 		local e2=e1:Clone()
@@ -68,5 +73,8 @@ function c7216.operation(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c7216.indtg(e,c)
-	return (c:IsSetCard(0x20a2) or c:IsSetCard(0x30a2))
+	return c:IsFaceup() and c:IsRace(RACE_SPELLCASTER) and c:IsLocation(LOCATION_MZONE)
+end
+function c7216.tglimit(e,re,c)
+	return c:IsFaceup() and c:IsRace(RACE_SPELLCASTER) and c:IsLocation(LOCATION_MZONE)
 end
