@@ -118,11 +118,13 @@ function c7271.atkop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c7271.descon(e,tp,eg,ep,ev,re,r,rp)
-	return not e:GetHandler():IsReaason(REASON_BATTLE)
+	return not e:GetHandler():IsReason(REASON_BATTLE)
 end
 function c7271.destg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDestructable,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) end
 	local g=Duel.GetMatchingGroup(Card.IsDestructable,tp,LOCATION_MZONE,LOCATION_MZONE,nil)
+	if chk==0 then return g:GetCount()>0
+		and Duel.IsExistingMatchingCard(c7271.setfil,tp,LOCATION_GRAVE,0,1,nil)
+		and Duel.IsExistingMatchingCard(c7271.setfil,tp,0,LOCATION_GRAVE,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0)
 end
 function c7271.setfil(c)

@@ -17,7 +17,8 @@ end
 function c7166.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToRemoveAsCost,tp,LOCATION_DECK,0,10,nil) end
 	local g=Duel.GetDecktopGroup(tp,10)
-	Duel.Remove(g,POS_FACEDOWN,REASON_EFFECT)
+	Duel.DisableShuffleCheck()
+	Duel.Remove(g,POS_FACEDOWN,REASON_COST)
 end
 function c7166.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsPlayerCanDraw(tp,2) end
