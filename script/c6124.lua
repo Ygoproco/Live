@@ -56,7 +56,7 @@ function c6124.atkop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c6124.damcon(e,tp,eg,ep,ev,re,r,rp)
-  return ep~=tp and e:GetHandler()==Duel.GetAttacker() and bit.band(e:GetHandler():GetSummonType(),SUMMON_TYPE_PENDULUM)>0
+  return ep~=tp and e:GetHandler()==Duel.GetAttacker() and bit.band(e:GetHandler():GetSummonType(),SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
 end
 function c6124.damfil(c)
   return (c:GetSequence()==6 or c:GetSequence()==7) and c:IsSetCard(0x99)
