@@ -43,7 +43,7 @@ function c7112.condition(e,tp,eg,ep,ev,re,r,rp)
   return e:GetHandler():GetPreviousLocation()==LOCATION_HAND
 end
 function c7112.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return true end
+	if chk==0 then return not Duel.IsPlayerAffectedByEffect(tp,59822133) end
 	Duel.SetOperationInfo(0,CATEGORY_TOKEN,nil,2,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,2,0,0)
 end
