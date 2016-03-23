@@ -81,7 +81,7 @@ function c7146.initial_effect(c)
 	c:RegisterEffect(e0)
 end
 function c7146.matfilter1(c,syncard)
-	return c:IsType(TYPE_PENDULUM) and bit.band(c:GetSummonType(),SUMMON_TYPE_PENDULUM)>0 and c:IsNotTuner() and c:IsFaceup() and c:IsCanBeSynchroMaterial(syncard)
+	return c:IsType(TYPE_PENDULUM) and bit.band(c:GetSummonType(),SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM and c:IsNotTuner() and c:IsFaceup() and c:IsCanBeSynchroMaterial(syncard)
 end
 function c7146.matfilter2(c,syncard)
 	return c:IsNotTuner() and c:IsFaceup() and c:IsType(TYPE_SYNCHRO) and c:IsCanBeSynchroMaterial(syncard)
@@ -204,7 +204,7 @@ function c7146.atkop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c7146.thcon(e,tp,eg,ep,ev,re,r,rp)
-	return bit.band(e:GetHandler():GetSummonType(),SUMMON_TYPE_SYNCHRO)>0 and e:GetLabel()==1
+	return bit.band(e:GetHandler():GetSummonType(),SUMMON_TYPE_SYNCHRO)==SUMMON_TYPE_SYNCHRO and e:GetLabel()==1
 end
 function c7146.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and chkc:IsAbleToHand() end
@@ -238,7 +238,7 @@ function c7146.penop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c7146.valfil(c)
-	return c:IsType(TYPE_TUNER) and c:IsType(TYPE_PENDULUM) and bit.band(c:GetSummonType(),SUMMON_TYPE_PENDULUM)>0
+	return c:IsType(TYPE_TUNER) and c:IsType(TYPE_PENDULUM) and bit.band(c:GetSummonType(),SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
 end
 function c7146.valcheck(e,c)
 	local g=c:GetMaterial()

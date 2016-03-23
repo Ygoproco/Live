@@ -56,7 +56,7 @@ function c7115.thop1(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c7115.cfilter(c,tp)
-  return c:IsControler(tp) and bit.band(c:GetSummonType(),SUMMON_TYPE_SYNCHRO)>0
+  return c:IsControler(tp) and bit.band(c:GetSummonType(),SUMMON_TYPE_SYNCHRO)==SUMMON_TYPE_SYNCHRO
 end
 function c7115.thcon2(e,tp,eg,ep,ev,re,r,rp)
   if not eg then return false end
