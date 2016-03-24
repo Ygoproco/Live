@@ -68,7 +68,7 @@ function c7253.thop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Group.FromCards(c,tc)
 	Duel.ChangePosition(g,POS_FACEUP_DEFENCE)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g1=Duel.SelectMatchingCard(tp,c7253,tp,LOCATION_DECK,0,1,1,nil)
+	local g1=Duel.SelectMatchingCard(tp,c7253.thfil,tp,LOCATION_DECK,0,1,1,nil)
 	if g1:GetCount()>0 then
 		Duel.SendtoHand(g1,tp,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,g1)
