@@ -62,7 +62,7 @@ function c7253.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c7253.thop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if not c:IsRelateToEffect(e) or not c:IsPosition(POS_FACEUP_ATTACK) then return end
+	if not c:IsPosition(POS_FACEUP_ATTACK) then return end
 	local tc=Duel.GetFirstTarget()
 	if not tc:IsRelateToEffect(e) or not tc:IsPosition(POS_FACEUP_ATTACK) then return end
 	local g=Group.FromCards(c,tc)
@@ -95,7 +95,6 @@ function c7253.rectg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_RECOVER,nil,0,tp,500)
 end
 function c7253.recop(e,tp,eg,ep,ev,re,r,rp)
-	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
 	Duel.Recover(p,d,REASON_EFFECT)
 end
