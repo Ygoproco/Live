@@ -35,7 +35,7 @@ function c7181.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
 end
 function c7181.filter(c)
-	return c:IsFaceup() and c:IsDestructable()
+	return c:IsDestructable()
 end
 function c7181.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
   if chkc then return chkc:IsOnField() and chkc:IsControler(1-tp) and c7181.filter(chkc) end
@@ -51,7 +51,7 @@ function c7181.operation(e,tp,eg,ep,ev,re,r,rp)
   end
 end
 
-function c7181.thcon(e,tp,eg,ep,ev,re,r,rp)
+function c7181.drcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	return c:IsPreviousLocation(LOCATION_MZONE) and bit.band(c:GetSummonType(),SUMMON_TYPE_SYNCHRO)==SUMMON_TYPE_SYNCHRO 
 end
