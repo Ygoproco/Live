@@ -45,7 +45,7 @@ function c62829077.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end
 	local mg=Duel.GetMatchingGroup(c62829077.filter,tp,LOCATION_GRAVE,0,nil,e,tp)
 	local exg=Duel.GetMatchingGroup(c62829077.xyzfilter,tp,LOCATION_EXTRA,0,nil,mg)
-	if chk==0 then return Duel.IsPlayerCanSpecialSummonCount(tp,2)
+	if chk==0 then return Duel.IsPlayerCanSpecialSummonCount(tp,3)
 		and not Duel.IsPlayerAffectedByEffect(tp,59822133)
 		and Duel.GetLocationCount(tp,LOCATION_MZONE)>2
 		and exg:GetCount()>0 end

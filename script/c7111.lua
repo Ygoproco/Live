@@ -24,7 +24,7 @@ function c7111.spfil(c,e,tp)
 	return c:IsSetCard(0x33) and c:IsType(TYPE_TUNER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c7111.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c7111.spfil(chkc,e,tp) end
+	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c7111.spfil(chkc,e,tp) end
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.IsExistingTarget(c7111.spfil,tp,LOCATION_GRAVE,0,1,nil,e,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	local g=Duel.SelectTarget(tp,c7111.spfil,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
