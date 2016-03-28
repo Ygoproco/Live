@@ -7,6 +7,7 @@ function c7111.initial_effect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_SUMMON_SUCCESS)
+	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetCondition(c7111.spcon)
 	e1:SetTarget(c7111.sptg)
 	e1:SetOperation(c7111.spop)
@@ -14,7 +15,7 @@ function c7111.initial_effect(c)
 end
 
 function c7111.cfilter(c)
-	return c:IsFaceup() and bit.band(c:GetSummonType(),SUMMON_TYPE_SPECIAL)>0
+	return bit.band(c:GetSummonType(),SUMMON_TYPE_SPECIAL)==SUMMON_TYPE_SPECIAL
 end
 function c7111.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c7111.cfilter,tp,0,LOCATION_MZONE,1,nil)
@@ -43,7 +44,6 @@ function c7111.spop(e,tp,eg,ep,ev,re,r,rp)
 		e2:SetCode(EFFECT_DISABLE_EFFECT)
 		e2:SetReset(RESET_EVENT+0x1fe0000)
 		tc:RegisterEffect(e2)
-		Duel.SpecialSummonComplete()
 	end
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD)
@@ -53,6 +53,7 @@ function c7111.spop(e,tp,eg,ep,ev,re,r,rp)
 	e3:SetTarget(c7111.splimit)
 	e3:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e3,tp)
+	Duel.SpecialSummonComplete()
 end
 function c7111.splimit(e,c,tp,sumtp,sumpos)
 	return not c:IsSetCard(0x33) and c:IsLocation(LOCATION_EXTRA)

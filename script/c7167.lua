@@ -37,10 +37,11 @@ function c7167.initial_effect(c)
 	e6:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e6:SetRange(LOCATION_FZONE)
 	e6:SetTargetRange(LOCATION_FZONE,0)
-	e6:SetTarget(aux.TRUE)
+	e6:SetTarget(c7167.cnfil1)
 	c:RegisterEffect(e6)
 	local e7=e6:Clone()
-	e6:SetCode(EFFECT_CANNOT_ACTIVATE)
+	e7:SetCode(EFFECT_CANNOT_ACTIVATE)
+	e7:SetTarget(c7167.cnfil2)
 	c:RegisterEffect(e7)
 end
 function c7167.condition(e,tp,eg,ep,ev,re,r,rp)
@@ -58,4 +59,11 @@ function c7167.tgoval(e,re,rp)
 end
 function c7167.tgovalue(e,re,rp)
 	return rp~=1-e:GetHandlerPlayer()
+end
+
+function c7167.cnfil1(e,re,tp)
+	return re:IsType(TYPE_FIELD)
+end
+function c7167.cnfil2(e,re,tp)
+	return re:GetHandler():IsType(TYPE_FIELD) and re:IsHasType(EFFECT_TYPE_ACTIVATE)
 end
