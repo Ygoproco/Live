@@ -69,7 +69,7 @@ function c7129.otfil(c)
 	return c:IsFaceup() and c:IsSetCard(0xe4)
 end
 function c7129.otcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(c7129.otfil,e:GetOwnerPlayer(),LOCATION_MZONE,0,1,e:GetHandler())
+	return Duel.IsExistingMatchingCard(c7129.otfil,e:GetHandlerPlayer(),LOCATION_ONFIELD,0,1,e:GetHandler())
 end
 function c7129.atkval(e,c)
 	return Duel.GetMatchingGroup(Card.IsType,c:GetControler(),LOCATION_GRAVE,0,nil,TYPE_FIELD):GetClassCount(Card.GetCode)*500
