@@ -60,7 +60,7 @@ function c7128.condition(e,tp,eg,ep,ev,re,r,rp)
 end
 function c7128.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	local tc=Duel.GetFieldCard(tp,LOCATION_SZONE,5)
-	if chk==0 then return tc and tc:IsFaceup() and tc:IsAbleToGrave() and tc:IsCanBeEffectTarget(e)
+	if chk==0 then return tc and tc:IsFaceup() and tc:IsSetCard(0xe4) and tc:IsAbleToGrave() and tc:IsCanBeEffectTarget(e)
 		and Duel.IsExistingMatchingCard(c7128.filter,tp,LOCATION_DECK,0,1,nil,tp,tc:GetCode()) end
 	Duel.SetTargetCard(tc)
 	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,tc,1,0,0)
@@ -69,7 +69,7 @@ function c7128.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc1=Duel.GetFirstTarget()
 	if tc1:IsRelateToEffect(e) and Duel.SendtoGrave(tc1,REASON_EFFECT)~=0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOFIELD)
-		local g=Duel.SelectMatchingCard(tp,c7128.filter,tp,LOCATION_DECK,0,1,1,nil,tp,tc:GetCode())
+		local g=Duel.SelectMatchingCard(tp,c7128.filter,tp,LOCATION_DECK,0,1,1,nil,tp,tc1:GetCode())
 		if g:GetCount()>0 then
 			local tc=g:GetFirst()
 			Duel.MoveToField(tc,tp,tp,LOCATION_SZONE,POS_FACEUP,true)
