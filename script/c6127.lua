@@ -21,9 +21,10 @@ function c6127.initial_effect(c)
 	e5:SetType(EFFECT_TYPE_QUICK_O)
 	e5:SetCode(EVENT_FREE_CHAIN)
 	e5:SetRange(LOCATION_MZONE)
+	e5:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
+	e5:SetHintTiming(TIMING_DAMAGE_STEP)
 	e5:SetCountLimit(1)
 	e5:SetCondition(c6127.atkcon)
-	e5:SetTarget(c6127.atktg)
 	e5:SetOperation(c6127.atkop)
 	c:RegisterEffect(e5)
 end
@@ -47,19 +48,18 @@ function c6127.atkcfil(c,tid)
   return c:IsType(TYPE_MONSTER) and c:GetTurnId()==tid and not c:IsReason(REASON_RETURN)
 end
 function c6127.atkcon(e,tp,eg,ep,ev,re,r,rp)
-  return Duel.IsExistingMatchingCard(c6127.atkcfil,tp,LOCATION_GRAVE,0,1,nil,Duel.GetTurnCount())
-end
-function c6127.atktg(e,tp,eg,ep,ev,re,r,rp,chk)
-  if chk==0 then return Duel.IsExistingMatchingCard(Card.IsType,tp,LOCATION_GRAVE,0,1,nil,TYPE_MONSTER) end
+  return (Duel.GetCurrentPhase()~=PHASE_DAMAGE or not Duel.IsDamageCalculated()) and Duel.IsExistingMatchingCard(c6127.atkcfil,tp,LOCATION_GRAVE,0,1,nil,Duel.GetTurnCount())
 end
 function c6127.atkop(e,tp,eg,ep,ev,re,r,rp)
   local c=e:GetHandler()
-  local mc=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_GRAVE,0,nil,TYPE_MONSTER):GetClassCount(Card.GetCode)
-  if not c:IsLocation(LOCATION_MZONE) or not c:IsFaceup() or mc==0 then return end
-  local e1=Effect.CreateEffect(c)
-  e1:SetType(EFFECT_TYPE_SINGLE)
-  e1:SetCode(EFFECT_UPDATE_ATTACK)
-  e1:SetValue(200*mc)
-  e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-  c:RegisterEffect(e1)
+  local g=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_GRAVE,0,nil,TYPE_MONSTER)
+  local val=g:GetClassCount(Card.GetCode)*200
+  if c:IsFaceup() and c:IsRelateToEffect(e) then
+		local e1=Effect.CreateEffect(c)
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_UPDATE_ATTACK)
+		e1:SetValue(val)
+		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+		c:RegisterEffect(e1)
+	end
 end
