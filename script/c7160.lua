@@ -56,7 +56,7 @@ function c7160.op(e,tp,eg,ep,ev,re,r,rp)
 	  Duel.RegisterEffect(e3,tp)
   end
   if mc>=3 then
-	local e4=Effect.CreateEffect(c)
+	local e4=Effect.GlobalEffect()
 	  e4:SetType(EFFECT_TYPE_FIELD)
 	  e4:SetCode(EFFECT_IMMUNE_EFFECT)
 	  e4:SetTargetRange(LOCATION_MZONE,0)
