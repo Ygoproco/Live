@@ -22,7 +22,7 @@ function c7213.spfil(c,e,tp)
 end
 function c7213.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.IsExistingMatchingCard(c7213.spfil,tp,LOCATION_HAND+LOCATION_DECK+LOCATION_GRAVE,0,1,e:GetHandler(),e,tp) end
-	Duel.SpecialSummon(0,CATEGORY_SPECIAL_SUMMON,nil,1,0,0)
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,0,0)
 end
 function c7213.spop(e,tp,eg,ep,ev,re,r,rp)
 	local lc=Duel.GetLocationCount(tp,LOCATION_MZONE)

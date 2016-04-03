@@ -72,11 +72,11 @@ function c46613515.atkop(e,tp,eg,ep,ev,re,r,rp)
 		if tc:IsCanBeSpecialSummoned(e,0,tp,false,false) and Duel.SelectYesNo(tp,aux.Stringid(46613515,2)) then
 			if Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP) then
 				local a=Duel.GetAttacker()
-				if a:IsAttackable() and not a:IsImmuneToEffect(e) then		  
+				if a:IsAttackable() and not a:IsImmuneToEffect(e) then		
 					Duel.CalculateDamage(a,tc)
 				end
 			end
 		end 
 	end
-	Duel.ShuffleHand()
+	Duel.ShuffleHand(tp)
 end
