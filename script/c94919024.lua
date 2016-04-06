@@ -1,11 +1,10 @@
---Scripted by Eerie Code
---Lunalight Crimson Fox
+--月光紅狐
 function c94919024.initial_effect(c)
 	--ATK to 0
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(94919024,0))
 	e1:SetCategory(CATEGORY_ATKCHANGE)
-	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
+	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY+EFFECT_FLAG_CARD_TARGET)
 	e1:SetCode(EVENT_TO_GRAVE)
 	e1:SetCondition(c94919024.atkcon)
@@ -19,6 +18,7 @@ function c94919024.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_CHAINING)
 	e2:SetRange(LOCATION_GRAVE)
+	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DAMAGE_CAL)
 	e2:SetCondition(c94919024.condition)
 	e2:SetCost(c94919024.cost)
 	e2:SetTarget(c94919024.target)
@@ -46,14 +46,14 @@ function c94919024.atkop(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterEffect(e1)
 	end
 end
-
 function c94919024.filter(c,tp)
-	return c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsSetCard(0xdf)
+	return c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsFaceup() and c:IsSetCard(0xdf)
 end
 function c94919024.condition(e,tp,eg,ep,ev,re,r,rp)
 	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return false end
 	local g=Duel.GetChainInfo(ev,CHAININFO_TARGET_CARDS)
-	return g and g:IsExists(c94919024.filter,1,nil,tp) and Duel.IsChainDisablable(ev)
+	return g and g:IsExists(c94919024.filter,1,nil,tp)
+		and Duel.IsChainNegatable(ev)
 end
 function c94919024.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost() end
