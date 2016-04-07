@@ -112,7 +112,7 @@ function c7176.op(e,tp,eg,ep,ev,re,r,rp)
 		end
 	else
 	  local tg=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(Card.IsRelateToEffect,nil,e)
-	  if tg:GetCount()>0 and tg:SendtoDeck(tg,nil,2,REASON_EFFECT)>0 then
+	  if tg:GetCount()>0 and Duel.SendtoDeck(tg,nil,2,REASON_EFFECT)>0 then
 		Duel.ShuffleDeck(tp)
 		Duel.BreakEffect()
 		Duel.Draw(tp,1,REASON_EFFECT)
