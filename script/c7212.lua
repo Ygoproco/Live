@@ -15,7 +15,7 @@ function c7212.initial_effect(c)
 end
 
 function c7212.cfilter(c)
-	return c:IsFacedown() or not c:IsSetCard(0x70)
+	return c:IsFacedown() or not c:IsRace(RACE_ROCK)
 end
 function c7212.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)>0
