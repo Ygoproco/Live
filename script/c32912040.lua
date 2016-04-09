@@ -28,7 +28,7 @@ function c32912040.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c32912040.costfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0xe4) and c:IsAbleToGraveAsCost()
+	return c:IsFaceup() and c:IsSetCard(0xe2) and c:IsAbleToGraveAsCost()
 end
 function c32912040.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c32912040.costfilter,tp,LOCATION_ONFIELD,0,1,nil) end
@@ -53,14 +53,14 @@ function c32912040.desop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c32912040.filter(c,tp,code)
-	return c:IsType(TYPE_FIELD) and c:IsSetCard(0xe4) and c:GetActivateEffect():IsActivatable(tp) and not c:IsCode(code)
+	return c:IsType(TYPE_FIELD) and c:IsSetCard(0xe2) and c:GetActivateEffect():IsActivatable(tp) and not c:IsCode(code)
 end
 function c32912040.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()~=tp
 end
 function c32912040.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	local tc=Duel.GetFieldCard(tp,LOCATION_SZONE,5)
-	if chk==0 then return tc and tc:IsFaceup() and tc:IsSetCard(0xe4) and tc:IsAbleToGrave() and tc:IsCanBeEffectTarget(e)
+	if chk==0 then return tc and tc:IsFaceup() and tc:IsSetCard(0xe2) and tc:IsAbleToGrave() and tc:IsCanBeEffectTarget(e)
 		and Duel.IsExistingMatchingCard(c32912040.filter,tp,LOCATION_DECK,0,1,nil,tp,tc:GetCode()) end
 	Duel.SetTargetCard(tc)
 	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,tc,1,0,0)

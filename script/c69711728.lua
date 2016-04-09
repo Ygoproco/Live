@@ -38,7 +38,7 @@ function c69711728.filter(c)
 	return c:IsType(TYPE_FUSION) and c:GetSummonType()==SUMMON_TYPE_FUSION
 end
 function c69711728.spfil(c,e,tp,tc)
-	return c:IsSetCard(0xe2) and c:GetLevel()<tc:GetLevel() and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xe1) and c:GetLevel()<tc:GetLevel() and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c69711728.sptg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c69711728.spfil(chkc,e,tp,e:GetLabelObject()) end
@@ -92,7 +92,7 @@ function c69711728.sptg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 
 function c69711728.thfil(c)
-	return c:IsSetCard(0xe2) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(0xe1) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function c69711728.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD) and Duel.IsExistingMatchingCard(c69711728.thfil,tp,LOCATION_DECK,0,1,nil) end

@@ -44,11 +44,11 @@ end
 
 function c68406755.splimit(e,se,sp,st)
 	local sc=se:GetHandler()
-	return sc:IsSetCard(0xe4)
+	return sc:IsSetCard(0xe2)
 end
 
 function c68406755.filter(c,tp)
-	return c:IsReason(REASON_BATTLE+REASON_EFFECT) and c:IsSetCard(0xe4) and c:GetPreviousControler()==tp and c:IsPreviousLocation(LOCATION_MZONE) and c:IsPreviousPosition(POS_FACEUP) and not c:IsCode(68406755)
+	return c:IsReason(REASON_BATTLE+REASON_EFFECT) and c:IsSetCard(0xe2) and c:GetPreviousControler()==tp and c:IsPreviousLocation(LOCATION_MZONE) and c:IsPreviousPosition(POS_FACEUP) and not c:IsCode(68406755)
 end
 function c68406755.condition(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c68406755.filter,1,nil,tp)
@@ -66,7 +66,7 @@ function c68406755.operation(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c68406755.otfil(c)
-	return c:IsFaceup() and c:IsSetCard(0xe4)
+	return c:IsFaceup() and c:IsSetCard(0xe2)
 end
 function c68406755.otcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c68406755.otfil,e:GetHandlerPlayer(),LOCATION_ONFIELD,0,1,e:GetHandler())

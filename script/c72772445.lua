@@ -39,7 +39,7 @@ function c72772445.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function c72772445.actfilter(c,tp)
-	return c and c:IsSetCard(0xe4) and c:IsType(TYPE_MONSTER) and c:IsControler(tp)
+	return c and c:IsSetCard(0xe2) and c:IsType(TYPE_MONSTER) and c:IsControler(tp)
 end
 function c72772445.aclimit(e,re,tp)
 	return (re:IsHasType(EFFECT_TYPE_ACTIVATE) or re:IsActiveType(TYPE_MONSTER)) and not re:GetHandler():IsImmuneToEffect(e)
@@ -53,7 +53,7 @@ function c72772445.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_ONFIELD) and c:GetPreviousSequence()==5 and c:IsPreviousPosition(POS_FACEUP)
 end
 function c72772445.spfilter(c,e,tp)
-	return c:IsSetCard(0xe4) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xe2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c72772445.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

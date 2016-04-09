@@ -35,7 +35,7 @@ function c6117.atcon(e)
 end
 
 function c6117.spfil(c,e,tp)
-	return c:IsSetCard(0xe1) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xe4) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c6117.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.IsExistingMatchingCard(c6117.spfil,tp,LOCATION_HAND,0,1,nil,e,tp) end
@@ -54,7 +54,7 @@ function c6117.drcon(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp and Duel.GetAttacker()==e:GetHandler()
 end
 function c6117.drfil(c)
-	return c:IsFaceup() and c:IsSetCard(0xe1)
+	return c:IsFaceup() and c:IsSetCard(0xe4)
 end
 function c6117.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsPlayerCanDraw(tp,1) end

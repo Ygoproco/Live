@@ -58,7 +58,7 @@ function c6127.clear(e,tp,eg,ep,ev,re,r,rp)
 	c6127[1]=false
 end
 function c6127.tgfilter(c)
-	return c:IsSetCard(0xe5) and c:IsAbleToGrave()
+	return c:IsSetCard(0xe3) and c:IsAbleToGrave()
 end
 function c6127.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c6127.tgfilter,tp,LOCATION_DECK,0,1,nil) end

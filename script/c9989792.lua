@@ -39,7 +39,7 @@ function c9989792.initial_effect(c)
 end
 
 function c9989792.indes(e,c)
-	return c:IsSetCard(0xe4) and c:IsFaceup()
+	return c:IsSetCard(0xe2) and c:IsFaceup()
 end
 
 function c9989792.thcon(e,tp,eg,ep,ev,re,r,rp)
@@ -47,7 +47,7 @@ function c9989792.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_ONFIELD) and c:GetPreviousSequence()==5 and c:IsPreviousPosition(POS_FACEUP)
 end
 function c9989792.thfil(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xe4) and c:IsAbleToHand()
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xe2) and c:IsAbleToHand()
 end
 function c9989792.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c9989792.thfil(chkc) end

@@ -4,14 +4,14 @@
 function c28016193.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()
-	aux.AddFusionProcFunRep(c,aux.FilterBoolFunction(Card.IsFusionSetCard,0xe2),2,true)
+	aux.AddFusionProcFunRep(c,aux.FilterBoolFunction(Card.IsFusionSetCard,0xe1),2,true)
 	--pierce
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_PIERCE)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetTargetRange(LOCATION_MZONE,0)
-	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0xe2))
+	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0xe1))
 	c:RegisterEffect(e1)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
@@ -33,7 +33,7 @@ function c28016193.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c28016193.damcon(e,tp,eg,ep,ev,re,r,rp)
-	return ep~=tp and eg and eg:GetFirst():GetBattleTarget() and eg:GetFirst():GetBattleTarget():IsDefencePos() and eg:GetFirst():IsSetCard(0xe2)
+	return ep~=tp and eg and eg:GetFirst():GetBattleTarget() and eg:GetFirst():GetBattleTarget():IsDefencePos() and eg:GetFirst():IsSetCard(0xe1)
 end
 function c28016193.damop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(ep,ev*2)

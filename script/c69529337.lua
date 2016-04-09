@@ -27,7 +27,7 @@ function c69529337.initial_effect(c)
 end
 
 function c69529337.tdfil(c)
-  return c:IsSetCard(0xe4) and c:IsAbleToDeck()
+  return c:IsSetCard(0xe2) and c:IsAbleToDeck()
 end
 function c69529337.tdafil(c,e)
   return c:IsFaceup() and c:IsRace(RACE_ROCK) and not c:IsImmuneToEffect(e)
@@ -61,14 +61,14 @@ function c69529337.tdop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c69529337.filter(c,tp,code)
-	return c:IsType(TYPE_FIELD) and c:IsSetCard(0xe4) and c:GetActivateEffect():IsActivatable(tp) and not c:IsCode(code)
+	return c:IsType(TYPE_FIELD) and c:IsSetCard(0xe2) and c:GetActivateEffect():IsActivatable(tp) and not c:IsCode(code)
 end
 function c69529337.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()~=tp
 end
 function c69529337.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	local tc=Duel.GetFieldCard(tp,LOCATION_SZONE,5)
-	if chk==0 then return tc and tc:IsFaceup() and tc:IsSetCard(0xe4) and tc:IsAbleToGrave() and tc:IsCanBeEffectTarget(e)
+	if chk==0 then return tc and tc:IsFaceup() and tc:IsSetCard(0xe2) and tc:IsAbleToGrave() and tc:IsCanBeEffectTarget(e)
 		and Duel.IsExistingMatchingCard(c69529337.filter,tp,LOCATION_DECK,0,1,nil,tp,tc:GetCode()) end
 	Duel.SetTargetCard(tc)
 	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,tc,1,0,0)
