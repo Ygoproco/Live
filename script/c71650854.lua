@@ -1,6 +1,4 @@
 --半魔導帯域
---Semi Spell Zone
---Script by dest
 function c71650854.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -36,12 +34,16 @@ function c71650854.initial_effect(c)
 	e6:SetCode(EFFECT_CANNOT_SSET)
 	e6:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e6:SetRange(LOCATION_FZONE)
-	e6:SetTargetRange(LOCATION_FZONE,0)
-	e6:SetTarget(c71650854.cnfil1)
+	e6:SetTargetRange(1,0)
+	e6:SetTarget(c71650854.efilter1)
 	c:RegisterEffect(e6)
-	local e7=e6:Clone()
+	local e7=Effect.CreateEffect(c)
+	e7:SetType(EFFECT_TYPE_FIELD)
 	e7:SetCode(EFFECT_CANNOT_ACTIVATE)
-	e7:SetTarget(c71650854.cnfil2)
+	e7:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e7:SetRange(LOCATION_FZONE)
+	e7:SetTargetRange(1,0)
+	e7:SetValue(c71650854.efilter2)
 	c:RegisterEffect(e7)
 end
 function c71650854.condition(e,tp,eg,ep,ev,re,r,rp)
@@ -60,10 +62,9 @@ end
 function c71650854.tgovalue(e,re,rp)
 	return rp~=1-e:GetHandlerPlayer()
 end
-
-function c71650854.cnfil1(e,re,tp)
+function c71650854.efilter1(e,re,tp)
 	return re:IsType(TYPE_FIELD)
 end
-function c71650854.cnfil2(e,re,tp)
+function c71650854.efilter2(e,re,tp)
 	return re:GetHandler():IsType(TYPE_FIELD) and re:IsHasType(EFFECT_TYPE_ACTIVATE)
 end

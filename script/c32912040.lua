@@ -1,6 +1,4 @@
 --トラミッド・マスター
---Tramid Master
---Script by mercury233
 function c32912040.initial_effect(c)
 	--destroy
 	local e1=Effect.CreateEffect(c)
@@ -40,8 +38,8 @@ function c32912040.desfilter(c)
 	return c:IsFacedown() and c:IsDestructable()
 end
 function c32912040.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_ONFIELD) and c32912040.filter2(chkc) end
-	if chk==0 then return Duel.IsExistingMatchingCard(c32912040.desfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end
+	if chkc then return chkc:IsOnField() and c32912040.desfilter(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(c32912040.desfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
 	local g=Duel.SelectTarget(tp,c32912040.desfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
@@ -58,18 +56,19 @@ end
 function c32912040.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()~=tp
 end
-function c32912040.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function c32912040.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local tc=Duel.GetFieldCard(tp,LOCATION_SZONE,5)
+	if chkc then return false end
 	if chk==0 then return tc and tc:IsFaceup() and tc:IsSetCard(0xe2) and tc:IsAbleToGrave() and tc:IsCanBeEffectTarget(e)
 		and Duel.IsExistingMatchingCard(c32912040.filter,tp,LOCATION_DECK,0,1,nil,tp,tc:GetCode()) end
 	Duel.SetTargetCard(tc)
 	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,tc,1,0,0)
 end
 function c32912040.operation(e,tp,eg,ep,ev,re,r,rp)
-	local tc1=Duel.GetFirstTarget()
-	if tc1:IsRelateToEffect(e) and Duel.SendtoGrave(tc1,REASON_EFFECT)~=0 then
+	local tc=Duel.GetFirstTarget()
+	if tc:IsRelateToEffect(e) and Duel.SendtoGrave(tc,REASON_EFFECT)~=0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOFIELD)
-		local g=Duel.SelectMatchingCard(tp,c32912040.filter,tp,LOCATION_DECK,0,1,1,nil,tp,tc1:GetCode())
+		local g=Duel.SelectMatchingCard(tp,c32912040.filter,tp,LOCATION_DECK,0,1,1,nil,tp,tc:GetCode())
 		if g:GetCount()>0 then
 			local tc=g:GetFirst()
 			Duel.MoveToField(tc,tp,tp,LOCATION_SZONE,POS_FACEUP,true)
