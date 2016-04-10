@@ -1,14 +1,15 @@
---Scripted by Eerie Code
---Dark Magic Circle
+--黒の魔導陣
 function c47222536.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
+	e1:SetCategory(CATEGORY_TOHAND)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetCountLimit(1,47222536)
-	e1:SetOperation(c47222536.dtop)
+	e1:SetTarget(c47222536.target)
+	e1:SetOperation(c47222536.activate)
 	c:RegisterEffect(e1)
-	--Banish
+	--remove
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(47222536,1))
 	e2:SetCategory(CATEGORY_REMOVE)
@@ -16,7 +17,7 @@ function c47222536.initial_effect(c)
 	e2:SetCode(EVENT_SUMMON_SUCCESS)
 	e2:SetRange(LOCATION_SZONE)
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
-	e2:SetCountLimit(1,47222536+1)
+	e2:SetCountLimit(1,47222538)
 	e2:SetCondition(c47222536.rmcon)
 	e2:SetTarget(c47222536.rmtg)
 	e2:SetOperation(c47222536.rmop)
@@ -26,17 +27,20 @@ function c47222536.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 c47222536.dark_magician_list=true
-
-function c47222536.dtfil(c)
+function c47222536.target(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetFieldGroupCount(tp,0,LOCATION_DECK)>2 end
+end
+function c47222536.filter(c)
 	return (c.dark_magician_list or c:IsCode(46986414)) and c:IsAbleToHand()
 end
-function c47222536.dtop(e,tp,eg,ep,ev,re,r,rp,chk)
-	if Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)<3 or not e:GetHandler():IsRelateToEffect(e) then return end
+function c47222536.activate(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
+	if Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)<3 then return end
 	local g=Duel.GetDecktopGroup(tp,3)
 	Duel.ConfirmCards(tp,g)
-	if g:IsExists(c47222536.dtfil,1,nil) and Duel.SelectYesNo(tp,aux.Stringid(47222536,0)) then
+	if g:IsExists(c47222536.filter,1,nil) and Duel.SelectYesNo(tp,aux.Stringid(47222536,0)) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-		local sg=g:FilterSelect(tp,c47222536.dtfil,1,1,nil)
+		local sg=g:FilterSelect(tp,c47222536.filter,1,1,nil)
 		Duel.DisableShuffleCheck()
 		Duel.SendtoHand(sg,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,sg)
@@ -44,7 +48,6 @@ function c47222536.dtop(e,tp,eg,ep,ev,re,r,rp,chk)
 		Duel.SortDecktop(tp,tp,2)
 	else Duel.SortDecktop(tp,tp,3) end
 end
-
 function c47222536.cfilter(c,tp)
 	return c:IsCode(46986414) and c:IsControler(tp)
 end
@@ -59,8 +62,9 @@ function c47222536.rmtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,1,0,0)
 end
 function c47222536.rmop(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) and e:GetHandler():IsRelateToEffect(e) then
+	if tc:IsRelateToEffect(e) then
 		Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
 	end
 end
