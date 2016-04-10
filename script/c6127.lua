@@ -28,37 +28,28 @@ function c6127.initial_effect(c)
 	e3:SetTarget(c6127.target)
 	e3:SetOperation(c6127.operation)
 	c:RegisterEffect(e3)
-	if not c6127.global_check then
-		c6127.global_check=true
-		c6127[0]=false
-		c6127[1]=false
-		local ge1=Effect.CreateEffect(c)
-		ge1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		ge1:SetCode(EVENT_TO_GRAVE)
-		ge1:SetOperation(c6127.checkop)
-		Duel.RegisterEffect(ge1,0)
-		local ge2=Effect.CreateEffect(c)
-		ge2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		ge2:SetCode(EVENT_PHASE_START+PHASE_DRAW)
-		ge2:SetOperation(c6127.clear)
-		Duel.RegisterEffect(ge2,0)
-	end
+	local e4=Effect.CreateEffect(c)
+	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e4:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+	e4:SetRange(LOCATION_MZONE)
+	e4:SetCode(EVENT_TO_GRAVE)
+	e4:SetCondition(c6127.regcon)
+	e4:SetOperation(c6127.regop)
+	c:RegisterEffect(e4)
 end
-function c6127.checkop(e,tp,eg,ep,ev,re,r,rp)
-	local tc=eg:GetFirst()
-	while tc do
-		if not tc:IsReason(REASON_RETURN) then
-			c6127[tc:GetControler()]=true
-		end
-		tc=eg:GetNext()
-	end
+
+function c6127.rfilter(c,tp)
+	return c:IsControler(tp) and c:IsType(TYPE_MONSTER) and not c:IsReason(REASON_RETURN)
 end
-function c6127.clear(e,tp,eg,ep,ev,re,r,rp)
-	c6127[0]=false
-	c6127[1]=false
+function c6127.regcon(e,tp,eg,ep,ev,re,r,rp)
+	return eg:IsExists(c6127.rfilter,1,nil,tp)
 end
+function c6127.regop(e,tp,eg,ep,ev,re,r,rp)
+	e:GetHandler():RegisterFlagEffect(6127,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
+end
+
 function c6127.tgfilter(c)
-	return c:IsSetCard(0xe5) and c:IsAbleToGrave()
+	return c:IsSetCard(0xe3) and c:IsAbleToGrave()
 end
 function c6127.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c6127.tgfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -71,11 +62,12 @@ function c6127.tgop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoGrave(g,REASON_EFFECT)
 	end
 end
+
 function c6127.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentPhase()~=PHASE_DAMAGE or not Duel.IsDamageCalculated()
 end
 function c6127.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return c6127[tp] end
+	if chk==0 then return e:GetHandler():GetFlagEffect(6127)>0 end
 end
 function c6127.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
