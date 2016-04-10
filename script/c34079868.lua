@@ -75,7 +75,8 @@ function c34079868.disop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c34079868.condition(e,tp,eg,ep,ev,re,r,rp)
-	return rp~=tp and e:GetHandler():GetPreviousControler()==tp and c:IsPreviousLocation(LOCATION_ONFIELD)
+	local c=e:GetHandler()
+	return rp~=tp and c:GetPreviousControler()==tp and c:IsPreviousLocation(LOCATION_ONFIELD)
 end
 function c34079868.spfilter(c,e,tp,set)
 	return c:IsSetCard(set) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)

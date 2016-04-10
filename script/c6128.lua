@@ -31,7 +31,7 @@ function c6128.drcfilter(c)
 	return c:IsRace(RACE_SPELLCASTER) and c:IsDiscardable()
 end
 function c6128.drcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c85374678.drcfilter,tp,LOCATION_HAND,0,1,nil) end
+	if chk==0 then return Duel.IsExistingMatchingCard(c6128.drcfilter,tp,LOCATION_HAND,0,1,nil) end
 	Duel.DiscardHand(tp,c6128.drcfilter,1,1,REASON_DISCARD+REASON_COST)
 end
 function c6128.drtg(e,tp,eg,ep,ev,re,r,rp,chk)

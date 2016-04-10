@@ -1,7 +1,7 @@
 --放電ムスタンガン
 function c29951323.initial_effect(c)
 	c:EnableUnsummonable()
-	--splimit
+	--spsummon condition
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
@@ -38,11 +38,11 @@ end
 function c29951323.valcon(e,re,r,rp)
 	return bit.band(r,REASON_BATTLE)~=0
 end
-function c29951323.spcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetTurnPlayer()==tp 
-		and Duel.GetActivityCount(tp,ACTIVITY_SPSUMMON)>=Duel.GetActivityCount(tp,ACTIVITY_ATTACK)
+function c29951323.spcon(e)
+	local tp=e:GetHandlerPlayer()
+	return Duel.GetTurnPlayer()==tp and Duel.GetActivityCount(tp,ACTIVITY_SPSUMMON)>=Duel.GetActivityCount(tp,ACTIVITY_ATTACK)
 end
-function c29951323.spcon2(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetTurnPlayer()~=tp 
-		and Duel.GetActivityCount(1-tp,ACTIVITY_SPSUMMON)>=Duel.GetActivityCount(1-tp,ACTIVITY_ATTACK)
+function c29951323.spcon2(e)
+	local tp=e:GetHandlerPlayer()
+	return Duel.GetTurnPlayer()~=tp and Duel.GetActivityCount(1-tp,ACTIVITY_SPSUMMON)>=Duel.GetActivityCount(1-tp,ACTIVITY_ATTACK)
 end
