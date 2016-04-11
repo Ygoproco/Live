@@ -69,7 +69,6 @@ function c96746083.spop(e,tp,eg,ep,ev,re,r,rp)
 		local g=Duel.GetMatchingGroup(c96746083.rmfilter,tp,0,LOCATION_MZONE+LOCATION_GRAVE,nil,tp)
 		if g1:FilterCount(Card.IsAttribute,nil,ATTRIBUTE_FIRE)==2 and g:GetCount()>0
 			and Duel.SelectYesNo(tp,aux.Stringid(96746083,0)) then
-			Duel.BreakEffect()
 			local g=Duel.SelectMatchingCard(tp,c96746083.rmfilter,tp,0,LOCATION_MZONE+LOCATION_GRAVE,1,1,nil,tp)
 			Duel.HintSelection(g)
 			Duel.Remove(g,POS_FACEUP,REASON_EFFECT)
