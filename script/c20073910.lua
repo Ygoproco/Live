@@ -80,9 +80,9 @@ function c20073910.sprtop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c20073910.condition(e,tp,eg,ep,ev,re,r,rp)
-	if rp==tp or not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return false end
-	local tg=Duel.GetChainInfo(ev,CHAININFO_TARGET_CARDS)
-	return tg:IsContains(e:GetHandler()) and e:GetHandler():IsFacedown()
+	if not re or not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return false end
+	local g=Duel.GetChainInfo(ev,CHAININFO_TARGET_CARDS)
+	return g and g:IsContains(e:GetHandler()) and e:GetHandler():IsFacedown() and tp~=rp
 end
 function c20073910.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
