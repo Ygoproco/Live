@@ -30,12 +30,12 @@ function c7232.initial_effect(c)
 end
 
 function c7232.damtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetAttackTarget()~=nil and Duel.GetLocationCount(tp,LOCATION_SZONE)>0 end
+	if chk==0 then return e:GetHandler():IsRelateToBattle() and Duel.GetAttackTarget()~=nil and Duel.GetLocationCount(tp,LOCATION_SZONE)>0 end
 end
 function c7232.damop(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	local bc=c:GetBattleTarget()
-	if not c:IsRelateToEffect(e) or not bc or bc:IsFacedown() then return end
+	if not c:IsRelateToBattle() or not bc or not bc:IsRelateToBattle() then return end
 	if Duel.GetLocationCount(tp,LOCATION_SZONE)<1 then return end
 	Duel.MoveToField(c,tp,tp,LOCATION_SZONE,POS_FACEUP,true)
 	local e1=Effect.CreateEffect(c)
