@@ -64,12 +64,13 @@ function c6128.spop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.BreakEffect()
 	if at:IsAttackable() and not at:IsImmuneToEffect(e) and not tc:IsImmuneToEffect(e) then
 		local atk=at:GetAttack()/2
+		Duel.ChangeAttackTarget(tc)
 		local e2=Effect.CreateEffect(c)
 		e2:SetType(EFFECT_TYPE_SINGLE)
 		e2:SetCode(EFFECT_SET_ATTACK_FINAL)
 		e2:SetValue(atk)
 		e2:SetReset(RESET_EVENT+0x1fe0000)
 		at:RegisterEffect(e2,true)
-		Duel.CalculateDamage(at,tc)
+		--Duel.CalculateDamage(at,tc)
 	end
 end
