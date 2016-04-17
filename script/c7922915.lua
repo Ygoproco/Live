@@ -47,9 +47,10 @@ function c7922915.activate(e,tp,eg,ep,ev,re,r,rp)
 	else
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		local g1=Duel.SelectMatchingCard(tp,c7922915.filter,tp,LOCATION_HAND,0,1,1,nil,e,tp)
-		if g1:GetCount()>0 then
-			Duel.SpecialSummon(g1,0,tp,tp,false,false,POS_FACEUP)
-		end
+		--if g1:GetCount()>0 then
+			--Duel.SpecialSummon(g1,0,tp,tp,false,false,POS_FACEUP)
+		--end
+		if g1:GetCount()==0 or Duel.SpecialSummon(g1,0,tp,tp,false,false,POS_FACEUP)==0 then return end
 		Duel.BreakEffect()
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		local g2=Duel.SelectMatchingCard(tp,c7922915.filter2,tp,LOCATION_DECK,0,1,1,nil,e,tp)
