@@ -57,8 +57,7 @@ function c6129.atkcon(e)
 	local c=e:GetHandler()
 	local ph=Duel.GetCurrentPhase()
 	local bc=c:GetBattleTarget()
-	return (ph==PHASE_DAMAGE or ph==PHASE_DAMAGE_CAL)
-		and c:IsRelateToBattle() and bc and bc:IsFaceup() and bc:IsAttribute(ATTRIBUTE_DARK)
+	return (ph==PHASE_DAMAGE or ph==PHASE_DAMAGE_CAL) and bc and bc:IsFaceup() and bc:IsAttribute(ATTRIBUTE_DARK)
 end
 function c6129.atkval(e,c)
   return e:GetHandler():GetAttack()*2
