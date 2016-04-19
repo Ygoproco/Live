@@ -47,7 +47,7 @@ function c7263.filter(c)
 	return c:IsFaceup() and c:IsType(TYPE_RITUAL)
 end
 function c7263.atktg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c67136033.filter,tp,LOCATION_MZONE,0,1,nil) end
+	if chk==0 then return Duel.IsExistingMatchingCard(c7263.filter,tp,LOCATION_MZONE,0,1,nil) end
 end
 function c7263.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
