@@ -44,7 +44,7 @@ function c7205.spcon(e,tp,eg,ep,ev,re,r,rp)
 end
 function c7205.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) end
-	local mg=Duel.GetMatchingGroup(Card.IsRace,tp,LOCATION_GRAVE,0,nil)
+	local mg=Duel.GetMatchingGroup(Card.IsRace,tp,LOCATION_GRAVE,0,nil,RACE_DRAGON)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,mg:GetClassCount(Card.GetCode)*600)
 end
@@ -52,7 +52,7 @@ function c7205.spop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) then return end
 	if Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)>0 then
-		local mc=Duel.GetMatchingGroup(Card.IsRace,tp,LOCATION_GRAVE,0,nil):GetClassCount(Card.GetCode)
+		local mc=Duel.GetMatchingGroup(Card.IsRace,tp,LOCATION_GRAVE,0,nil,RACE_DRAGON):GetClassCount(Card.GetCode)
 		Duel.Damage(1-tp,600*mc,REASON_EFFECT)
 	else
 		if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:IsLocation(LOCATION_HAND) then
