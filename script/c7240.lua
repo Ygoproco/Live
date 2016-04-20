@@ -65,7 +65,7 @@ function c7240.hvop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c7240.atktg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():IsRelateToBattle() and not e:GetHandler():IsHasEffect(EFFECT_EXTRA_ATTACK)
+	if chk==0 then return e:GetHandler():IsRelateToBattle() and not e:GetHandler():IsHasEffect(EFFECT_EXTRA_ATTACK) end
 end
 function c7240.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

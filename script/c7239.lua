@@ -75,7 +75,7 @@ function c7239.immval(e,te)
 end
 
 function c7239.atktg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():IsRelateToBattle() and not e:GetHandler():IsHasEffect(EFFECT_EXTRA_ATTACK)
+	if chk==0 then return e:GetHandler():IsRelateToBattle() and not e:GetHandler():IsHasEffect(EFFECT_EXTRA_ATTACK) end
 end
 function c7239.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

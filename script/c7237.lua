@@ -89,7 +89,7 @@ function c7237.spop2(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<3 or Duel.IsPlayerAffectedByEffect(tp,59822133) then return end
 	local tg=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(Card.IsRelateToEffect,nil,e)
 	if tg:GetCount()~=3 then return end
-  if not c:IsRelateToEffect(e) or not Duel.SendtoGrave(c,REASON_EFFECT)>0 then return end
+  if not c:IsRelateToEffect(e) or Duel.SendtoGrave(c,REASON_EFFECT)==0 then return end
 		Duel.SpecialSummon(tg,0,tp,tp,false,false,POS_FACEUP)
 	if Duel.IsExistingMatchingCard(c7237.thfil,tp,LOCATION_DECK,0,1,nil) and Duel.SelectYesNo(tp,aux.Stringid(7237,0)) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
