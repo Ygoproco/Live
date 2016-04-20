@@ -31,7 +31,7 @@ function c7207.checkop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c7207.con(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsAbleToEnterBP()
+	return Duel.IsAbleToEnterBP() or Duel.GetCurrentPhase()==PHASE_BATTLE
 end
 function c7207.fil1(c)
   return c:IsFaceup() and c:IsRace(RACE_DRAGON) and c:GetFlagEffect(7207)>0 and not c:IsHasEffect(EFFECT_EXTRA_ATTACK)

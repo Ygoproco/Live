@@ -76,9 +76,9 @@ function c7236.spfil(c,e,tp)
 end
 function c7236.sptg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c7236.spfil(chkc,e,tp) end
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>2 and Duel.IsExistingTarget(c7236.spfil,tp,LOCATION_GRAVE,0,3,nil,e,tp) and not Duel.IsPlayerAffectedByEffect(tp,59822133) and e:GetHandler():IsAbleToGrave() end
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>1 and Duel.IsExistingTarget(c7236.spfil,tp,LOCATION_GRAVE,0,2,nil,e,tp) and not Duel.IsPlayerAffectedByEffect(tp,59822133) and e:GetHandler():IsAbleToGrave() end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectTarget(tp,c7236.spfil,tp,LOCATION_GRAVE,0,3,3,nil,e,tp)
+	local g=Duel.SelectTarget(tp,c7236.spfil,tp,LOCATION_GRAVE,0,2,2,nil,e,tp)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g,g:GetCount(),0,0)
 end
 function c7236.thfil(c)
@@ -86,9 +86,9 @@ function c7236.thfil(c)
 end
 function c7236.spop2(e,tp,eg,ep,ev,re,r,rp)
   local c=e:GetHandler()
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)<3 or Duel.IsPlayerAffectedByEffect(tp,59822133) then return end
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)<2 or Duel.IsPlayerAffectedByEffect(tp,59822133) then return end
 	local tg=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(Card.IsRelateToEffect,nil,e)
-	if tg:GetCount()~=3 then return end
+	if tg:GetCount()~=2 then return end
   if not c:IsRelateToEffect(e) or not Duel.SendtoGrave(c,REASON_EFFECT)>0 then return end
 		Duel.SpecialSummon(tg,0,tp,tp,false,false,POS_FACEUP)
 	if Duel.IsExistingMatchingCard(c7236.thfil,tp,LOCATION_DECK,0,1,nil) and Duel.SelectYesNo(tp,aux.Stringid(7236,0)) then

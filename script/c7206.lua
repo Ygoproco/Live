@@ -42,7 +42,7 @@ function c7206.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local t={}
 	local f=math.floor((lp)/100)
 	local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,e:GetHandler())
-	local atk=g:GetMaxGroup(Card.GetAttack):GetAttack()
+	local atk=g:GetMaxGroup(Card.GetAttack):GetFirst():GetAttack()
 	f=math.min(f,math.floor((atk)/100))
 	local l=1
 	while l<=f do
