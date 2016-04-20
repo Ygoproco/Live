@@ -76,7 +76,7 @@ function c7236.spfil(c,e,tp)
 end
 function c7236.sptg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c7236.spfil(chkc,e,tp) end
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.IsExistingTarget(c7236.spfil,tp,LOCATION_GRAVE,0,1,nil,e,tp) and not Duel.IsPlayerAffectedByEffect(tp,59822133) and e:GetHandler():IsAbleToGrave() end
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.IsExistingTarget(c7236.spfil,tp,LOCATION_GRAVE,0,1,nil,e,tp) and e:GetHandler():IsAbleToGrave() end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	local lc=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	if lc>2 then lc=2 end
