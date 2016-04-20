@@ -79,7 +79,7 @@ function c7240.atkop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c7240.damcon(e,tp,eg,ep,ev,re,r,rp)
-	return bit.band(r,REASON_EFFECT)~=0
+	return bit.band(r,REASON_EFFECT)~=0 and ep==tp
 end
 function c7240.damtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
