@@ -61,7 +61,7 @@ function c7053.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
 function c7053.thfilter(c)
-	return c:IsSetCard(0xe7) and c:IsAbleToHand()
+	return c:IsSetCard(0xe7) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function c7053.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c7053.thfilter,tp,LOCATION_DECK,0,1,nil) end
