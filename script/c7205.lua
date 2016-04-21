@@ -7,6 +7,7 @@ function c7205.initial_effect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_DAMAGE)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_DESTROYED)
+	e1:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
 	e1:SetRange(LOCATION_HAND)
 	e1:SetCondition(c7205.spcon)
 	e1:SetTarget(c7205.sptg)
@@ -36,8 +37,7 @@ function c7205.initial_effect(c)
 end
 
 function c7205.cfilter(c,tp)
-	return c:IsSetCard(0xdd) and c:GetPreviousControler()==tp and c:IsPreviousLocation(LOCATION_MZONE)
-		and c:IsPreviousPosition(POS_FACEUP) and c:IsReason(REASON_BATTLE) or (rp~=tp and c:IsReason(REASON_EFFECT))
+	return c:IsReason(REASON_BATTLE+REASON_EFFECT) and c:IsSetCard(0xdd) and c:GetPreviousControler()==tp and c:GetReasonPlayer()~=tp and c:IsPreviousLocation(LOCATION_MZONE) and c:IsPreviousPosition(POS_FACEUP)
 end
 function c7205.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c7205.cfilter,1,nil,tp)
