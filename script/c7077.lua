@@ -39,6 +39,7 @@ function c7077.op(e,tp,eg,ep,ev,re,r,rp)
 		e2:SetCode(EFFECT_CANNOT_ACTIVATE)
 		e2:SetRange(LOCATION_MZONE)
 		e2:SetTargetRange(0,1)
+		e2:SetLabelObject(tc)
 		e2:SetCondition(c7077.actcon)
 		e2:SetValue(c7077.aclimit)
 		e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
@@ -47,7 +48,8 @@ function c7077.op(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c7077.actcon(e)
-	return Duel.GetAttacker()==e:GetHandler()
+	local tc=e:GetLabelObject()
+	return tc and Duel.GetAttacker()==tc
 end
 function c7077.aclimit(e,re,tp)
 	return not re:GetHandler():IsImmuneToEffect(e)
