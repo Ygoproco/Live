@@ -114,7 +114,7 @@ end
 
 function c7024.rmfilter(c,e,tp)
 	return c:IsRace(RACE_MACHINE) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsType(TYPE_UNION)
-		and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+		and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:IsCanBeEffectTarget(e)
 end
 function c7024.rmcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()~=tp
@@ -125,12 +125,21 @@ function c7024.rmcost(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c7024.rmtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and c7024.rmfilter(chkc,e,tp) end
-	if chk==0 then return Duel.IsExistingTarget(c7024.rmfilter,tp,LOCATION_REMOVED,0,3,nil,e,tp) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectTarget(tp,c7024.rmfilter,tp,LOCATION_REMOVED,0,3,3,nil,e,tp)
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g,1,0,0)
+	local g=Duel.GetMatchingGroup(c7024.rmfilter,tp,LOCATION_REMOVED,0,nil)
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>2 and g:GetClassCount(Card.GetCode)>=3 end
+	local tg=Group.CreateGroup()
+	for i=1,3 do
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+		local sg=g:Select(tp,1,1,nil)
+		local tc=g:GetFirst()
+		tg:AddCard(tc)
+		g:Remove(Card.IsCode,nil,tc:GetCode())
+	end
+	Duel.SetTargetCard(tg)
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,tg,3,0,0)
 end
 function c7024.rmop(e,tp,eg,ep,ev,re,r,rp)
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)<3 then return end
 	local ex1,g=Duel.GetOperationInfo(0,CATEGORY_SPECIAL_SUMMON)
 	Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
 end
