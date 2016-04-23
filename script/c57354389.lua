@@ -1,4 +1,4 @@
-﻿--Scripted by Eerie Code
+--Scripted by Eerie Code
 --Giant Sentry of Stone
 function c57354389.initial_effect(c)
   --Special Summon

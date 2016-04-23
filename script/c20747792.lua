@@ -1,4 +1,4 @@
-﻿--Scripted by Eerie Code
+--Scripted by Eerie Code
 --Berry Magician Girl
 function c20747792.initial_effect(c)
   --Search

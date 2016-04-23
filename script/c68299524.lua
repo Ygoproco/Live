@@ -1,4 +1,4 @@
-﻿--パンデミック・ドラゴン
+--パンデミック・ドラゴン
 --Pandemic Dragon
 --Scripted by Eerie Code
 function c68299524.initial_effect(c)

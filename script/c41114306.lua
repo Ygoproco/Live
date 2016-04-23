@@ -1,4 +1,4 @@
-﻿--方界獣ダーク・ガネックス
+--方界獣ダーク・ガネックス
 --Dark Ganex, the Cubic Beast
 --Scripted by Eerie Code
 function c41114306.initial_effect(c)

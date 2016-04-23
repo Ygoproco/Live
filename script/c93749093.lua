@@ -1,4 +1,4 @@
-﻿--Scripted by Eerie Code
+--Scripted by Eerie Code
 --Marshmacaron
 function c93749093.initial_effect(c)
 	--Special Summon

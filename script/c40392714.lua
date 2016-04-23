@@ -1,4 +1,4 @@
-﻿--方界帝ゲイラ・ガイル
+--方界帝ゲイラ・ガイル
 --Geira Gale, the Cubic Emperor
 --Scripted by Eerie Code
 function c40392714.initial_effect(c)

@@ -1,4 +1,4 @@
-﻿--竜の闘志
+--竜の闘志
 --Dragon's Perseverance
 --Scripted by Eerie Code
 function c95697223.initial_effect(c)

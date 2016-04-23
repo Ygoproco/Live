@@ -1,4 +1,4 @@
-﻿--暗黒方界神クリムソン・ノヴァ
+--暗黒方界神クリムソン・ノヴァ
 --Crimson Nova, the Dark Cubic Deity
 --Scripted by Eerie Code
 function c30270176.initial_effect(c)

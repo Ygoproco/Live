@@ -1,4 +1,4 @@
-﻿--ディープアイズ・ホワイト・ドラゴン
+--ディープアイズ・ホワイト・ドラゴン
 --Deep-Eyes White Dragon
 --Scripted by Eerie Code
 function c22804410.initial_effect(c)

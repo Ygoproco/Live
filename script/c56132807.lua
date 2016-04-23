@@ -1,4 +1,4 @@
-﻿--Scripted by Eerie Code
+--Scripted by Eerie Code
 --Apple Magician Girl
 function c56132807.initial_effect(c)
   --Special Summon

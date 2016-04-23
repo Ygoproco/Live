@@ -1,4 +1,4 @@
-﻿--方界帝ヴァルカン・ドラグニー
+--方界帝ヴァルカン・ドラグニー
 --Vulcan Dragni, the Cubic Emperor
 --Scripted by Eerie Code
 function c77387463.initial_effect(c)

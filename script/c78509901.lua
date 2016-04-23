@@ -1,4 +1,4 @@
-﻿--方界獣ブレード・ガルーディア
+--方界獣ブレード・ガルーディア
 --Blade Garudia, the Cubic Beast
 --Scripted by Eerie Code
 function c78509901.initial_effect(c)

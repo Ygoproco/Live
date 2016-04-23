@@ -1,4 +1,4 @@
-﻿--Scripted by Eerie Code
+--Scripted by Eerie Code
 --Kiwi Magician Girl
 function c82627406.initial_effect(c)
 	--Increase ATK

@@ -1,4 +1,4 @@
-﻿--シルバー・ガジェット
+--シルバー・ガジェット
 --Silver Gadget
 --Scripted by Eerie Code
 function c29021114.initial_effect(c)

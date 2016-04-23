@@ -1,4 +1,4 @@
-﻿--Scripted by Eerie Code
+--Scripted by Eerie Code
 --Celtic Sacred Guard
 function c45531624.initial_effect(c)
 	--cannot attack

@@ -1,4 +1,4 @@
-﻿--Scripted by Eerie Code
+--Scripted by Eerie Code
 --Gold Gadget
 function c55010259.initial_effect(c)
   --Special Summon Machine

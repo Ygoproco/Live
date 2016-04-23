@@ -1,4 +1,4 @@
-﻿--Scripted by Eerie Code
+--Scripted by Eerie Code
 --Houkai Super Emperor Indiora Death Bolt
 function c3775068.initial_effect(c)
 	c:EnableReviveLimit()

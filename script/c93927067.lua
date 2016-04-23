@@ -1,4 +1,4 @@
-﻿--カイザー・ブラッド・ヴォルス
+--カイザー・ブラッド・ヴォルス
 --Kaiser Vorse Raider
 --Scripted by Eerie Code
 function c93927067.initial_effect(c)

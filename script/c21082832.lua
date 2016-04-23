@@ -1,4 +1,4 @@
-﻿--カオス・フォーム
+--カオス・フォーム
 --Chaos Form
 --Scripted by Eerie Code
 function c21082832.initial_effect(c)

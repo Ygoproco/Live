@@ -1,4 +1,4 @@
-﻿--Scripted by Eerie Code
+--Scripted by Eerie Code
 --Houkai Spawn Vijam
 function c15610297.initial_effect(c)
 	--battle indestructable

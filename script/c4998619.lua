@@ -1,4 +1,4 @@
-﻿--方界超獣バスター・ガンダイル
+--方界超獣バスター・ガンダイル
 --Buster Gandhial, the Cubic Super Beast
 --Scripted by Eerie Code
 function c4998619.initial_effect(c)

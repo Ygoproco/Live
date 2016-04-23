@@ -1,4 +1,4 @@
-﻿--方界業
+--方界業
 --Cubic Karma
 --Scripted by Eerie Code
 function c9659580.initial_effect(c)

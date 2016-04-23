@@ -1,4 +1,4 @@
-﻿--アサルトワイバーン
+--アサルトワイバーン
 --Assault Wyvern
 --Scripted by Eerie Code
 function c29311166.initial_effect(c)

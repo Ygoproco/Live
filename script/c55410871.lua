@@ -1,4 +1,4 @@
-﻿--Scripted by Eerie Code
+--Scripted by Eerie Code
 --Blue-Eyes Chaos MAX Dragon
 function c55410871.initial_effect(c)
 	c:EnableReviveLimit()
