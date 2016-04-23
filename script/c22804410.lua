@@ -1,7 +1,7 @@
---ディープアイズ・ホワイト・ドラゴン
+﻿--ディープアイズ・ホワイト・ドラゴン
 --Deep-Eyes White Dragon
 --Scripted by Eerie Code
-function c7205.initial_effect(c)
+function c22804410.initial_effect(c)
   --special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_DAMAGE)
@@ -9,9 +9,9 @@ function c7205.initial_effect(c)
 	e1:SetCode(EVENT_DESTROYED)
 	e1:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
 	e1:SetRange(LOCATION_HAND)
-	e1:SetCondition(c7205.spcon)
-	e1:SetTarget(c7205.sptg)
-	e1:SetOperation(c7205.spop)
+	e1:SetCondition(c22804410.spcon)
+	e1:SetTarget(c22804410.sptg)
+	e1:SetOperation(c22804410.spop)
 	c:RegisterEffect(e1)
 	--Change ATK
 	local e2=Effect.CreateEffect(c)
@@ -19,8 +19,8 @@ function c7205.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e2:SetCode(EVENT_SUMMON_SUCCESS)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e2:SetTarget(c7205.atktg)
-	e2:SetOperation(c7205.atkop)
+	e2:SetTarget(c22804410.atktg)
+	e2:SetOperation(c22804410.atkop)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
@@ -30,25 +30,25 @@ function c7205.initial_effect(c)
 	e4:SetCategory(CATEGORY_DESTROY)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e4:SetCode(EVENT_LEAVE_FIELD)
-	e4:SetCondition(c7205.descon)
-	e4:SetTarget(c7205.destg)
-	e4:SetOperation(c7205.desop)
+	e4:SetCondition(c22804410.descon)
+	e4:SetTarget(c22804410.destg)
+	e4:SetOperation(c22804410.desop)
 	c:RegisterEffect(e4)
 end
 
-function c7205.cfilter(c,tp)
+function c22804410.cfilter(c,tp)
 	return c:IsReason(REASON_BATTLE+REASON_EFFECT) and c:IsSetCard(0xdd) and c:GetPreviousControler()==tp and c:GetReasonPlayer()~=tp and c:IsPreviousLocation(LOCATION_MZONE) and c:IsPreviousPosition(POS_FACEUP)
 end
-function c7205.spcon(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(c7205.cfilter,1,nil,tp)
+function c22804410.spcon(e,tp,eg,ep,ev,re,r,rp)
+	return eg:IsExists(c22804410.cfilter,1,nil,tp)
 end
-function c7205.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c22804410.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) end
 	local mg=Duel.GetMatchingGroup(Card.IsRace,tp,LOCATION_GRAVE,0,nil,RACE_DRAGON)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,mg:GetClassCount(Card.GetCode)*600)
 end
-function c7205.spop(e,tp,eg,ep,ev,re,r,rp)
+function c22804410.spop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) then return end
 	if Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)>0 then
@@ -61,13 +61,13 @@ function c7205.spop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 
-function c7205.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c22804410.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and chkc:IsRace(RACE_DRAGON) end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsRace,tp,LOCATION_GRAVE,0,1,nil,RACE_DRAGON) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
 	Duel.SelectTarget(tp,Card.IsRace,tp,LOCATION_GRAVE,0,1,1,nil,RACE_DRAGON)
 end
-function c7205.atkop(e,tp,eg,ep,ev,re,r,rp)
+function c22804410.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	if c:IsFaceup() and tc:IsRelateToEffect(e) then
@@ -80,15 +80,15 @@ function c7205.atkop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 
-function c7205.descon(e,tp,eg,ep,ev,re,r,rp)
+function c22804410.descon(e,tp,eg,ep,ev,re,r,rp)
 	return bit.band(e:GetHandler():GetReason(),0x41)==0x41
 end
-function c7205.destg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c22804410.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local mc=Duel.GetMatchingGroup(Card.IsDestructable,tp,0,LOCATION_MZONE,nil)
 	if chk==0 then return mc:GetCount()>0 end
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,mc,mc:GetCount(),0,0)
 end
-function c7205.desop(e,tp,eg,ep,ev,re,r,rp)
+function c22804410.desop(e,tp,eg,ep,ev,re,r,rp)
 	local mg=Duel.GetMatchingGroup(Card.IsDestructable,tp,0,LOCATION_MZONE,nil)
 	if mg:GetCount()>0 then
 		Duel.Destroy(mg,REASON_EFFECT)

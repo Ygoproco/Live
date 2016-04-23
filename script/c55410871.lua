@@ -1,6 +1,6 @@
---Scripted by Eerie Code
+﻿--Scripted by Eerie Code
 --Blue-Eyes Chaos MAX Dragon
-function c7204.initial_effect(c)
+function c55410871.initial_effect(c)
 	c:EnableReviveLimit()
 	--spsummon condition
 	local e0=Effect.CreateEffect(c)
@@ -19,7 +19,7 @@ function c7204.initial_effect(c)
 	c:RegisterEffect(e1)
 	local e2=e1:Clone()
 	e2:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
-	e2:SetValue(c7204.tgvalue)
+	e2:SetValue(c55410871.tgvalue)
 	c:RegisterEffect(e2)
 	--pierce
 	local e6=Effect.CreateEffect(c)
@@ -30,19 +30,19 @@ function c7204.initial_effect(c)
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e4:SetCode(EVENT_PRE_BATTLE_DAMAGE)
-	e4:SetCondition(c7204.damcon)
-	e4:SetOperation(c7204.damop)
+	e4:SetCondition(c55410871.damcon)
+	e4:SetOperation(c55410871.damop)
 	c:RegisterEffect(e4)
 	
 end
 
-function c7204.tgvalue(e,re,rp)
+function c55410871.tgvalue(e,re,rp)
 	return rp~=e:GetHandlerPlayer()
 end
 
-function c7204.damcon(e,tp,eg,ep,ev,re,r,rp)
+function c55410871.damcon(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp and e:GetHandler():GetBattleTarget()~=nil and e:GetHandler():GetBattleTarget():IsDefencePos()
 end
-function c7204.damop(e,tp,eg,ep,ev,re,r,rp)
+function c55410871.damop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(ep,ev*2)
 end

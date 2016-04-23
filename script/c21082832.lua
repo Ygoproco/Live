@@ -1,19 +1,19 @@
---カオス・フォーム
+﻿--カオス・フォーム
 --Chaos Form
 --Scripted by Eerie Code
-function c7208.initial_effect(c)
+function c21082832.initial_effect(c)
   --Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetTarget(c7208.target)
-	e1:SetOperation(c7208.activate)
+	e1:SetTarget(c21082832.target)
+	e1:SetOperation(c21082832.activate)
 	c:RegisterEffect(e1)
 end
-c7208.dark_magician_list=true
+c21082832.dark_magician_list=true
 
-function c7208.filter(c,e,tp,m1,m2,ft)
+function c21082832.filter(c,e,tp,m1,m2,ft)
 	if not c:IsSetCard(0xcf) or bit.band(c:GetType(),0x81)~=0x81 or not c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_RITUAL,tp,false,true) then return false end
 	local mg=m1:Filter(Card.IsCanBeRitualMaterial,c,c)
 	mg:Merge(m2)
@@ -23,33 +23,33 @@ function c7208.filter(c,e,tp,m1,m2,ft)
 	if ft>0 then
 		return mg:CheckWithSumEqual(Card.GetRitualLevel,c:GetLevel(),1,99,c)
 	else
-		return ft>-1 and mg:IsExists(c7208.mfilterf,1,nil,tp,mg,c)
+		return ft>-1 and mg:IsExists(c21082832.mfilterf,1,nil,tp,mg,c)
 	end
 end
-function c7208.mfilterf(c,tp,mg,rc)
+function c21082832.mfilterf(c,tp,mg,rc)
 	if c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) then
 		Duel.SetSelectedCard(c)
 		return mg:CheckWithSumEqual(Card.GetRitualLevel,rc:GetLevel(),0,99,rc)
 	else return false end
 end
-function c7208.mfilter(c)
+function c21082832.mfilter(c)
 	return (c:IsCode(89631139) or c:IsCode(46986414)) and c:IsAbleToRemove()
 end
-function c7208.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function c21082832.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local mg1=Duel.GetRitualMaterial(tp)
-		local mg2=Duel.GetMatchingGroup(c7208.mfilter,tp,LOCATION_GRAVE,0,nil)
+		local mg2=Duel.GetMatchingGroup(c21082832.mfilter,tp,LOCATION_GRAVE,0,nil)
 		local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
-		return Duel.IsExistingMatchingCard(c7208.filter,tp,LOCATION_HAND,0,1,nil,e,tp,mg1,mg2,ft)
+		return Duel.IsExistingMatchingCard(c21082832.filter,tp,LOCATION_HAND,0,1,nil,e,tp,mg1,mg2,ft)
 	end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND)
 end
-function c7208.activate(e,tp,eg,ep,ev,re,r,rp)
+function c21082832.activate(e,tp,eg,ep,ev,re,r,rp)
 	local mg1=Duel.GetRitualMaterial(tp)
-	local mg2=Duel.GetMatchingGroup(c7208.mfilter,tp,LOCATION_GRAVE,0,nil)
+	local mg2=Duel.GetMatchingGroup(c21082832.mfilter,tp,LOCATION_GRAVE,0,nil)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local tg=Duel.SelectMatchingCard(tp,c7208.filter,tp,LOCATION_HAND,0,1,1,nil,e,tp,mg1,mg2,ft)
+	local tg=Duel.SelectMatchingCard(tp,c21082832.filter,tp,LOCATION_HAND,0,1,1,nil,e,tp,mg1,mg2,ft)
 	local tc=tg:GetFirst()
 	if tc then
 		local mg=mg1:Filter(Card.IsCanBeRitualMaterial,tc,tc)
@@ -68,7 +68,7 @@ function c7208.activate(e,tp,eg,ep,ev,re,r,rp)
 				mat=mg:SelectWithSumEqual(tp,Card.GetRitualLevel,tc:GetLevel(),1,99,tc)
 			else
 				Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RELEASE)
-				mat=mg:FilterSelect(tp,c7208.mfilterf,1,1,nil,tp,mg,tc)
+				mat=mg:FilterSelect(tp,c21082832.mfilterf,1,1,nil,tp,mg,tc)
 				Duel.SetSelectedCard(mat)
 				Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RELEASE)
 				local mat2=mg:SelectWithSumEqual(tp,Card.GetRitualLevel,tc:GetLevel(),0,99,tc)
