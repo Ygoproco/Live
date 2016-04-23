@@ -41,7 +41,7 @@ function c8837932.spfilter(c,e,tp,tid)
 end
 function c8837932.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	local tid=Duel.GetTurnCount()
-	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
+	local ft=Duel.GetLocationCount(1-tp,LOCATION_MZONE)
 	if chk==0 then return ft>0
 		and Duel.IsExistingTarget(c8837932.spfilter,tp,0,LOCATION_GRAVE,1,nil,e,tp,tid) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
@@ -54,7 +54,7 @@ function c8837932.sfilter(c,e,tp)
 end
 function c8837932.activate(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
+	local ft=Duel.GetLocationCount(1-tp,LOCATION_MZONE)
 	if ft<=0 or not c:IsRelateToEffect(e) then return end
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
 	local sg=g:Filter(c8837932.sfilter,nil,e,tp)
@@ -83,7 +83,7 @@ function c8837932.activate(e,tp,eg,ep,ev,re,r,rp)
 	e3:SetCode(EFFECT_DISABLE)
 	e3:SetTarget(c8837932.atktg)
 	Duel.RegisterEffect(e3,tp)
-	local e4=e1:Clone()
+	local e4=e3:Clone()
 	e4:SetCode(EFFECT_CANNOT_ATTACK_ANNOUNCE)
 	Duel.RegisterEffect(e4,tp)
 end
