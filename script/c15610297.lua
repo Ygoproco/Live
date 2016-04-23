@@ -51,7 +51,7 @@ function c15610297.damop(e,tp,eg,ep,ev,re,r,rp,chk)
 	e3:SetCode(EFFECT_DISABLE)
 	e3:SetTarget(c15610297.atktg)
 	Duel.RegisterEffect(e3,tp)
-	local e4=e1:Clone()
+	local e4=e3:Clone()
 	e4:SetCode(EFFECT_CANNOT_ATTACK_ANNOUNCE)
 	Duel.RegisterEffect(e4,tp)
 end
