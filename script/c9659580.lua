@@ -68,7 +68,7 @@ function c9659580.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c9659580.hvcon(e,tp,eg,ep,ev,re,r,rp)
-	return re:GetHandler():IsSetCard(0xe3) and re:IsActiveType(TYPE_MONSTER) and eg and eg:IsExists(Card.IsCode,1,nil,15610297)
+	return re:GetHandler():IsSetCard(0xe3) and re:IsActiveType(TYPE_MONSTER) and eg and eg:IsExists(Card.IsCode,1,nil,15610297) and Duel.GetTurnPlayer()~=tp
 end
 function c9659580.hvtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToGrave() end
