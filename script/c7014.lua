@@ -1,105 +1,80 @@
+--電磁石の戦士マグネット・ベルセリオン
 --Verserion the Electromagna Warrior
 function c7014.initial_effect(c)
 	c:EnableReviveLimit()
 	--special summon
+	local e0=Effect.CreateEffect(c)
+	e0:SetType(EFFECT_TYPE_FIELD)
+	e0:SetCode(EFFECT_SPSUMMON_PROC)
+	e0:SetProperty(EFFECT_FLAG_UNCOPYABLE)
+	e0:SetRange(LOCATION_HAND)
+	e0:SetCondition(c7014.spcon)
+	e0:SetOperation(c7014.spop)
+	c:RegisterEffect(e0)
+	--cannot special summon
 	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_FIELD)
-	e1:SetCode(EFFECT_SPSUMMON_PROC)
-	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
-	e1:SetRange(LOCATION_HAND)
-	e1:SetCondition(c7014.spcon)
-	e1:SetOperation(c7014.spop)
-	c:RegisterEffect(e1)	
-	--spsummon condition
+	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetCode(EFFECT_SPSUMMON_CONDITION)
+	c:RegisterEffect(e1)
+	--Destroy
 	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_SINGLE)
-	e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
-	e2:SetCode(EFFECT_SPSUMMON_CONDITION)
-	e2:SetValue(c7014.splimit)
+	e2:SetType(EFFECT_TYPE_IGNITION)
+	e2:SetRange(LOCATION_MZONE)
+	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e2:SetCost(c7014.descost)
+	e2:SetTarget(c7014.destg)
+	e2:SetOperation(c7014.desop)
 	c:RegisterEffect(e2)
-	--destroy
-	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(7014,0))
-	e3:SetCategory(CATEGORY_DESTROY)
-	e3:SetType(EFFECT_TYPE_IGNITION)
-	e3:SetCode(EVENT_FREE_CHAIN)
-	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e3:SetRange(LOCATION_MZONE)
-	e3:SetCost(c7014.descost)
-	e3:SetTarget(c7014.destg)
-	e3:SetOperation(c7014.desop)
-	c:RegisterEffect(e3)	
-	--summon
-	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(7014,1))
-	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e3:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY+EFFECT_FLAG_DAMAGE_STEP)
-	e3:SetCode(EVENT_DESTROYED)
-	e3:SetTarget(c7014.summtg)
-	e3:SetOperation(c7014.summop)
-	c:RegisterEffect(e3)
-end
-function c7014.spfilter(c,code)
-	return c:IsCode(code) and c:IsAbleToRemoveAsCost()
-end
-function c7014.spcon(e,c)
-	if c==nil then return true end 
-	local tp=c:GetControler()
-	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
-	if ft<-2 then return false end
-	local g1=Duel.GetMatchingGroup(c7014.spfilter,tp,LOCATION_HAND+LOCATION_ONFIELD+LOCATION_GRAVE,0,nil,7011)
-	local g2=Duel.GetMatchingGroup(c7014.spfilter,tp,LOCATION_HAND+LOCATION_ONFIELD+LOCATION_GRAVE,0,nil,7012)
-	local g3=Duel.GetMatchingGroup(c7014.spfilter,tp,LOCATION_HAND+LOCATION_ONFIELD+LOCATION_GRAVE,0,nil,7013)
-	if g1:GetCount()==0 or g2:GetCount()==0 or g3:GetCount()==0 then return false end
-	if ft>0 then return true end
-	local f1=g1:FilterCount(Card.IsLocation,nil,LOCATION_MZONE)>0 and 1 or 0
-	local f2=g2:FilterCount(Card.IsLocation,nil,LOCATION_MZONE)>0 and 1 or 0
-	local f3=g3:FilterCount(Card.IsLocation,nil,LOCATION_MZONE)>0 and 1 or 0
-	if ft==-2 then return f1+f2+f3==3
-	elseif ft==-1 then return f1+f2+f3>=2
-	else return f1+f2+f3>=1 end
-end
-function c7014.spop(e,tp,eg,ep,ev,re,r,rp,c)
-	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
-	local g1=Duel.GetMatchingGroup(c7014.spfilter,tp,LOCATION_HAND+LOCATION_ONFIELD+LOCATION_GRAVE,0,nil,7011)
-	local g2=Duel.GetMatchingGroup(c7014.spfilter,tp,LOCATION_HAND+LOCATION_ONFIELD+LOCATION_GRAVE,0,nil,7012)
-	local g3=Duel.GetMatchingGroup(c7014.spfilter,tp,LOCATION_HAND+LOCATION_ONFIELD+LOCATION_GRAVE,0,nil,7013)
-	g1:Merge(g2)
-	g1:Merge(g3)
-	local g=Group.CreateGroup()
-	local tc=nil
-	for i=1,3 do
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-		if ft<=0 then
-			tc=g1:FilterSelect(tp,Card.IsLocation,1,1,nil,LOCATION_MZONE):GetFirst()
-		else
-			tc=g1:Select(tp,1,1,nil):GetFirst()
-		end
-		g:AddCard(tc)
-		g1:Remove(Card.IsCode,nil,tc:GetCode())
-		ft=ft+1
-	end
-	Duel.Remove(g,POS_FACEUP,REASON_COST)
-end
-function c7014.splimit(e,se,sp,st)
-	return not e:GetHandler():IsLocation(LOCATION_HAND)
+	--spsummon
+	local e4=Effect.CreateEffect(c)
+	e4:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e4:SetCode(EVENT_DESTROYED)
+	e4:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
+	e4:SetCondition(c7014.spcon2)
+	e4:SetTarget(c7014.sptg2)
+	e4:SetOperation(c7014.spop2)
+	c:RegisterEffect(e4)
 end
 
-function c7014.desfilter(c)
-	return c:GetLevel()<=4 and c:IsSetCard(0x2066) and c:IsAbleToRemoveAsCost()
+function c7014.spfil(c,cd)
+	return c:IsFaceup() and c:IsCode(cd) and c:IsAbleToRemoveAsCost()
+end
+function c7014.spcon(e,c)
+	if c==nil then return true end
+	local tp=c:GetControler()
+	return Duel.IsExistingMatchingCard(c7014.spfil,tp,LOCATION_MZONE+LOCATION_HAND+LOCATION_GRAVE,0,1,nil,7011)
+		and Duel.IsExistingMatchingCard(c7014.spfil,tp,LOCATION_MZONE+LOCATION_HAND+LOCATION_GRAVE,0,1,nil,7012)
+		and Duel.IsExistingMatchingCard(c7014.spfil,tp,LOCATION_MZONE+LOCATION_HAND+LOCATION_GRAVE,0,1,nil,7013)
+end
+function c7014.spop(e,tp,eg,ep,ev,re,r,rp,c)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
+	local g1=Duel.SelectMatchingCard(tp,c7014.spfil,tp,LOCATION_MZONE+LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil,7011)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
+	local g2=Duel.SelectMatchingCard(tp,c7014.spfil,tp,LOCATION_MZONE+LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil,7012)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
+	local g3=Duel.SelectMatchingCard(tp,c7014.spfil,tp,LOCATION_MZONE+LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil,7013)
+	g1:Merge(g2)
+	g1:Merge(g3)
+	Duel.Remove(g1,POS_FACEUP,REASON_COST)
+end
+
+function c7014.descfil(c)
+	return c:IsSetCard(0x2066) and c:IsLevelBelow(4) and c:IsAbleToRemoveAsCost()
 end
 function c7014.descost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c7014.desfilter,tp,LOCATION_GRAVE,0,1,nil) end
-	local c = Duel.SelectMatchingCard(tp,c7014.desfilter,tp,LOCATION_GRAVE,0,1,1,nil)
-	Duel.Remove(c,POS_FACEUP,REASON_COST)
+	if chk==0 then return Duel.IsExistingMatchingCard(c7014.descfil,tp,LOCATION_GRAVE,0,1,nil) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
+	local g=Duel.SelectMatchingCard(tp,c7014.descfil,tp,LOCATION_GRAVE,0,1,1,nil)
+	Duel.Remove(g,POS_FACEUP,REASON_COST)
 end
 function c7014.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and chkc:IsControler(1-tp) and chkc:IsDestructable() end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsDestructable,tp,0,LOCATION_ONFIELD,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
 	local g=Duel.SelectTarget(tp,Card.IsDestructable,tp,0,LOCATION_ONFIELD,1,1,nil)
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0)
+	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
 end
 function c7014.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
@@ -108,25 +83,31 @@ function c7014.desop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 
-function c7014.summfilter(c,code,e,tp)
-	return c:IsCode(code) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+function c7014.spcon2(e,tp,eg,ep,ev,re,r,rp)
+	return rp~=tp and e:GetHandler():GetPreviousControler()==tp
 end
-function c7014.summtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_REMOVED) 
-		and (c7014.summfilter(chkc,7011,e,tp) or c7014.summfilter(chkc,7012,e,tp) or c7014.summfilter(chkc,7013,e,tp)) end
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>=3
-		and Duel.IsExistingTarget(c7014.summfilter,tp,LOCATION_REMOVED,0,1,nil,7011,e,tp)
-		and Duel.IsExistingTarget(c7014.summfilter,tp,LOCATION_REMOVED,0,1,nil,7012,e,tp)
-		and Duel.IsExistingTarget(c7014.summfilter,tp,LOCATION_REMOVED,0,1,nil,7013,e,tp) end
+function c7014.spfil2(c,cd,e,tp)
+	return c:IsFaceup() and c:IsCode(cd) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+end
+function c7014.sptg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return false end
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>2 and not Duel.IsPlayerAffectedByEffect(tp,59822133)
+		and Duel.IsExistingTarget(c7014.spfil2,tp,LOCATION_REMOVED,0,1,nil,7011,e,tp)
+		and Duel.IsExistingTarget(c7014.spfil2,tp,LOCATION_REMOVED,0,1,nil,7012,e,tp)
+		and Duel.IsExistingTarget(c7014.spfil2,tp,LOCATION_REMOVED,0,1,nil,7013,e,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g1=Duel.SelectTarget(tp,c7014.summfilter,tp,LOCATION_REMOVED,0,1,1,nil,7011,e,tp)
-	local g2=Duel.SelectTarget(tp,c7014.summfilter,tp,LOCATION_REMOVED,0,1,1,nil,7012,e,tp)
-	local g3=Duel.SelectTarget(tp,c7014.summfilter,tp,LOCATION_REMOVED,0,1,1,nil,7013,e,tp)
+	local g1=Duel.SelectTarget(tp,c7014.spfil2,tp,LOCATION_REMOVED,0,1,1,nil,7011,e,tp)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+	local g2=Duel.SelectTarget(tp,c7014.spfil2,tp,LOCATION_REMOVED,0,1,1,nil,7012,e,tp)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+	local g3=Duel.SelectTarget(tp,c7014.spfil2,tp,LOCATION_REMOVED,0,1,1,nil,7013,e,tp)
 	g1:Merge(g2)
 	g1:Merge(g3)
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g1,g1:GetCount(),0,0)
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g,3,0,0)
 end
-function c7014.summop(e,tp,eg,ep,ev,re,r,rp)
-	local ex1,g=Duel.GetOperationInfo(0,CATEGORY_SPECIAL_SUMMON)
-	Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
+function c7014.spop2(e,tp,eg,ep,ev,re,r,rp)
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)<3 or Duel.IsPlayerAffectedByEffect(tp,59822133) then return end
+	local tg=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(Card.IsRelateToEffect,nil,e)
+	if tg:GetCount()~=3 then return end
+	Duel.SpecialSummon(tg,0,tp,tp,false,false,POS_FACEUP)
 end

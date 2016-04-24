@@ -43,7 +43,7 @@ function c6114.operation(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(Card.IsDestructable,tp,LOCATION_MZONE,LOCATION_MZONE,c)
 	if Duel.Destroy(g,REASON_EFFECT) then
 		local og=Duel.GetOperatedGroup()
-		local mg,matk=og:GetMaxGroup(Card.GetAttack)
+		local mg,matk=og:GetMaxGroup(Card.GetPreviousAttackOnField())
 		if matk>0 then
 			local dam=Duel.Damage(1-tp,matk,REASON_EFFECT)
 			local e1=Effect.CreateEffect(c)

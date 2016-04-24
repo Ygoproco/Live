@@ -71,7 +71,8 @@ function c35058588.cntcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	local g=Duel.SelectMatchingCard(tp,c35058588.cfilter,tp,LOCATION_GRAVE,0,1,ec,nil)
 	g:AddCard(e:GetHandler())
-	e:SetLabel(Duel.Remove(g,POS_FACEUP,REASON_COST))
+	local ct=Duel.Remove(g,POS_FACEUP,REASON_COST)
+	e:SetLabel(ct-1)
 end
 function c35058588.cnttg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and chkc:IsFaceup() end

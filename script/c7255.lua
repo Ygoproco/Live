@@ -44,7 +44,10 @@ function c7255.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local oc=c:GetOverlayCount()
 	local mc=Duel.GetMatchingGroupCount(Card.IsDestructable,tp,0,LOCATION_MZONE,nil)
 	if chk==0 then return oc>0 and mc>0 end
-	e:SetLabel(c:RemoveOverlayCard(tp,1,math.min(oc,mc),REASON_COST))
+	--e:SetLabel(c:RemoveOverlayCard(tp,1,math.min(oc,mc),REASON_COST))
+	c:RemoveOverlayCard(tp,1,math.min(oc,mc),REASON_COST)
+	local ct=Duel.GetOperatedGroup():GetCount()
+	e:SetLabel(ct)
 end
 function c7255.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDestructable,tp,0,LOCATION_MZONE,1,nil) end
