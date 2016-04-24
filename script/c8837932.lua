@@ -75,6 +75,7 @@ function c8837932.activate(e,tp,eg,ep,ev,re,r,rp)
 		sc:RegisterEffect(e1)
 		--
 		sc:AddCounter(0x39,1)
+		sc=sg:GetNext()
 	end
 	Duel.SpecialSummonComplete()
 	local e3=Effect.CreateEffect(c)

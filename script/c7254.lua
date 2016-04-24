@@ -43,7 +43,7 @@ function c7254.damop(e,tp,eg,ep,ev,re,r,rp)
 end
 function c7254.actlimit(e,re,rp)
 	local rc=re:GetHandler()
-	return re:IsActiveType(TYPE_MONSTER) and not rc:IsSetCard(0xda) and not rc:IsImmuneToEffect(e)
+	return re:IsActiveType(TYPE_MONSTER) and not rc:IsSetCard(0xba) and not rc:IsImmuneToEffect(e)
 end
 
 function c7254.spcon(e,tp,eg,ep,ev,re,r,rp)
