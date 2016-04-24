@@ -39,7 +39,7 @@ function c7014.initial_effect(c)
 end
 
 function c7014.spfil(c,cd)
-	return c:IsFaceup() and c:IsCode(cd) and c:IsAbleToRemoveAsCost()
+	return (c:IsFaceup() or not c:IsLocation(LOCATION_MZONE)) and c:IsCode(cd) and c:IsAbleToRemoveAsCost()
 end
 function c7014.spcon(e,c)
 	if c==nil then return true end
