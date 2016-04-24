@@ -72,30 +72,38 @@ end
 function c19254117.tgtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) end
 	if chk==0 then return Duel.IsExistingTarget(nil,tp,LOCATION_MZONE,0,1,nil) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
 	Duel.SelectTarget(tp,nil,tp,LOCATION_MZONE,0,1,1,nil)
 end
 function c19254117.tgop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) and tc:IsFaceup() then
-		if Duel.GetAttacker() then Duel.ChangeAttackTarget(tc) end
-		local e1=Effect.CreateEffect(e:GetHandler())
+	local c=e:GetHandler()
+	if tc:IsRelateToEffect(e) then
+		local a=Duel.GetAttacker()
+		if a and Duel.GetAttackTarget()~=tc then 
+			local e1=Effect.CreateEffect(c)
+			e1:SetType(EFFECT_TYPE_SINGLE)
+			e1:SetCode(EFFECT_CANNOT_ATTACK)
+			e1:SetReset(RESET_CHAIN)
+			a:RegisterEffect(e1)
+		end
+		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD)
 		e1:SetCode(EFFECT_CANNOT_DIRECT_ATTACK)
 		e1:SetTargetRange(0,LOCATION_MZONE)
-		e1:SetReset(RESET_PHASE+PHASE_BATTLE)
+		e1:SetReset(RESET_PHASE+PHASE_END)
 		Duel.RegisterEffect(e1,tp)
-		local e3=Effect.CreateEffect(e:GetHandler())
-		e3:SetType(EFFECT_TYPE_FIELD)
-		e3:SetCode(EFFECT_CANNOT_BE_BATTLE_TARGET)
-		e3:SetProperty(EFFECT_FLAG_SET_AVAILABLE+EFFECT_FLAG_IGNORE_IMMUNE)
-		e3:SetTargetRange(LOCATION_MZONE,0)
-		e3:SetTarget(c19254117.attg)
-		e3:SetValue(1)
-		e3:SetLabel(tc:GetRealFieldID())
-		e3:SetReset(RESET_PHASE+PHASE_BATTLE)
-		Duel.RegisterEffect(e3,tp)
+		local e2=Effect.CreateEffect(c)
+		e2:SetType(EFFECT_TYPE_FIELD)
+		e2:SetCode(EFFECT_CANNOT_SELECT_BATTLE_TARGET)
+		e2:SetProperty(EFFECT_FLAG_SET_AVAILABLE)
+		e2:SetTargetRange(0,LOCATION_MZONE)
+		e2:SetValue(c19254117.atlimit)
+		e2:SetLabel(tc:GetRealFieldID())
+		e2:SetReset(RESET_PHASE+PHASE_END)
+		Duel.RegisterEffect(e2,tp)
 	end
 end
-function c19254117.attg(e,c)
+function c19254117.atlimit(e,c)
 	return c:GetRealFieldID()~=e:GetLabel()
 end
