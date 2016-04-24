@@ -15,7 +15,7 @@ end
 function c18809562.fil(c)
 	return c:IsAttribute(ATTRIBUTE_DARK) and (c:GetLevel()==7 or c:GetLevel()==8) and c:IsAbleToHand()
 end
-function c18809562.target(e,tp,eg,ep,ev,re,r,rp)
+function c18809562.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsType,tp,LOCATION_HAND,0,1,nil,TYPE_SPELL) and Duel.IsExistingMatchingCard(c18809562.fil,tp,LOCATION_DECK,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,0,0)
 end

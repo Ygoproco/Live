@@ -17,15 +17,11 @@ function c34325937.initial_effect(c)
 	e3:SetCode(EVENT_LEAVE_FIELD)
 	e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e3:SetRange(LOCATION_GRAVE)
-	e3:SetCondition(c34325937.spcon1)
+	e3:SetCondition(c34325937.spcon)
 	e3:SetCost(c34325937.spcost)
 	e3:SetTarget(c34325937.sptg)
 	e3:SetOperation(c34325937.spop)
 	c:RegisterEffect(e3)
-	local e4=e3:Clone()
-	e4:SetCode(EVENT_BATTLE_DESTROYED)
-	e4:SetCondition(c34325937.spcon2)
-	c:RegisterEffect(e4)
 end
 function c34325937.filter1(c,e)
 	return c:IsCanBeFusionMaterial() and not c:IsImmuneToEffect(e)
@@ -94,17 +90,11 @@ function c34325937.activate(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
-function c34325937.spcfil1(c,tp)
+function c34325937.spcfil(c,tp)
 	return c:IsSetCard(0xe3) and c:IsPreviousLocation(LOCATION_MZONE) and c:IsPreviousPosition(POS_FACEUP) and c:GetPreviousControler()==tp
 end
-function c34325937.spcfil2(c,tp)
-	return c34325937.spcfil1(c,tp) and c:IsReason(REASON_BATTLE)
-end
-function c34325937.spcon1(e,tp,eg,ep,ev,re,r,rp)
-	return eg and eg:IsExists(c34325937.spcfil1,1,nil,tp)
-end
-function c34325937.spcon2(e,tp,eg,ep,ev,re,r,rp)
-	return eg and eg:IsExists(c34325937.spcfil2,1,nil,tp)
+function c34325937.spcon(e,tp,eg,ep,ev,re,r,rp)
+	return eg and eg:IsExists(c34325937.spcfil,1,nil,tp)
 end
 function c34325937.spfil(c,e,tp)
 	return c:IsSetCard(0xe3) and c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e,0,tp,true,false)

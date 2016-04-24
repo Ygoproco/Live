@@ -51,7 +51,7 @@ end
 
 function c6983.discon(e,tp,eg,ep,ev,re,r,rp)
 	return re:GetHandler()~=e:GetHandler() and not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED)
-		and (re:IsActiveType(TYPE_MONSTER) or re:IsHasType(EFFECT_TYPE_ACTIVATE)) and Duel.IsChainNegatable(ev)
+		and re:IsActiveType(TYPE_MONSTER) and Duel.IsChainNegatable(ev)
 end
 function c6983.discost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckLPCost(tp,1000) end
