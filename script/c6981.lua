@@ -16,6 +16,7 @@ function c6981.tgfil(c,e,tp)
 	return c:IsFaceup() and bit.band(c:GetOriginalRace(),RACE_BEAST+RACE_BEASTWARRIOR+RACE_WINDBEAST)>0 and c:IsAbleToGraveAsCost() and Duel.IsExistingMatchingCard(c6981.spfil,tp,LOCATION_EXTRA,0,1,nil,e,tp,c:GetOriginalRace())
 end
 function c6981.spfil(c,e,tp,rc)
+	Debug.Message("It arrives here.")
 	return c:GetOriginalRace()==rc and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c6981.cost(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -26,7 +27,7 @@ function c6981.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoGrave(g,REASON_COST)
 end
 function c6981.tg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1 and Duel.IsExistingMatchingCard(c6981.spfil,tp,LOCATION_EXTRA,0,1,nil,e,tp,e:GetLabel()) end
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1 end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,0,0)
 end
 function c6981.op(e,tp,eg,ep,ev,re,r,rp)
