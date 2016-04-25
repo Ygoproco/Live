@@ -41,6 +41,7 @@ function c43959432.activate(e,tp,eg,ep,ev,re,r,rp)
 	c:RegisterEffect(e1,true)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) and tc:IsFaceup() then
+		Duel.BreakEffect()
 		local atk=tc:GetTextAttack()
 		if atk<0 then atk=0 end
 		if not Duel.Equip(tp,tc,c,false) then return end

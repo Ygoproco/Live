@@ -62,6 +62,7 @@ function c42237854.activate(e,tp,eg,ep,ev,re,r,rp)
 		tg=tg0:Clone()
 	end
 	if tg:GetCount()>0 then
+		Duel.BreakEffect()
 		local tc=tg:GetFirst()
 		while tc do
 			local atk=tc:GetTextAttack()
