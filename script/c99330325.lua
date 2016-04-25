@@ -22,6 +22,16 @@ function c99330325.initial_effect(c)
 	e2:SetOperation(c99330325.thop)
 	c:RegisterEffect(e2)
 end
+
+function c99330325.tmpfilter1(c,e,tp)
+	return c:IsSetCard(0xd3) and c:IsType(TYPE_MONSTER) 
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,c:GetCode(),cc,0x21,c:GetAttack(),c:GetDefence(),c:GetLevel(),c:GetRace(),c:GetAttribute(),POS_FACEUP_ATTACK,tp)
+		and Duel.IsExistingMatchingCard(c99330325.tmpfilter2,tp,LOCATION_DECK,0,1,nil,e,tp,c:GetCode())
+end
+function c99330325.tmpfilter2(c,e,tp,cd)
+	return c:IsSetCard(0xd3) and c:IsType(TYPE_MONSTER) and not c:IsCode(cd)
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,c:GetCode(),cc,0x21,c:GetAttack(),c:GetDefence(),c:GetLevel(),c:GetRace(),c:GetAttribute(),POS_FACEUP_ATTACK,1-tp)
+end
 function c99330325.filter1(c,e,tp)
 	return c:IsSetCard(0xd3) and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 		and Duel.IsExistingMatchingCard(c99330325.filter2,tp,LOCATION_DECK,0,1,nil,e,tp,c:GetCode())
@@ -32,7 +42,7 @@ function c99330325.filter2(c,e,tp,cd)
 end
 function c99330325.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDestructable,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil)
-		and Duel.IsExistingMatchingCard(c99330325.filter1,tp,LOCATION_DECK,0,1,nil,e,tp) and not Duel.IsPlayerAffectedByEffect(tp,59822133) end
+		and Duel.IsExistingMatchingCard(c99330325.tmpfilter1,tp,LOCATION_DECK,0,1,nil,e,tp) and not Duel.IsPlayerAffectedByEffect(tp,59822133) end
 	local g=Duel.GetMatchingGroup(Card.IsDestructable,tp,LOCATION_MZONE,LOCATION_MZONE,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,2,tp,LOCATION_DECK)
@@ -40,10 +50,12 @@ end
 function c99330325.activate(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.IsPlayerAffectedByEffect(tp,59822133) then return end
 	local dg=Duel.GetMatchingGroup(Card.IsDestructable,tp,LOCATION_MZONE,LOCATION_MZONE,nil)
-	local sg=Duel.GetMatchingGroup(c99330325.filter1,tp,LOCATION_DECK,0,nil,e,tp)
+	local sg=Duel.GetMatchingGroup(c99330325.tmpfilter1,tp,LOCATION_DECK,0,nil,e,tp)
 	if Duel.Destroy(dg,REASON_EFFECT)~=0 and sg:GetCount()>0
 		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.GetLocationCount(1-tp,LOCATION_MZONE)>0 then
 		Duel.BreakEffect()
+		local sg=Duel.GetMatchingGroup(c99330325.filter1,tp,LOCATION_DECK,0,nil,e,tp)
+		if sg:GetCount()==0 then return end
 		Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(99330325,2))
 		local g1=sg:Select(tp,1,1,nil)
 		local tc1=g1:GetFirst()
