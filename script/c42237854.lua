@@ -50,6 +50,7 @@ function c42237854.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not c:IsRelateToEffect(e) then return end
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0
 		or not Duel.IsPlayerCanSpecialSummonMonster(tp,42237854,0,0x21,0,0,4,RACE_MACHINE,ATTRIBUTE_EARTH) then return end
+	local seq=c:GetSequence()
 	c:AddTrapMonsterAttribute(TYPE_EFFECT,ATTRIBUTE_EARTH,RACE_MACHINE,4,0,0)
 	Duel.SpecialSummonStep(c,0,tp,tp,true,false,POS_FACEUP)
 	c:TrapMonsterBlock()
@@ -63,10 +64,17 @@ function c42237854.activate(e,tp,eg,ep,ev,re,r,rp)
 	end
 	if tg:GetCount()>0 then
 		Duel.BreakEffect()
+		local ns=4
 		local tc=tg:GetFirst()
 		while tc do
 			local atk=tc:GetTextAttack()
 			Duel.Equip(tp,tc,c,false,true)
+			if seq==tc:GetSequence() then
+				while seq==ns or not Duel.CheckLocation(tp,LOCATION_SZONE,ns) do
+					ns=ns-1
+				end
+				Duel.MoveSequence(tc,ns)
+			end
 			tc:RegisterFlagEffect(42237854,RESET_EVENT+0x1fe0000,0,0)
 			local e1=Effect.CreateEffect(c)
 			e1:SetType(EFFECT_TYPE_SINGLE)

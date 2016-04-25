@@ -29,6 +29,7 @@ function c43959432.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not c:IsRelateToEffect(e) then return end
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0
 		or not Duel.IsPlayerCanSpecialSummonMonster(tp,43959432,0,0x21,1000,1000,4,RACE_ROCK,ATTRIBUTE_EARTH) then return end
+	local seq=c:GetSequence()
 	c:AddTrapMonsterAttribute(TYPE_EFFECT,ATTRIBUTE_EARTH,RACE_ROCK,4,1000,1000)
 	Duel.SpecialSummonStep(c,0,tp,tp,true,false,POS_FACEUP)
 	c:TrapMonsterBlock()
@@ -39,12 +40,22 @@ function c43959432.activate(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetOperation(c43959432.posop)
 	e1:SetReset(RESET_EVENT+0x1fe0000)
 	c:RegisterEffect(e1,true)
+	--Debug.Message("Metamor Summoned on location "..seq)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) and tc:IsFaceup() then
 		Duel.BreakEffect()
 		local atk=tc:GetTextAttack()
 		if atk<0 then atk=0 end
 		if not Duel.Equip(tp,tc,c,false) then return end
+		--Debug.Message("Equipped card goes to location "..tc:GetSequence())
+		if tc:GetSequence()==seq then
+			local ns=4
+			while ns==seq or not Duel.CheckLocation(tp,LOCATION_SZONE,ns) do
+				ns=ns-1
+			end
+			--Debug.Message("New location: "..ns)
+			Duel.MoveSequence(tc,ns)
+		end
 		e:SetLabelObject(tc)
 		local e2=Effect.CreateEffect(c)
 		e2:SetType(EFFECT_TYPE_SINGLE)
