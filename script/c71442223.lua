@@ -40,7 +40,7 @@ function c71442223.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Hint(HINT_SELECTMSG,1-tp,HINTMSG_SPSUMMON)
 		og=og:Select(1-tp,el,el,nil)
 	end
-	if Duel.SpecialSummon(og,0,1-tp,1-tp,false,false,POS_FACEUP)==0 then return end
+	if Duel.SpecialSummon(og,0,1-tp,1-tp,false,false,POS_FACEUP_ATTACK)==0 then return end
 	local sg=Duel.GetOperatedGroup()
 	sg:AddCard(tc)
 	local sc=sg:GetFirst()
