@@ -6,7 +6,7 @@ function c68077936.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_DESTROY)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
-	e1:SetCode(EVENT_LEAVE_FIELD)
+	e1:SetCode(EVENT_DESTROYED)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetCondition(c68077936.condition)
 	e1:SetTarget(c68077936.target)
@@ -20,11 +20,11 @@ function c68077936.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 
-function c68077936.cfilter(c)
-	return c:IsReason(REASON_DESTROY) and c:IsReason(REASON_EFFECT) and c:IsPreviousLocation(LOCATION_ONFIELD) and re:IsActiveType(TYPE_SPELL)
+function c68077936.cfilter(c,tp)
+	return c:IsPreviousLocation(LOCATION_ONFIELD) and c:GetPreviousControler()==tp and c:IsReason(REASON_EFFECT)
 end
 function c68077936.condition(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(c68077936.cfilter,1,nil)
+	return eg:IsExists(c68077936.cfilter,1,nil,tp) and re:IsActiveType(TYPE_SPELL)
 end
 function c68077936.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
   if chkc then return chkc:IsLocation(LOCATION_ONFIELD) and chkc:IsControler(1-tp) and chkc:IsDestructable() end
