@@ -1,7 +1,7 @@
 --Scripted by Eerie Code
 --Gadarla, the Mysterious Dust Kaiju
 function c36956512.initial_effect(c)
-	c:SetUniqueOnField(1,0,20000000,LOCATION_MZONE)
+	aux.AddKaijuLimitCondition(c)
 	--special summon rule
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
@@ -19,6 +19,7 @@ function c36956512.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_SPSUM_PARAM)
 	e2:SetTargetRange(POS_FACEUP_ATTACK,0)
 	e2:SetCondition(c36956512.spcon2)
+	e2:SetValue(SUMMON_TYPE_SPECIAL+1)
 	c:RegisterEffect(e2)
 	--Halve ATK
 	local e3=Effect.CreateEffect(c)
@@ -45,6 +46,7 @@ function c36956512.spcon(e,c)
 	local tp=c:GetControler()
 	return Duel.GetLocationCount(1-tp,LOCATION_MZONE)>-1
 		and Duel.IsExistingMatchingCard(Card.IsReleasable,tp,0,LOCATION_MZONE,1,nil)
+		and not Duel.IsExistingMatchingCard(c36956512.cfilter,tp,0,LOCATION_MZONE,1,nil)
 end
 function c36956512.spop(e,tp,eg,ep,ev,re,r,rp,c)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RELEASE)
@@ -56,6 +58,7 @@ function c36956512.spcon2(e,c)
 	local tp=c:GetControler()
 	return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 		and Duel.IsExistingMatchingCard(c36956512.cfilter,tp,0,LOCATION_MZONE,1,nil)
+		and not Duel.IsExistingMatchingCard(c36956512.cfilter,tp,LOCATION_MZONE,0,1,nil)
 end
 
 function c36956512.atkcon(e,tp,eg,ep,ev,re,r,rp)

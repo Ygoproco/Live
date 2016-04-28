@@ -2,7 +2,7 @@
 --Scripted by Eerie Code
 function c6988.initial_effect(c)
 	c:EnableReviveLimit()
-	c:SetUniqueOnField(1,0,20000000,LOCATION_MZONE)
+	aux.AddKaijuLimitCondition(c)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_SPSUMMON_PROC)
@@ -31,6 +31,7 @@ function c6988.spcon2(e,c)
 	local tp=c:GetControler()
 	return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 		and Duel.IsExistingMatchingCard(c6988.cfilter,tp,0,LOCATION_MZONE,1,nil)
+		and not Duel.IsExistingMatchingCard(c6988.cfilter,tp,LOCATION_MZONE,0,1,nil)
 end
 
 function c6988.cost(e,tp,eg,ep,ev,re,r,rp,chk)
