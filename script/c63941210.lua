@@ -1,7 +1,7 @@
 --Scripted by Eerie Code
 --Jizukiru, the Star Destroyer Kaiju
 function c63941210.initial_effect(c)
-	c:SetUniqueOnField(1,0,20000000,LOCATION_MZONE)
+	aux.AddKaijuLimitCondition(c)
 	--special summon rule
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
@@ -19,6 +19,7 @@ function c63941210.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_SPSUM_PARAM)
 	e2:SetTargetRange(POS_FACEUP_ATTACK,0)
 	e2:SetCondition(c63941210.spcon2)
+	e2:SetValue(SUMMON_TYPE_SPECIAL+1)
 	c:RegisterEffect(e2)
 	--Negate
 	local e3=Effect.CreateEffect(c)
@@ -42,7 +43,8 @@ function c63941210.spcon(e,c)
 	if c==nil then return true end
 	local tp=c:GetControler()
 	return Duel.GetLocationCount(1-tp,LOCATION_MZONE)>-1
-		and Duel.IsExistingMatchingCard(Card.IsReleasable,tp,0,LOCATION_MZONE,1,nil)
+		and Duel.IsExistingMatchingCard(Card.IsReleasable,tp,0,LOCATION_MZONE,1,nil) 
+		and not Duel.IsExistingMatchingCard(c63941210.cfilter,tp,0,LOCATION_MZONE,1,nil)
 end
 function c63941210.spop(e,tp,eg,ep,ev,re,r,rp,c)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RELEASE)
@@ -54,6 +56,7 @@ function c63941210.spcon2(e,c)
 	local tp=c:GetControler()
 	return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 		and Duel.IsExistingMatchingCard(c63941210.cfilter,tp,0,LOCATION_MZONE,1,nil)
+		and not Duel.IsExistingMatchingCard(c63941210.cfilter,tp,LOCATION_MZONE,0,1,nil)
 end
 
 function c63941210.discon(e,tp,eg,ep,ev,re,r,rp)
