@@ -13,7 +13,6 @@ function c6986.initial_effect(c)
 	e2:SetTargetRange(LOCATION_MZONE,0)
 	e2:SetTarget(c6986.rdtg)
 	e2:SetValue(LOCATION_DECKSHF)
-	e2:SetReset(RESET_EVENT+0x1fe0000)
 	c:RegisterEffect(e2)
 	--Reverse
 	local e3=Effect.CreateEffect(c)

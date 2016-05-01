@@ -79,8 +79,7 @@ function c111280.activate(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c111280.chainop(e,tp,eg,ep,ev,re,r,rp)
-	local rc=re:GetHandler()
-	if re:IsHasType(EFFECT_TYPE_ACTIVATE) and ep~=tp then
+	if ep==tp then
 		Duel.SetChainLimit(c111280.chainlm)
 	end
 end
