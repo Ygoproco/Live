@@ -39,7 +39,7 @@ function c7272.op(e,tp,eg,ep,ev,re,r,rp)
 		if c7272.fil(tc,e,tp,c) then
 			local og=c:GetOverlayGroup()
 			local fid=c:GetFieldID()
-			if og:GetCount()~=0 then Duel.Overlay(tc,og)
+			if og:GetCount()~=0 then Duel.Overlay(tc,og) end
 			tc:SetMaterial(Group.FromCards(c))
 			Duel.Overlay(tc,Group.FromCards(c))
 			Duel.SpecialSummonStep(tc,SUMMON_TYPE_XYZ,tp,tp,false,false,POS_FACEUP)
