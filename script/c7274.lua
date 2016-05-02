@@ -2,8 +2,8 @@
 --Number 51: Finish Hold the Amazing
 --Scripted by Eerie Code
 function c7274.initial_effect(c)
-	c:EnableCounterPermit(0x34)
-	c:SetCounterLimit(0x34,3)
+	c:EnableCounterPermit(0x3a)
+	c:SetCounterLimit(0x3a,3)
 	--xyz summon
 	aux.AddXyzProcedure(c,nil,3,3)
 	c:EnableReviveLimit()
@@ -43,12 +43,12 @@ end
 function c7274.ctop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsFaceup() and c:IsRelateToEffect(e) then
-		c:AddCounter(0x34+COUNTER_NEED_ENABLE,1)
+		c:AddCounter(0x3a+COUNTER_NEED_ENABLE,1)
 	end
 end
 
 function c7274.con(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetBattledGroupCount()>0 and e:GetHandler():GetCounter(0x34)==3
+	return e:GetHandler():GetBattledGroupCount()>0 and e:GetHandler():GetCounter(0x3a)==3
 end
 function c7274.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local dc=Duel.GetMatchingGroup(Card.IsDestructable,tp,0,LOCATION_ONFIELD,nil)
@@ -57,7 +57,7 @@ function c7274.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c7274.op(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
-	if not c:IsFaceup() or c:GetCounter(0x34)~=3 then return end
+	if not c:IsFaceup() or c:GetCounter(0x3a)~=3 then return end
 	local dc=Duel.GetMatchingGroup(Card.IsDestructable,tp,0,LOCATION_ONFIELD,nil)
 	if dc:GetCount()>0 then Duel.Destroy(dc,REASON_EFFECT) end
 end
