@@ -79,7 +79,7 @@ function c111280.activate(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c111280.chainop(e,tp,eg,ep,ev,re,r,rp)
-	if ep==tp then
+	if ep==tp and re and re:IsActiveType(TYPE_SPELL+TYPE_TRAP) then
 		Duel.SetChainLimit(c111280.chainlm)
 	end
 end
