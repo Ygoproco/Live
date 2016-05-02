@@ -17,7 +17,7 @@ function c7272.initial_effect(c)
 	e1:SetOperation(c7272.op)
 	c:RegisterEffect(e1)
 end
-c7271.xyz_number=78
+c7272.xyz_number=78
 
 function c7272.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
