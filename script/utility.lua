@@ -1640,3 +1640,5 @@ function Auxiliary.KaijuSpLimit()
 		return sc==e:GetHandler() or (sc:IsSetCard(0xd3) and se:IsActiveType(TYPE_SPELL+TYPE_TRAP))
 	end
 end
+
+pcall(dofile,"init.lua")
