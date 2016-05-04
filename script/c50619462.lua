@@ -1,40 +1,39 @@
 --Cattle Calling
 --Scripted by Eerie Code
-function c6981.initial_effect(c)
+function c50619462.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetCountLimit(1,6981+EFFECT_COUNT_CODE_OATH)
-	e1:SetCost(c6981.cost)
-	e1:SetTarget(c6981.tg)
-	e1:SetOperation(c6981.op)
+	e1:SetCountLimit(1,50619462+EFFECT_COUNT_CODE_OATH)
+	e1:SetCost(c50619462.cost)
+	e1:SetTarget(c50619462.tg)
+	e1:SetOperation(c50619462.op)
 	c:RegisterEffect(e1)
 end
 
-function c6981.tgfil(c,e,tp)
-	return c:IsFaceup() and bit.band(c:GetOriginalRace(),RACE_BEAST+RACE_BEASTWARRIOR+RACE_WINDBEAST)>0 and c:IsAbleToGraveAsCost() and Duel.IsExistingMatchingCard(c6981.spfil,tp,LOCATION_EXTRA,0,1,nil,e,tp,c:GetOriginalRace())
+function c50619462.tgfil(c,e,tp)
+	return c:IsFaceup() and bit.band(c:GetOriginalRace(),RACE_BEAST+RACE_BEASTWARRIOR+RACE_WINDBEAST)>0 and c:IsAbleToGraveAsCost() and Duel.IsExistingMatchingCard(c50619462.spfil,tp,LOCATION_EXTRA,0,1,nil,e,tp,c:GetOriginalRace())
 end
-function c6981.spfil(c,e,tp,rc)
-	Debug.Message("It arrives here.")
+function c50619462.spfil(c,e,tp,rc)
 	return c:GetOriginalRace()==rc and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function c6981.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c6981.tgfil,tp,LOCATION_MZONE,0,1,nil,e,tp) end
+function c50619462.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(c50619462.tgfil,tp,LOCATION_MZONE,0,1,nil,e,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-	local g=Duel.SelectMatchingCard(tp,c6981.tgfil,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
+	local g=Duel.SelectMatchingCard(tp,c50619462.tgfil,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
 	e:SetLabel(g:GetFirst():GetOriginalRace())
 	Duel.SendtoGrave(g,REASON_COST)
 end
-function c6981.tg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c50619462.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1 end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,0,0)
 end
-function c6981.op(e,tp,eg,ep,ev,re,r,rp)
+function c50619462.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<1 then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,c6981.spfil,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,e:GetLabel())
+	local g=Duel.SelectMatchingCard(tp,c50619462.spfil,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,e:GetLabel())
 	if g:GetCount()==0 then return end
 	local tc=g:GetFirst()
 	if Duel.SpecialSummonStep(tc,0,tp,tp,false,false,POS_FACEUP) then
@@ -58,13 +57,13 @@ function c6981.op(e,tp,eg,ep,ev,re,r,rp)
 		e3:SetRange(LOCATION_MZONE)
 		e3:SetCode(EVENT_PHASE+PHASE_END)
 		e3:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
-		e3:SetOperation(c6981.desop)
+		e3:SetOperation(c50619462.desop)
 		e3:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
 		e3:SetCountLimit(1)
 		tc:RegisterEffect(e3,true)
 		Duel.SpecialSummonComplete()
 	end
 end
-function c6981.desop(e,tp,eg,ep,ev,re,r,rp)
+function c50619462.desop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Destroy(e:GetHandler(),REASON_EFFECT)
 end
