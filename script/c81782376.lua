@@ -13,7 +13,7 @@ function c81782376.initial_effect(c)
 	--draw
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DRAW)
-	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e2:SetCode(EVENT_DESTROYED)
 	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_DELAY)
 	e2:SetCondition(c81782376.drcon)
