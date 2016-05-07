@@ -38,7 +38,7 @@ function c7266.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.DiscardHand(tp,c7266.thcfil,1,1,REASON_COST+REASON_DISCARD)
 end
 function c7266.thfil(c)
-	return c:IsType(TYPE_RITUAL) and c:IsAbleToHand() and ((c:IsType(TYPE_MONSTER) or c:IsAttribute(ATTRIBUTE_LIGHT)) or c:IsType(TYPE_SPELL))
+	return c:IsType(TYPE_RITUAL) and c:IsAbleToHand() and ((c:IsType(TYPE_MONSTER) and c:IsAttribute(ATTRIBUTE_LIGHT)) or c:IsType(TYPE_SPELL))
 end
 function c7266.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c7266.thfil,tp,LOCATION_DECK,0,1,nil) end
