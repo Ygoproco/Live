@@ -37,7 +37,7 @@ end
 function c7270.intg(e,c)
 	return c:IsPosition(POS_DEFENCE)
 end
-function c7270.tgvalue(e,re,rp)
+function c7270.inval(e,re,rp)
 	return rp~=e:GetHandlerPlayer()
 end
 
