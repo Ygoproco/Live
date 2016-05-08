@@ -126,7 +126,7 @@ end
 function c7024.rmtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and c7024.rmfilter(chkc,e,tp) end
 	local g=Duel.GetMatchingGroup(c7024.rmfilter,tp,LOCATION_REMOVED,0,nil,e,tp)
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>2 and g:GetClassCount(Card.GetCode)>=3 end
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>=2 and g:GetClassCount(Card.GetCode)>=3 end
 	local tg=Group.CreateGroup()
 	for i=1,3 do
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
