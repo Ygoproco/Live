@@ -39,7 +39,7 @@ function c7277.atktg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c7277.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetAttacker()
-	if tc:IsRelateToEffect(e) then
+	if tc:IsLocation(LOCATION_MZONE) then
 		Duel.ChangePosition(tc,POS_FACEUP_DEFENCE)
 	end
 end
