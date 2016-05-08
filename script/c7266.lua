@@ -58,7 +58,7 @@ function c7266.spcfil(c)
 	return c:IsType(TYPE_SPELL) and c:IsAbleToDeckAsCost()
 end
 function c7266.spfil(c,e,tp,sc,eq)
-	if c:IsRace(RACE_FAIRY) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:IsCanBeEffectTarget(e) then
+	if c:IsRace(RACE_FAIRY) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsLevelAbove(1) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:IsCanBeEffectTarget(e) then
 		if eq then return c:GetLevel()==sc else return c:GetLevel()<=sc end
 	end
 end
