@@ -32,8 +32,8 @@ c7275.xyz_number=59
 function c7275.filter(c)
 	return not c:IsStatus(STATUS_LEAVE_CONFIRMED)
 end
-function c7275.econ(e,tp,eg,ep,ev,re,r,rp)
-	return not Duel.IsExistingMatchingCard(c7275.filter,tp,LOCATION_ONFIELD,0,1,e:GetHandler())
+function c7275.econ(e)
+	return not Duel.IsExistingMatchingCard(c7275.filter,e:GetHandlerPlayer(),LOCATION_ONFIELD,0,1,e:GetHandler())
 end
 function c7275.efilter(e,te)
 	return te:GetOwner()~=e:GetOwner()
