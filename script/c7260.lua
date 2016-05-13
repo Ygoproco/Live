@@ -33,8 +33,8 @@ function c7260.operation(e,tp,eg,ep,ev,re,r,rp)
 	local b1=(cc>0 and Duel.GetLocationCount(tp,LOCATION_MZONE)>0)
 	local b2=dc>0
 	Duel.ConfirmCards(tp,hg)
+	Duel.ShuffleHand(1-tp)
 	if g:GetCount()>0 and cc+dc>0 then
-		Duel.ShuffleHand(1-tp)
 		local op=0
 		if b1 and b2 then op=Duel.SelectOption(tp,aux.Stringid(7260,1),aux.Stringid(7260,2)) elseif b1 then op=0 else op=1 end
 		if op==0 then
@@ -53,9 +53,9 @@ function c7260.operation(e,tp,eg,ep,ev,re,r,rp)
 	  local dtc=dtg:GetFirst()
 	  Duel.HintSelection(dtg)
 	  if Duel.Destroy(dtc,REASON_EFFECT)~=0 and Duel.GetLocationCount(tp,LOCATION_SZONE)>0 and not dtc:IsLocation(LOCATION_HAND+LOCATION_DECK) and dtc:IsType(TYPE_SPELL+TYPE_TRAP) and dtc:IsSSetable() and Duel.SelectYesNo(tp,aux.Stringid(7260,3)) then
-		Duel.BreakEffect()
-		Duel.SSet(tp,dtc)
-		Duel.ConfirmCards(1-tp,dtc)
+			Duel.BreakEffect()
+			Duel.SSet(tp,dtc)
+			Duel.ConfirmCards(1-tp,dtc)
 	  end
 	end
 end
