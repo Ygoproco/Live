@@ -11,6 +11,7 @@ function c7276.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_QUICK_O)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e1:SetRange(LOCATION_MZONE)
 	e1:SetCountLimit(1)
 	e1:SetCost(c7276.setcost)
 	e1:SetTarget(c7276.settg)
@@ -72,11 +73,11 @@ function c7276.spop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 
-function c7276.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c7276.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,0,0)
 end
-function c7276.thop(e,tp,eg,ep,ev,re,r,rp)
+function c7276.tgop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 	local g=Duel.SelectMatchingCard(tp,Card.IsAbleToGrave,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)
 	if g:GetCount()>0 then
