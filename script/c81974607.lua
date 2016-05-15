@@ -23,7 +23,7 @@ function c81974607.initial_effect(c)
 end
 
 function c81974607.spfil(c)
-	return c:IsFaceup() and c:IsSetCard(0xe6)
+	return c:IsFaceup() and c:IsSetCard(0xe5)
 end
 function c81974607.spcon(e,c)
 	if c==nil then return true end
@@ -36,7 +36,7 @@ function c81974607.lvcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(e:GetHandler(),REASON_COST)
 end
 function c81974607.filter(c)
-	return c:IsFaceup() and c:GetLevel()>0 and c:IsSetCard(0xe6)
+	return c:IsFaceup() and c:GetLevel()>0 and c:IsSetCard(0xe5)
 end
 function c81974607.lvtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c81974607.filter,tp,LOCATION_MZONE,0,1,e:GetHandler()) end

@@ -28,7 +28,7 @@ function c17141718.initial_effect(c)
 end
 
 function c17141718.spfil(c)
-	return c:IsSetCard(0xe5) and c:IsFaceup() and c:IsLevelBelow(7)
+	return c:IsSetCard(0xe6) and c:IsFaceup() and c:IsLevelBelow(7)
 end
 function c17141718.spcon(e)
 	return Duel.IsExistingMatchingCard(c17141718.spfil,e:GetOwnerPlayer(),LOCATION_MZONE,0,1,nil)
@@ -56,11 +56,11 @@ function c17141718.spop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e2,tp)
 end
 function c17141718.splimit(e,c)
-	return not c:IsSetCard(0xe5)
+	return not c:IsSetCard(0xe6)
 end
 
 function c17141718.tdfil(c)
-	return c:IsSetCard(0xe5) and c:IsAbleToDeck() and not c:IsPublic()
+	return c:IsSetCard(0xe6) and c:IsAbleToDeck() and not c:IsPublic()
 end
 function c17141718.tdtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsPlayerCanDraw(tp) and Duel.IsExistingMatchingCard(c17141718.tdfil,tp,LOCATION_HAND,0,1,nil) end

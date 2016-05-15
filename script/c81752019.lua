@@ -29,7 +29,7 @@ function c81752019.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,1)
 end
 function c81752019.drfil(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xe5)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xe6)
 end
 function c81752019.drop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetDecktopGroup(tp,1)

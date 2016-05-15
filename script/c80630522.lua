@@ -24,7 +24,7 @@ function c80630522.initial_effect(c)
 end
 
 function c80630522.spfil(c)
-	return c:IsSetCard(0xe5) and c:IsFaceup() and c:IsLevelBelow(11)
+	return c:IsSetCard(0xe6) and c:IsFaceup() and c:IsLevelBelow(11)
 end
 function c80630522.spcon(e)
 	return Duel.IsExistingMatchingCard(c80630522.spfil,e:GetOwnerPlayer(),LOCATION_MZONE,0,1,nil)
@@ -52,7 +52,7 @@ function c80630522.spop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e2,tp)
 end
 function c80630522.splimit(e,c)
-	return not c:IsSetCard(0xe5)
+	return not c:IsSetCard(0xe6)
 end
 
 function c80630522.natg(e,tp,eg,ep,ev,re,r,rp,chk)

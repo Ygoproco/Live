@@ -47,16 +47,16 @@ function c24413299.operation(e,tp,eg,ep,ev,re,r,rp)
 				Duel.Destroy(ctc,REASON_EFFECT)
 			end
 		  end
+		else
+			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
+			local dtg=dg:Select(tp,1,1,nil)
+			local dtc=dtg:GetFirst()
+			Duel.HintSelection(dtg)
+			if Duel.Destroy(dtc,REASON_EFFECT)~=0 and Duel.GetLocationCount(tp,LOCATION_SZONE)>0 and not dtc:IsLocation(LOCATION_HAND+LOCATION_DECK) and dtc:IsType(TYPE_SPELL+TYPE_TRAP) and dtc:IsSSetable() and Duel.SelectYesNo(tp,aux.Stringid(24413299,3)) then
+				Duel.BreakEffect()
+				Duel.SSet(tp,dtc)
+				Duel.ConfirmCards(1-tp,dtc)
+			end
 		end
-	else
-	  Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-	  local dtg=dg:Select(tp,1,1,nil)
-	  local dtc=dtg:GetFirst()
-	  Duel.HintSelection(dtg)
-	  if Duel.Destroy(dtc,REASON_EFFECT)~=0 and Duel.GetLocationCount(tp,LOCATION_SZONE)>0 and not dtc:IsLocation(LOCATION_HAND+LOCATION_DECK) and dtc:IsType(TYPE_SPELL+TYPE_TRAP) and dtc:IsSSetable() and Duel.SelectYesNo(tp,aux.Stringid(24413299,3)) then
-			Duel.BreakEffect()
-			Duel.SSet(tp,dtc)
-			Duel.ConfirmCards(1-tp,dtc)
-	  end
 	end
 end
