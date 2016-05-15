@@ -17,6 +17,7 @@ function c55010259.initial_effect(c)
   --Special Summon Gadget
   local e3=e1:Clone()
   e3:SetDescription(aux.Stringid(55010259,1))
+  e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
   e3:SetCode(EVENT_DESTROYED)
   e3:SetCondition(c55010259.spcon)
   e3:SetTarget(c55010259.sptg2)
