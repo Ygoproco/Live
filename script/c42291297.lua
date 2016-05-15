@@ -53,7 +53,7 @@ function c42291297.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 function c42291297.target(e,c)
-	return c:IsSetCard(0xe5)
+	return c:IsSetCard(0xe6)
 end
 function c42291297.damcon(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp and r==REASON_RULE

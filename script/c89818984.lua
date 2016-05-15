@@ -14,7 +14,7 @@ function c89818984.initial_effect(c)
 	c:RegisterEffect(e1)
 	--Draw
 	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e2:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_DAMAGE_STEP)
 	e2:SetCategory(CATEGORY_DRAW+CATEGORY_SPECIAL_SUMMON)
@@ -31,7 +31,7 @@ function c89818984.initial_effect(c)
 end
 
 function c89818984.spfil(c)
-	return c:IsSetCard(0xe5) and c:GetLevel()==11 and not c:IsCode(89818984)
+	return c:IsSetCard(0xe6) and c:GetLevel()==11 and not c:IsCode(89818984)
 end
 function c89818984.spcon(e,c)
 	if c==nil then return true end
@@ -47,7 +47,7 @@ function c89818984.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,1)
 end
 function c89818984.drfil(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xe5)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xe6)
 end
 function c89818984.drop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetDecktopGroup(tp,1)
