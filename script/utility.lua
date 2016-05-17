@@ -1640,5 +1640,9 @@ function Auxiliary.KaijuSpLimit()
 		return sc==e:GetHandler() or (sc:IsSetCard(0xd3) and se:IsActiveType(TYPE_SPELL+TYPE_TRAP))
 	end
 end
+--Function to check the summon method used for the card. Credit goes to Cute-Nekomimi
+function Card.IsSummonType(c,t)
+	return bit.band(c:GetSummonType(),t)==t
+end
 
 pcall(dofile,"init.lua")
