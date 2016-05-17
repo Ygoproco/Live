@@ -31,7 +31,7 @@ function c7011.initial_effect(c)
 end
 
 function c7011.thfil(c)
-	return c:IsSetCard(0xe8) and c:IsType(TYPE_MONSTER) and c:GetLevel()==8 and c:IsAbleToHand()
+	return c:IsSetCard(0xe9) and c:IsType(TYPE_MONSTER) and c:GetLevel()==8 and c:IsAbleToHand()
 end
 function c7011.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c7011.thfil,tp,LOCATION_DECK,0,1,nil) end
