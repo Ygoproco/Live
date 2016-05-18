@@ -35,7 +35,7 @@ function c7353.op(e,tp,eg,ep,ev,re,r,rp)
 	local mg=Duel.GetMatchingGroup(c7353.fil,tp,LOCATION_EXTRA,0,nil)
 	if mg:GetClassCount(Card.GetCode)<2 then return end
 	local g=Group.CreateGroup()
-	for i=1,2
+	for i=1,2 do
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 		local g2=mg:Select(tp,1,1,nil)
 		local tc=g2:GetFirst()
