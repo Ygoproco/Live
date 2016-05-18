@@ -66,9 +66,10 @@ end
 function c7308.cttg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local g=Duel.GetMatchingGroup(c7308.ctfil,tp,0,LOCATION_MZONE,nil)
 	if chk==0 then return g:GetCount()>0 end
-	Duel.SetOperationInfo(0,CATEGORY_COUNTER,g,g:GetCounter(),0x3b,1)
+	Duel.SetOperationInfo(0,CATEGORY_COUNTER,g,g:GetCount(),0x3b,1)
 end
 function c7308.ctop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
 	local g=Duel.GetMatchingGroup(c7308.ctfil,tp,0,LOCATION_MZONE,nil)
 	local tc=g:GetFirst()
 	while tc do
