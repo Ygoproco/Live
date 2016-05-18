@@ -43,5 +43,5 @@ function c7353.op(e,tp,eg,ep,ev,re,r,rp)
 		mg:Remove(Card.IsCode,nil,tc:GetCode())
 	end
 	Duel.SendtoHand(g,tp,REASON_EFFECT)
-	Duel.ConfirmCard(1-tp,g)
+	Duel.ConfirmCards(1-tp,g)
 end
