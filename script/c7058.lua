@@ -6,7 +6,7 @@ function c7058.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetCost(c7058.cost)
-	--e1:SetTarget(c7058.target)
+	e1:SetTarget(c7058.target)
 	e1:SetOperation(c7058.activate)
 	c:RegisterEffect(e1)
 end
@@ -15,14 +15,17 @@ function c7058.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.PayLPCost(tp,2000)
 end
 function c7058.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToHand,tp,0,LOCATION_DECK,1,nil) end
+	if chk==0 then return true end
+	
+	Duel.Hint(HINT_SELECTMSG,tp,564)
+	local code=Duel.AnnounceCard(tp,TYPE_MONSTER)
+	e:SetLabel(code)
 end
 function c7058.filter(c,code)
 	return c:IsType(TYPE_MONSTER) and c:IsCode(code) and c:IsAbleToHand()
 end
 function c7058.activate(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Hint(HINT_SELECTMSG,tp,564)
-	local code=Duel.AnnounceCard(tp)
+	local code=e:GetLabel()
 	if Duel.IsExistingMatchingCard(c7058.filter,tp,0,LOCATION_DECK,1,nil,code) then
 		local g=Duel.SelectMatchingCard(1-tp,c7058.filter,tp,0,LOCATION_DECK,1,1,nil,code)
 		Duel.ConfirmCards(tp,g)
