@@ -39,10 +39,8 @@ function c7028.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g,g:GetCount(),0,0)
 end
 function c7028.operation(e,tp,eg,ep,ev,re,r,rp)
-	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
-		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)
-	end
+	local ex,tg=Duel.GetOperationInfo(0,CATEGORY_SPECIAL_SUMMON)
+	Duel.SpecialSummon(tg,0,tp,tp,false,false,POS_FACEUP)
 end
 
 function c7028.hcost(e,tp,eg,ep,ev,re,r,rp,chk)
