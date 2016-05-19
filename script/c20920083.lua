@@ -37,7 +37,7 @@ end
 function c20920083.intg(e,c)
 	return c:IsPosition(POS_DEFENCE)
 end
-function c20920083.tgvalue(e,re,rp)
+function c20920083.inval(e,re,rp)
 	return rp~=e:GetHandlerPlayer()
 end
 
