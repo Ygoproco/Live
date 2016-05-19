@@ -35,22 +35,25 @@ function c7027.activate(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 
-function c7027.select(c)
-	return c:IsFaceup() and Duel.IsExistingMatchingCard(c7027.filter2,tp,LOCATION_DECK,0,1,nil,c)
+function c7027.LMU(c)
+	return c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsRace(RACE_MACHINE) and c:IsType(TYPE_UNION)
+end
+function c7027.checkFilter(c,tp)
+	return c7027.LMU(c) and c:IsFaceup() and c:IsControler(tp)
+end
+function c7027.select(c,tp)
+	return c7027.checkFilter(c,tp) and Duel.IsExistingMatchingCard(c7027.filter2,tp,LOCATION_DECK,0,1,nil,c)
 end
 function c7027.filter2(c,code)
-	return c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsRace(RACE_MACHINE) and c:IsType(TYPE_UNION) and not c:IsCode(code:GetCode())
-		and c:CheckEquipTarget(code)
+	return c7027.LMU(c) and not c:IsCode(code:GetCode()) and c:CheckEquipTarget(code)
 end
 function c7027.check(e,tp,eg,ep,ev,re,r,rp)
-	local tc=eg:GetFirst()
-	return tc and tc:IsFaceup() and tc:IsControler(tp) and tc:IsAttribute(ATTRIBUTE_LIGHT) 
-		and tc:IsRace(RACE_MACHINE) and tc:IsType(TYPE_UNION) and Duel.GetLocationCount(tp,LOCATION_SZONE)>0
+	return eg:IsExists(c7027.checkFilter,1,nil,tp) and Duel.GetLocationCount(tp,LOCATION_SZONE)>0
 end
 function c7027.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsAttribute(ATTRIBUTE_LIGHT) and chkc:IsRace(RACE_MACHINE) and chkc:IsType(TYPE_UNION) end
-	if chk==0 then return eg:FilterCount(c7027.select,nil)>0 end
-	local tc = eg:FilterSelect(tp,c7027.select,1,1,nil):GetFirst()
+	if chkc then return c7027.checkFilter(chkc,tp) end
+	if chk==0 then return eg:FilterCount(c7027.select,nil,tp)>0 end
+	local tc = eg:FilterSelect(tp,c7027.select,1,1,nil,tp):GetFirst()
 	Duel.SetTargetCard(tc)
 	Duel.SetOperationInfo(0,CATEGORY_EQUIP,nil,1,0,0)
 end
