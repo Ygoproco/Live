@@ -62,7 +62,7 @@ function c7356.op(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 	if g:GetCount()>0 then
-		local ct=Duel.Remove(g,POS_FACEUP,REASON_EFFECT)
+		local ct=Duel.Remove(g,POS_FACEDOWN,REASON_EFFECT)
 		local lp=Duel.GetLP(tp)
 		Duel.SetLP(tp,lp-(1000*ct))
 	end	
