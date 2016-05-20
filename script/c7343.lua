@@ -58,6 +58,7 @@ function c7343.op(e,tp,eg,ep,ev,re,r,rp)
 	e2:SetRange(LOCATION_SZONE)
 	e2:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
 	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e2:SetTargetRange(0,1)
 	e2:SetTarget(c7343.sumlimit)
 	c:RegisterEffect(e2)
 end
