@@ -37,7 +37,7 @@ function c7015.initial_effect(c)
 end
 
 function c7015.discon(e,tp,eg,ep,ev,re,r,rp)
-	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and Duel.IsChainNegatable(ev)
+	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and Duel.IsChainNegatable(ev) and ep~=tp
 end
 function c7015.distg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
@@ -54,7 +54,7 @@ function c7015.disop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c7014.summfilter(c,code,e,tp)
-	return c:IsFaceup() and c:IsCode(code) and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
+	return c:IsCode(code) and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
 end
 function c7014.summcnd(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
