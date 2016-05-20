@@ -63,14 +63,14 @@ function c7014.summcnd(e,tp,eg,ep,ev,re,r,rp)
 		and c:GetPreviousControler()==tp and rp~=tp
 end
 function c7014.summtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_REMOVED) 
+	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_HAND+LOCATION_DECK) 
 		and (c7014.summfilter(chkc,75347539,e,tp) or c7014.summfilter(chkc,7014,e,tp)) end
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>=2
-		and Duel.IsExistingTarget(c7014.summfilter,tp,LOCATION_REMOVED,0,1,nil,75347539,e,tp)
-		and Duel.IsExistingTarget(c7014.summfilter,tp,LOCATION_REMOVED,0,1,nil,7014,e,tp) end
+		and Duel.IsExistingTarget(c7014.summfilter,tp,LOCATION_HAND+LOCATION_DECK,0,1,nil,75347539,e,tp)
+		and Duel.IsExistingTarget(c7014.summfilter,tp,LOCATION_HAND+LOCATION_DECK,0,1,nil,7014,e,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g1=Duel.SelectTarget(tp,c7014.summfilter,tp,LOCATION_REMOVED,0,1,1,nil,75347539,e,tp)
-	local g2=Duel.SelectTarget(tp,c7014.summfilter,tp,LOCATION_REMOVED,0,1,1,nil,7014,e,tp)
+	local g1=Duel.SelectTarget(tp,c7014.summfilter,tp,LOCATION_HAND+LOCATION_DECK,0,1,1,nil,75347539,e,tp)
+	local g2=Duel.SelectTarget(tp,c7014.summfilter,tp,LOCATION_HAND+LOCATION_DECK,0,1,1,nil,7014,e,tp)
 	g1:Merge(g2)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g1,g1:GetCount(),0,0)
 end
