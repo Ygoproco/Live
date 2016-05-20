@@ -26,10 +26,9 @@ function c7015.initial_effect(c)
 	
 	--summon Valk and Vers
 	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(7014,1))
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e3:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY+EFFECT_FLAG_DAMAGE_STEP)
+	e3:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_DAMAGE_STEP)
 	e3:SetCode(EVENT_LEAVE_FIELD)
 	e3:SetCondition(c7014.summcnd)
 	e3:SetTarget(c7014.summtg)
@@ -59,8 +58,8 @@ function c7014.summfilter(c,code,e,tp)
 end
 function c7014.summcnd(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return c:IsPreviousPosition(POS_FACEUP) and bit.band(r,REASON_BATTLE)==0
-		and c:GetPreviousControler()==tp and rp~=tp
+	return c:IsPreviousPosition(POS_FACEUP) and c:GetReasonPlayer()~=tp and c:IsReason(REASON_EFFECT)
+		and c:GetPreviousControler()==tp
 end
 function c7014.summtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_HAND+LOCATION_DECK) 
