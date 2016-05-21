@@ -13,7 +13,8 @@ function c7027.initial_effect(c)
 	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_SUMMON_SUCCESS)
 	e3:SetRange(LOCATION_FZONE)
-	e3:SetCountLimit(1)
+	e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
+	e3:SetCountLimit(1,EFFECT_COUNT_CODE_SINGLE)
 	e3:SetCondition(c7027.check)
 	e3:SetTarget(c7027.tg)
 	e3:SetOperation(c7027.op)
@@ -27,6 +28,7 @@ function c7027.filter(c)
 	return c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsRace(RACE_MACHINE) and c:IsType(TYPE_UNION) and c:IsAbleToHand()
 end
 function c7027.activate(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
 	if Duel.IsExistingMatchingCard(c7027.filter,tp,LOCATION_DECK,0,1,nil) and Duel.SelectYesNo(tp,aux.Stringid(7027,1)) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 		local g=Duel.SelectMatchingCard(tp,c7027.filter,tp,LOCATION_DECK,0,1,1,nil)
@@ -58,6 +60,7 @@ function c7027.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_EQUIP,nil,1,0,0)
 end
 function c7027.op(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
 	local g=Duel.SelectMatchingCard(tp,c7027.filter2,tp,LOCATION_DECK,0,1,1,nil,tc)
 	if g:GetCount()>0 and tc:IsFaceup() and tc:IsRelateToEffect(e) and Duel.GetLocationCount(tp,LOCATION_SZONE)>0 

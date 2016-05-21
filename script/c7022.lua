@@ -45,7 +45,7 @@ function c7022.initial_effect(c)
 	local e6=Effect.CreateEffect(c)
 	e6:SetCategory(CATEGORY_TOHAND)
 	e6:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e6:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
+	e6:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e6:SetCode(EVENT_TO_GRAVE)
 	e6:SetCondition(c7022.thcon)
 	e6:SetTarget(c7022.thtg)
@@ -107,16 +107,14 @@ end
 function c7022.thfilter(c)
 	return c:IsType(TYPE_UNION) and c:IsAbleToHand()
 end
-function c7022.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_DECK) and chkc:IsControler(tp) and c7022.thfilter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(c7022.thfilter,tp,LOCATION_DECK,0,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectTarget(tp,c7022.thfilter,tp,LOCATION_DECK,0,1,1,nil)
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
+function c7022.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(c7022.thfilter,tp,LOCATION_DECK,0,1,nil) end
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,0,0)
 end
 function c7022.thop(e,tp,eg,ep,ev,re,r,rp)
-	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
+	local tc=Duel.SelectMatchingCard(tp,c7022.thfilter,tp,LOCATION_DECK,0,1,1,nil)
+	if tc:GetCount()>0 then
 		Duel.SendtoHand(tc,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,tc)
 	end

@@ -48,7 +48,7 @@ function c7025.splimit(e,se,sp,st)
 	return not e:GetHandler():IsLocation(LOCATION_EXTRA+LOCATION_GRAVE)
 end
 function c7025.spfilter(c,code)
-	return c:IsCode(code) and c:IsAbleToRemoveAsCost()
+	return c:GetOriginalCode()==code and c:IsAbleToRemoveAsCost()
 end
 function c7025.spcon(e,c)
 	if c==nil then return true end 
@@ -87,7 +87,7 @@ end
 
 
 function c7025.discon(e,tp,eg,ep,ev,re,r,rp)
-	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and Duel.IsChainNegatable(ev)
+	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and Duel.IsChainNegatable(ev) and rp~=tp and (re:IsActiveType(TYPE_MONSTER) or re:IsHasType(EFFECT_TYPE_ACTIVATE))
 end
 function c7025.discost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,nil) end
@@ -115,8 +115,7 @@ function c7025.rmcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
 function c7025.rmtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) 
-		and (chkc:IsCode(91998119) or chkc:IsCode(7024)) end
+	if chkc then return false end
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>=2
 		and Duel.IsExistingTarget(c7025.rmfilter,tp,LOCATION_REMOVED,0,1,nil,e,tp,91998119)
 		and Duel.IsExistingTarget(c7025.rmfilter,tp,LOCATION_REMOVED,0,1,nil,e,tp,7024) end
@@ -127,6 +126,8 @@ function c7025.rmtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g1,2,0,0)
 end
 function c7025.rmop(e,tp,eg,ep,ev,re,r,rp)
-	local ex1,g=Duel.GetOperationInfo(0,CATEGORY_SPECIAL_SUMMON)
-	Duel.SpecialSummon(g,0,tp,tp,true,false,POS_FACEUP)
+	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(Card.IsRelateToEffect,nil,e)
+	if g:GetCount()>0 then
+		Duel.SpecialSummon(g,0,tp,tp,true,false,POS_FACEUP)
+	end
 end

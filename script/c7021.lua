@@ -45,7 +45,7 @@ function c7021.initial_effect(c)
 	local e6=Effect.CreateEffect(c)
 	e6:SetCategory(CATEGORY_TOHAND)
 	e6:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e6:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
+	e6:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e6:SetCode(EVENT_TO_GRAVE)
 	e6:SetCondition(c7021.thcon)
 	e6:SetTarget(c7021.thtg)
@@ -107,17 +107,15 @@ end
 function c7021.thfilter(c)
 	return c:IsType(TYPE_UNION) and c:IsAbleToHand()
 end
-function c7021.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c7021.thfilter(chkc) and chkc~=e:GetHandler() end
-	if chk==0 then return Duel.IsExistingTarget(c7021.thfilter,tp,LOCATION_GRAVE,0,1,e:GetHandler()) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectTarget(tp,c7021.thfilter,tp,LOCATION_GRAVE,0,1,1,e:GetHandler())
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
+function c7021.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(c7021.thfilter,tp,LOCATION_GRAVE,0,1,e:GetHandler()) end
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,0,0)
 end
 function c7021.thop(e,tp,eg,ep,ev,re,r,rp)
-	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
-		Duel.SendtoHand(tc,nil,REASON_EFFECT)
-		Duel.ConfirmCards(1-tp,tc)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
+	local g=Duel.SelectMatchingCard(tp,c7021.thfilter,tp,LOCATION_GRAVE,0,1,1,e:GetHandler())
+	if g:GetCount()>0 then
+		Duel.SendtoHand(g,nil,REASON_EFFECT)
+		Duel.ConfirmCards(1-tp,g)
 	end
 end
