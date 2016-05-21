@@ -4,7 +4,7 @@
 function c7338.initial_effect(c)
   --fusion
   c:EnableReviveLimit()
-  aux.AddFusionProcFunRep(c,c7338.mat_filter,2,true)
+  aux.AddFusionProcFunRep(c,c7338.mat_filter,2,false)
   --
   local e1=Effect.CreateEffect(c)
   e1:SetDescription(aux.Stringid(7338,0))

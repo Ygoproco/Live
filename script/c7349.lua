@@ -24,7 +24,7 @@ function c7349.initial_effect(c)
   e2:SetCategory(CATEGORY_DISABLE+CATEGORY_DESTROY+CATEGORY_SPECIAL_SUMMON)
   e2:SetCode(EVENT_CHAINING)
   e2:SetRange(LOCATION_MZONE)
-  e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
+  e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DAMAGE_CAL)
   e2:SetCondition(c7349.negcon)
   e2:SetCost(c7349.cost)
   e2:SetTarget(c7349.negtg)
@@ -68,7 +68,7 @@ function c7349.atkop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c7349.negcon(e,tp,eg,ep,ev,re,r,rp)
-  return c7349.con(e,tp,eg,ep,ev,re,r,rp) and rp~=tp and re:IsActiveType(TYPE_MONSTER) and Duel.IsChainNegatable(ev)
+  return c7349.con(e,tp,eg,ep,ev,re,r,rp) and rp~=tp and re:IsActiveType(TYPE_MONSTER) and Duel.IsChainNegatable(ev) and not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED)
 end
 function c7349.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
   if chk==0 then return true end
@@ -90,6 +90,7 @@ function c7349.negop(e,tp,eg,ep,ev,re,r,rp)
 	  Duel.BreakEffect()
 	  Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	  local sg=g:Select(tp,1,1,nil)
+	  if sg:GetFirst():IsHasEffect(EFFECT_NECRO_VALLEY) then return end
 	  Duel.SpecialSummon(sg,0,tp,tp,false,false,POS_FACEUP)
   end
 end

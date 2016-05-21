@@ -9,11 +9,10 @@ function c7016.initial_effect(c)
 	--Summon
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_IGNITION)
-	e2:SetCode(EVENT_FREE_CHAIN)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e2:SetRange(LOCATION_FZONE)
-	e2:SetCountLimit(1)
+	e2:SetCountLimit(1,7016)
 	e2:SetCondition(c7016.condition)
 	e2:SetTarget(c7016.target)
 	e2:SetOperation(c7016.activate)
@@ -26,22 +25,23 @@ function c7016.initial_effect(c)
 	e3:SetCode(EVENT_DAMAGE_STEP_END)
 	e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
 	e3:SetRange(LOCATION_FZONE)
+	e3:SetCountLimit(1)
 	e3:SetCondition(c7016.hancon)
 	e3:SetTarget(c7016.hantg)
 	e3:SetOperation(c7016.hanop)
 	c:RegisterEffect(e3)
 end
 function c7016.filter(c,e,tp)
-	return c:GetLevel()<5 and c:IsSetCard(0x2066) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsLevelBelow(4) and c:IsSetCard(0x2066) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c7016.cfilter(c)
-	return c:IsFaceup() and c:GetLevel()<5 and c:IsAttribute(ATTRIBUTE_EARTH) and c:IsRace(RACE_ROCK)
+	return c:IsFaceup() and c:IsLevelBelow(4) and c:IsAttribute(ATTRIBUTE_EARTH) and c:IsRace(RACE_ROCK)
 end
 function c7016.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c7016.cfilter,tp,LOCATION_MZONE,0,1,nil)
 end
 function c7016.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return c7016.filter(chkc,e,tp) and chkc:IsLocation(LOCATION_GRAVE) end
+	if chkc then return c7016.filter(chkc,e,tp) and chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) end
 	if chk==0 then return Duel.IsExistingMatchingCard(c7016.filter,tp,LOCATION_GRAVE,0,1,nil,e,tp)
 		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
@@ -50,7 +50,7 @@ function c7016.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c7016.activate(e,tp,eg,ep,ev,re,r,rp)
 	local c=Duel.GetFirstTarget()
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and c:IsLocation(LOCATION_GRAVE) and c:IsRelateToEffect(e) then
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and  c:IsRelateToEffect(e) then
 		Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)
 	end
 end

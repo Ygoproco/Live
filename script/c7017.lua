@@ -25,7 +25,7 @@ function c7017.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c7017.filter(c)
-	return c:GetLevel()<5 and c:IsSetCard(0x2066) and c:IsAbleToHand()
+	return c:IsLevelBelow(4) and c:IsSetCard(0x2066) and c:IsAbleToHand()
 end
 function c7017.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and c7017.filter(chkc) end
@@ -48,7 +48,7 @@ function c7017.hcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
 function c7017.hfilter(c,e,tp)
-	return c:GetLevel()<5 and c:IsSetCard(0x2066) and c:IsFaceup() and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsLevelBelow(4) and c:IsSetCard(0x2066) and c:IsFaceup() and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c7017.htarget(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and c7017.hfilter(chkc,e,tp) end
