@@ -8,6 +8,7 @@ function c55470553.initial_effect(c)
 	--Position
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(55470553,0))
+	e1:SetCategory(CATEGORY_POSITION)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetCode(EVENT_ATTACK_ANNOUNCE)
@@ -34,13 +35,12 @@ function c55470553.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
 function c55470553.atktg(e,tp,eg,ep,ev,re,r,rp,chk)
-	local tg=Duel.GetAttacker()
-	if chk==0 then return tg:IsOnField() and tg:IsPosition(POS_FACEUP_ATTACK) end
+	if chk==0 then return Duel.GetAttacker():IsAttackPos() end
 end
 function c55470553.atkop(e,tp,eg,ep,ev,re,r,rp)
-	local tc=Duel.GetAttacker()
-	if tc:IsRelateToEffect(e) then
-		Duel.ChangePosition(tc,POS_FACEUP_DEFENCE)
+	local at=Duel.GetAttacker()
+	if at:IsAttackPos() and at:IsRelateToBattle() then
+		Duel.ChangePosition(at,POS_FACEUP_DEFENCE)
 	end
 end
 
