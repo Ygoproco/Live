@@ -39,6 +39,7 @@ function c7355.op(e,tp,eg,ep,ev,re,r,rp)
 			Duel.MoveSequence(tc,0)
 			tc=g:GetNext()
 		end
+		Duel.SortDecktop(tp,tp,3)
 	end
 end
 
