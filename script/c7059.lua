@@ -51,5 +51,5 @@ function c7059.sumop(e,tp,eg,ep,ev,re,r,rp,c)
 	e1:SetReset(RESET_PHASE+PHASE_END)
 	e1:SetTargetRange(1,0)
 	Duel.RegisterEffect(e1,tp)
-	Duel.RegisterFlagEffect(tp,7059+1,RESET_PHASE+PHASE_END,0,Duel.GetFlagEffect(tp,7059)+1)
+	Duel.RegisterFlagEffect(tp,7059+1,RESET_PHASE+PHASE_END,0,Duel.GetFlagEffect(tp,7059+1)+1)
 end

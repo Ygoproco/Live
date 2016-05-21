@@ -25,7 +25,7 @@ function c7054.initial_effect(c)
 end
 
 function c7054.drfil(c)
-	return c:IsSetCard(0xe8) and c:IsFaceUp()
+	return c:IsSetCard(0xe8) and c:IsFaceup()
 end
 function c7054.drcon(e,tp,eg,ep,ev,re,r,rp)
 	local ph=Duel.GetCurrentPhase()
