@@ -1,5 +1,6 @@
 --Super Conduction Machine Imperion Magnum
 function c7015.initial_effect(c)
+
 	--fusion material
 	c:EnableReviveLimit()
 	aux.AddFusionProcCode2(c,75347539,7014,false,false)
@@ -10,7 +11,6 @@ function c7015.initial_effect(c)
 	e1:SetCode(EFFECT_SPSUMMON_CONDITION)
 	e1:SetValue(aux.fuslimit)
 	c:RegisterEffect(e1)
-	
 	--negate
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_NEGATE+CATEGORY_DESTROY)
@@ -23,7 +23,6 @@ function c7015.initial_effect(c)
 	e2:SetTarget(c7015.distg)
 	e2:SetOperation(c7015.disop)
 	c:RegisterEffect(e2)
-	
 	--summon Valk and Vers
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -37,7 +36,7 @@ function c7015.initial_effect(c)
 end
 
 function c7015.discon(e,tp,eg,ep,ev,re,r,rp)
-	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and Duel.IsChainNegatable(ev) and ep~=tp and (e:IsActiveType(TYPE_MONSTER) or e:IsHasType(EFFECT_TYPE_ACTIVATE))
+	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and Duel.IsChainNegatable(ev) and rp~=tp and (re:IsActiveType(TYPE_MONSTER) or re:IsHasType(EFFECT_TYPE_ACTIVATE))
 end
 function c7015.distg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
@@ -77,3 +76,4 @@ function c7015.summop(e,tp,eg,ep,ev,re,r,rp)
 	local ex1,g=Duel.GetOperationInfo(0,CATEGORY_SPECIAL_SUMMON)
 	Duel.SpecialSummon(g,0,tp,tp,true,false,POS_FACEUP)
 end
+
