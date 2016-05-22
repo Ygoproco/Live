@@ -49,6 +49,7 @@ function c7016.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g,1,tp,LOCATION_GRAVE)
 end
 function c7016.activate(e,tp,eg,ep,ev,re,r,rp)
+if not e:GetHandler():IsRelateToEffect(e) then return end
 	local c=Duel.GetFirstTarget()
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and  c:IsRelateToEffect(e) then
 		Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)
@@ -76,6 +77,7 @@ function c7016.hantg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,c,1,0,0)
 end
 function c7016.hanop(e,tp,eg,ep,ev,re,r,rp)
+if not e:GetHandler():IsRelateToEffect(e) then return end
 	local ex,bc=Duel.GetOperationInfo(0,CATEGORY_TOHAND)
 	if bc:GetFirst():IsRelateToBattle() then
 		Duel.SendtoHand(bc,nil,REASON_EFFECT)
