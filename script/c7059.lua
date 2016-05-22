@@ -1,4 +1,4 @@
---Burial Tribute
+--Tribute Burial
 --Scripted by edo9300
 function c7059.initial_effect(c)
 	--Activate
@@ -9,6 +9,7 @@ function c7059.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c7059.activate(e,tp,eg,ep,ev,re,r,rp)
+	local tp=e:GetHandler():GetControler()
 	if Duel.GetFlagEffect(tp,7059)==0 then
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetDescription(aux.Stringid(7059,0))
@@ -35,12 +36,16 @@ function c7059.sumfilter(c)
 	return c:IsType(TYPE_MONSTER) and c:IsAbleToRemoveAsCost()
 end
 function c7059.sumcon(e,c,tp)
+	local tp=e:GetHandler():GetControler()
 	return Duel.IsExistingMatchingCard(c7059.sumfilter,tp,LOCATION_GRAVE,0,1,nil)
 	and Duel.IsExistingMatchingCard(c7059.sumfilter,tp,0,LOCATION_GRAVE,1,nil)
 	and Duel.GetFlagEffect(tp,7059)>Duel.GetFlagEffect(tp,7059+1)
 end
 function c7059.sumop(e,tp,eg,ep,ev,re,r,rp,c)
+	local tp=e:GetHandler():GetControler()
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	g1=Duel.SelectMatchingCard(tp,c7059.sumfilter,tp,LOCATION_GRAVE,0,1,1,nil)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	g2=Duel.SelectMatchingCard(tp,c7059.sumfilter,tp,0,LOCATION_GRAVE,1,1,nil)
 	g1:Merge(g2)
 	Duel.Remove(g1,POS_FACEUP,REASON_COST)
