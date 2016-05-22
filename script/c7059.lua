@@ -1,4 +1,4 @@
---Burial Tribute
+--Tribute Burial
 --Scripted by edo9300
 function c7059.initial_effect(c)
 	--Activate
@@ -43,7 +43,9 @@ function c7059.sumcon(e,c,tp)
 end
 function c7059.sumop(e,tp,eg,ep,ev,re,r,rp,c)
 	local tp=e:GetHandler():GetControler()
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	g1=Duel.SelectMatchingCard(tp,c7059.sumfilter,tp,LOCATION_GRAVE,0,1,1,nil)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	g2=Duel.SelectMatchingCard(tp,c7059.sumfilter,tp,0,LOCATION_GRAVE,1,1,nil)
 	g1:Merge(g2)
 	Duel.Remove(g1,POS_FACEUP,REASON_COST)
