@@ -114,8 +114,8 @@ end
 function c7023.thop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<1 then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local tc=Duel.SelectTarget(tp,c7023.thfilter,tp,LOCATION_HAND,0,1,1,nil,e,tp)
-	if tc:IsRelateToEffect(e) then
+	local tc=Duel.SelectMatchingCard(tp,c7023.thfilter,tp,LOCATION_HAND,0,1,1,nil,e,tp)
+	if tc:GetCount()>0 then
 		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)
 	end
 end
