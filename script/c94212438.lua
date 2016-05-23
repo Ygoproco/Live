@@ -78,6 +78,6 @@ function c94212438.tgcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c94212438.cfilter2,1,nil,tp)
 end
 function c94212438.tgop(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.GetMatchingGroup(c94212438.cfilter3,tp,LOCATION_SZONE,0,nil)
+	local g=Duel.GetMatchingGroup(c94212438.cfilter3,tp,LOCATION_ONFIELD,0,nil)
 	Duel.SendtoGrave(g,REASON_EFFECT)
 end
