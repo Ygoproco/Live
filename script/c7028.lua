@@ -33,14 +33,16 @@ function c7028.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and c7028.spfilter(chkc,e,tp) end
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 		and Duel.IsExistingTarget(c7028.spfilter,tp,LOCATION_REMOVED,0,1,nil,e,tp) end
-	local mx=math.min(Duel.GetLocationCount(tp,LOCATION_MZONE),2)
+	local mx=math.min(Duel.GetLocationCount(tp,LOCATION_MZONE),3)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	local g=Duel.SelectTarget(tp,c7028.spfilter,tp,LOCATION_REMOVED,0,1,mx,nil,e,tp)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g,g:GetCount(),0,0)
 end
 function c7028.operation(e,tp,eg,ep,ev,re,r,rp)
-	local ex,tg=Duel.GetOperationInfo(0,CATEGORY_SPECIAL_SUMMON)
-	Duel.SpecialSummon(tg,0,tp,tp,false,false,POS_FACEUP)
+	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(Card.IsRelateToEffect,nil,e)
+	if g:GetCount()>0 then
+		Duel.SpecialSummon(g,0,tp,tp,true,false,POS_FACEUP)
+	end
 end
 
 function c7028.hcost(e,tp,eg,ep,ev,re,r,rp,chk)
