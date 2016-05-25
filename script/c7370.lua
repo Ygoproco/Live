@@ -2,6 +2,7 @@
 --No Cheaters Allowed
 --Scripted by Eerie Code
 function c7370.initial_effect(c)
+	Duel.EnableGlobalFlag(GLOBALFLAG_SELF_TOGRAVE)
 	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -38,7 +39,7 @@ function c7370.thfil(c)
 end
 function c7370.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
-	if Duel.CheckEvent(EVENT_SPSUMMON_SUCCESS) and eg:IsExists(c7370.cfil,1,nil,tp) and Duel.SelectYesNo(tp,94) then
+	if Duel.CheckEvent(EVENT_SPSUMMON_SUCCESS) and eg and eg:IsExists(c7370.cfil,1,nil,tp) and Duel.SelectYesNo(tp,94) then
 		e:SetCategory(CATEGORY_TOHAND)
 		e:GetHandler():RegisterFlagEffect(7370,RESET_PHASE+PHASE_END,0,1)
 		e:SetLabel(1)
@@ -62,7 +63,7 @@ function c7370.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:GetHandler():RegisterFlagEffect(7370,RESET_PHASE+PHASE_END,0,1)
 end
 function c7370.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return eg:IsExists(c7370.cfil,1,nil,tp) end
+	if chk==0 then return eg and eg:IsExists(c7370.cfil,1,nil,tp) end
 	local g=Duel.GetMatchingGroup(c7370.thfil,tp,0,LOCATION_MZONE,nil)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,g:GetCount(),0,0)
 end
