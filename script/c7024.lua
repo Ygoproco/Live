@@ -140,6 +140,8 @@ function c7024.rmtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c7024.rmop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<3 then return end
-	local ex1,g=Duel.GetOperationInfo(0,CATEGORY_SPECIAL_SUMMON)
-	Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
+	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(Card.IsRelateToEffect,nil,e)
+	if g:GetCount()>0 then
+		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
+	end
 end
