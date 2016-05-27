@@ -81,16 +81,17 @@ function c7349.negfil(c,e,tp)
   return c:IsType(TYPE_XYZ) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c7349.negop(e,tp,eg,ep,ev,re,r,rp)
-  Duel.NegateActivation(ev)
-	if re:GetHandler():IsRelateToEffect(re) then
-		Duel.Destroy(eg,REASON_EFFECT)
+  	Duel.NegateEffect(ev)
+	if re:GetHandler():IsRelateToEffect(re) and Duel.Destroy(eg,REASON_EFFECT)>0 then
+		if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
+		local g=Duel.GetMatchingGroup(c7349.negfil,tp,LOCATION_GRAVE,0,nil,e,tp)
+		if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(7349,2)) then
+			Duel.BreakEffect()
+			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+			local sg=g:Select(tp,1,1,nil)
+			if sg:GetFirst():IsHasEffect(EFFECT_NECRO_VALLEY) then return end
+			Duel.SpecialSummon(sg,0,tp,tp,false,false,POS_FACEUP)
+		end
 	end
-	local g=Duel.GetMatchingGroup(c7349.negfil,tp,LOCATION_GRAVE,0,nil,e,tp)
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(7349,2)) then
-	  Duel.BreakEffect()
-	  Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	  local sg=g:Select(tp,1,1,nil)
-	  if sg:GetFirst():IsHasEffect(EFFECT_NECRO_VALLEY) then return end
-	  Duel.SpecialSummon(sg,0,tp,tp,false,false,POS_FACEUP)
   end
 end
