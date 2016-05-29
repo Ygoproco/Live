@@ -10,8 +10,7 @@ function c16172067.initial_effect(c)
 	e0:SetCode(EFFECT_SPSUMMON_CONDITION)
 	e0:SetValue(aux.synlimit)
 	c:RegisterEffect(e0)
-	aux.AddDoubleSynchroProcedure(c,nil,aux.NonTuner(nil),1)
-	--[[synchro summon
+	--synchro summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_SPSUMMON_PROC)
@@ -20,7 +19,7 @@ function c16172067.initial_effect(c)
 	e1:SetCondition(c16172067.syncon)
 	e1:SetOperation(c16172067.synop)
 	e1:SetValue(SUMMON_TYPE_SYNCHRO)
-	c:RegisterEffect(e1)]]
+	c:RegisterEffect(e1)
 	--destroy
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DESTROY)
