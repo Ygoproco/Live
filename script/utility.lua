@@ -1646,3 +1646,217 @@ function Card.IsSummonType(c,t)
 end
 
 pcall(dofile,"init.lua")
+
+--Synchro monster, 2 tuners + n or more monsters (function by Tegardee)
+function Auxiliary.AddDoubleSynchroProcedure(c,f1,f2,ct)
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetCode(EFFECT_SPSUMMON_PROC)
+	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_IGNORE_IMMUNE)
+	e1:SetRange(LOCATION_EXTRA)
+	e1:SetCondition(Auxiliary.DoubleSynchroCondition(f1,f2,ct,99))
+	e1:SetTarget(Auxiliary.DoubleSynchroTarget(f1,f2,ct,99))
+	e1:SetOperation(Auxiliary.DoubleSynchroOperation(f1,f2,ct,99))
+	e1:SetValue(SUMMON_TYPE_SYNCHRO)
+	c:RegisterEffect(e1)
+end
+function Auxiliary.DoubleSynchroMat1(c,syncard)
+	return c:IsType(TYPE_TUNER) and (c:IsLocation(LOCATION_HAND) or c:IsFaceup()) and c:IsCanBeSynchroMaterial(syncard)
+end
+function Auxiliary.DoubleSynchroMat2(c,syncard)
+	return c:IsNotTuner() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup()) and c:IsCanBeSynchroMaterial(syncard)
+end
+function Auxiliary.DoubleSynchroFilter1(c,syncard,lv,g1,g2,g3,g4,f1,f2,minct,maxc)
+	local tlv=c:GetSynchroLevel(syncard)
+	if lv-tlv<=0 then return false end
+	if c:IsHasEffect(EFFECT_HAND_SYNCHRO) then
+		return g3:IsExists(Auxiliary.DoubleSynchroFilter2,1,c,syncard,lv-tlv,g2,g4,f1,f2,c,minct,maxc)
+	else
+		return g1:IsExists(Auxiliary.DoubleSynchroFilter2,1,c,syncard,lv-tlv,g2,g4,f1,f2,c,minct,maxc)
+	end
+end
+function Auxiliary.DoubleSynchroFilter2(c,syncard,lv,g2,g4,f1,f2,tuner1,minct,maxc)
+	local tlv=c:GetSynchroLevel(syncard)
+	if lv-tlv<=0 then return false end
+	if (f1~=nil and (not f1 or not f1(tuner1))) then return false end
+	if (f1~=nil and (not f1 or not f1(c))) then return false end
+	if (tuner1:IsHasEffect(EFFECT_HAND_SYNCHRO) and not c:IsLocation(LOCATION_HAND)) or c:IsHasEffect(EFFECT_HAND_SYNCHRO) then
+		return g4:IsExists(Auxiliary.DoubleSynchroFilter3,1,nil,syncard,lv-tlv,f1,f2,g2,tuner1,c,minct,maxc)
+	else
+		local nt=g2:Filter(Auxiliary.DoubleSynchroFilter3,nil,syncard,lv-tlv,f1,f2,g2,tuner1,c,minct,maxc)
+		return nt:CheckWithSumEqual(Card.GetSynchroLevel,lv-tlv,minct,maxc,syncard)
+	end
+end
+function Auxiliary.DoubleSynchroFilter3(c,syncard,lv,f1,f2,g2,t1,t2,minct,maxc)
+	if (f1~=nil and (not f1 or not f1(t1))) then return false end
+	if (f1~=nil and (not f1 or not f1(t2))) then return false end
+	if not f2(c) then return false end
+	local mlv=c:GetSynchroLevel(syncard)
+	local slv=lv-mlv
+	if slv<0 then return false end
+	if slv==0 then
+		return true
+	else
+		return g2:CheckWithSumEqual(Card.GetSynchroLevel,slv,minct,maxc,syncard)
+	end
+end
+function Auxiliary.DoubleSynchroCondition(f1,f2,minct,maxc)
+	return	function(e,c,smat,tuner,mg)
+				if c==nil then return true end
+				if c:IsType(TYPE_PENDULUM) and c:IsFaceup() then return false end
+				local tp=c:GetControler()
+				if Duel.GetLocationCount(tp,LOCATION_MZONE)<-2 then return false end
+				local minc=minct
+				local g1=nil
+				local g2=nil
+				local g3=nil
+				local g4=nil
+				if mg then
+					g1=mg:Filter(Auxiliary.DoubleSynchroMat1,nil,c)
+					g2=mg:Filter(Auxiliary.DoubleSynchroMat2,nil,c)
+					g3=mg:Filter(Auxiliary.DoubleSynchroMat1,nil,c)
+					g4=mg:Filter(Auxiliary.DoubleSynchroMat2,nil,c)
+				else
+					g1=Duel.GetMatchingGroup(Auxiliary.DoubleSynchroMat1,tp,LOCATION_MZONE,LOCATION_MZONE,nil,c)
+					g2=Duel.GetMatchingGroup(Auxiliary.DoubleSynchroMat2,tp,LOCATION_MZONE,LOCATION_MZONE,nil,c)
+					g3=Duel.GetMatchingGroup(Auxiliary.DoubleSynchroMat1,tp,LOCATION_MZONE+LOCATION_HAND,LOCATION_MZONE,nil,c)
+					g4=Duel.GetMatchingGroup(Auxiliary.DoubleSynchroMat2,tp,LOCATION_MZONE+LOCATION_HAND,LOCATION_MZONE,nil,c)
+				end
+				local pe=Duel.IsPlayerAffectedByEffect(tp,EFFECT_MUST_BE_SMATERIAL)
+				local lv=c:GetLevel()
+				if tuner then
+					local tlv=tuner:GetSynchroLevel(c)
+					if lv-tlv<=0 then return false end
+					if not pe then
+						return g1:IsExists(Auxiliary.DoubleSynchroFilter2,1,tuner,c,lv-tlv,g2,g4,f1,f2,tuner,minc,maxc)
+					else
+						return Auxiliary.DoubleSynchroFilter2(pe:GetOwner(),c,lv-tlv,g2,nil,f1,f2,tuner,minc,maxc)
+					end
+				end
+				if not pe then
+					return g1:IsExists(Auxiliary.DoubleSynchroFilter1,1,nil,c,lv,g1,g2,g3,g4,f1,f2,minc,maxc)
+				else
+					return Auxiliary.DoubleSynchroFilter1(pe:GetOwner(),c,lv,g1,g2,g3,g4,f1,f2,minc,maxc)
+				end
+	end
+end
+function Auxiliary.DoubleSynchroTarget(f1,f2,minct,maxc)
+	return	function(e,tp,eg,ep,ev,re,r,rp,chk,c,smat,tuner,mg)
+				local g=Group.CreateGroup()
+				local g1=nil
+				local g2=nil
+				local g3=nil
+				local g4=nil
+				local minc=minct
+				if mg then
+					g1=mg:Filter(Auxiliary.DoubleSynchroMat1,nil,c)
+					g2=mg:Filter(Auxiliary.DoubleSynchroMat2,nil,c)
+					g3=mg:Filter(Auxiliary.DoubleSynchroMat1,nil,c)
+					g4=mg:Filter(Auxiliary.DoubleSynchroMat2,nil,c)
+				else
+					g1=Duel.GetMatchingGroup(Auxiliary.DoubleSynchroMat1,tp,LOCATION_MZONE,0,nil,c)
+					g2=Duel.GetMatchingGroup(Auxiliary.DoubleSynchroMat2,tp,LOCATION_MZONE,0,nil,c)
+					g3=Duel.GetMatchingGroup(Auxiliary.DoubleSynchroMat1,tp,LOCATION_MZONE+LOCATION_HAND,0,nil,c)
+					g4=Duel.GetMatchingGroup(Auxiliary.DoubleSynchroMat2,tp,LOCATION_MZONE+LOCATION_HAND,0,nil,c)
+				end
+				local pe=Duel.IsPlayerAffectedByEffect(tp,EFFECT_MUST_BE_SMATERIAL)
+				local lv=c:GetLevel()
+				if tuner then
+					g:AddCard(tuner)
+					local lv1=tuner:GetSynchroLevel(c)
+					Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SMATERIAL)
+					local tuner2=nil
+					if not pe then
+						local t2=g1:FilterSelect(tp,Auxiliary.DoubleSynchroFilter2,1,1,tuner,c,lv-lv1,g2,g4,f1,f2,tuner,minc,maxc)
+						tuner2=t2:GetFirst()
+					else
+						tuner2=pe:GetOwner()
+						Group.FromCards(tuner2):Select(tp,1,1,nil)
+					end
+					g:AddCard(tuner2)
+					local lv2=tuner2:GetSynchroLevel(c)
+					local m3=nil
+					Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SMATERIAL)
+					if tuner2:IsHasEffect(EFFECT_HAND_SYNCHRO) then
+						m3=g4:FilterSelect(tp,Auxiliary.DoubleSynchroFilter3,1,1,nil,c,lv-lv1-lv2,f1,f2,g2,tuner,tuner2,minc,maxc)
+						local lv3=m3:GetFirst():GetSynchroLevel(c)
+						if lv-lv1-lv2-lv3>0 then
+							Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SMATERIAL)
+							local m4=g2:SelectWithSumEqual(tp,Card.GetSynchroLevel,lv-lv1-lv2-lv3,minc,maxc,c)
+							g:Merge(m4)
+						end
+					else
+						local nt=g2:Filter(Auxiliary.DoubleSynchroFilter3,nil,c,lv-lv1-lv2,f1,f2,g2,tuner,tuner2,minc,maxc)
+						m3=nt:SelectWithSumEqual(tp,Card.GetSynchroLevel,lv-lv1-lv2,minc,maxc,c)
+					end
+					g:Merge(m3)
+				else
+					Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SMATERIAL)
+					local tuner1=nil
+					local hand=nil
+					if not pe then
+						local t1=g1:FilterSelect(tp,Auxiliary.DoubleSynchroFilter1,1,1,nil,c,lv,g1,g2,g3,g4,f1,f2,minc,maxc)
+						tuner1=t1:GetFirst()
+					else
+						tuner1=pe:GetOwner()
+						Group.FromCards(tuner1):Select(tp,1,1,nil)
+					end
+					g:AddCard(tuner1)
+					local lv1=tuner1:GetSynchroLevel(c)
+					local tuner2=nil
+					Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SMATERIAL)
+					if tuner1:IsHasEffect(EFFECT_HAND_SYNCHRO) then
+						local t2=g3:FilterSelect(tp,Auxiliary.DoubleSynchroFilter2,1,1,tuner1,c,lv-lv1,g2,g4,f1,f2,tuner1,minc,maxc)
+						tuner2=t2:GetFirst()
+					else
+						local t2=g1:FilterSelect(tp,Auxiliary.DoubleSynchroFilter2,1,1,tuner1,c,lv-lv1,g2,g4,f1,f2,tuner1,minc,maxc)
+						tuner2=t2:GetFirst()
+					end
+					g:AddCard(tuner2)
+					local lv2=tuner2:GetSynchroLevel(c)
+					local m3=nil
+					Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SMATERIAL)
+					if (tuner1:IsHasEffect(EFFECT_HAND_SYNCHRO) and not tuner2:IsLocation(LOCATION_HAND))
+						or tuner2:IsHasEffect(EFFECT_HAND_SYNCHRO) then
+						m3=g4:FilterSelect(tp,Auxiliary.DoubleSynchroFilter3,1,1,nil,c,lv-lv1-lv2,f1,f2,g2,tuner1,tuner2,minc,maxc)
+						local lv3=m3:GetFirst():GetSynchroLevel(c)
+						if lv-lv1-lv2-lv3>0 then
+							Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SMATERIAL)
+							local m4=g2:SelectWithSumEqual(tp,Card.GetSynchroLevel,lv-lv1-lv2-lv3,minc,maxc,c)
+							g:Merge(m4)
+						end
+					else
+						local nt=g2:Filter(Auxiliary.DoubleSynchroFilter3,nil,c,lv-lv1-lv2,f1,f2,g2,tuner1,tuner2,minc,maxc)
+						m3=nt:SelectWithSumEqual(tp,Card.GetSynchroLevel,lv-lv1-lv2,minc,maxc,c)
+					end
+					g:Merge(m3)
+				end
+				if g then
+					g:KeepAlive()
+					e:SetLabelObject(g)
+					return true
+				else return false end
+			end
+end
+function Auxiliary.DoubleSynchroOperation(f1,f2,minct,maxc)
+	return	function(e,tp,eg,ep,ev,re,r,rp,c,smat,tuner,mg)
+				local g=e:GetLabelObject()
+				c:SetMaterial(g)
+				Duel.SendtoGrave(g,REASON_MATERIAL+REASON_SYNCHRO)
+				g:DeleteGroup()
+			end
+end
+
+--Synchro monster, 2 tuners + 1 monster (function by Tegardee)
+function Auxiliary.AddDoubleSynchroProcedure2(c,f1,f2)
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetCode(EFFECT_SPSUMMON_PROC)
+	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_IGNORE_IMMUNE)
+	e1:SetRange(LOCATION_EXTRA)
+	e1:SetCondition(Auxiliary.DoubleSynchroCondition(f1,f2,1,1))
+	e1:SetTarget(Auxiliary.DoubleSynchroTarget(f1,f2,1,1))
+	e1:SetOperation(Auxiliary.DoubleSynchroOperation(f1,f2,1,1))
+	e1:SetValue(SUMMON_TYPE_SYNCHRO)
+	c:RegisterEffect(e1)
+end
