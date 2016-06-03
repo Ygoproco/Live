@@ -44,7 +44,6 @@ function c6132.initial_effect(c)
 	e6:SetType(EFFECT_TYPE_QUICK_O+EFFECT_TYPE_FIELD)
 	e6:SetRange(LOCATION_MZONE)
 	e6:SetCode(EVENT_PRE_DAMAGE_CALCULATE)
-	e6:SetCondition(c6132.atkcon)
 	e6:SetCost(c6132.atkcost)
 	e6:SetOperation(c6132.atkop)
 	c:RegisterEffect(e6)
@@ -85,9 +84,6 @@ function c6132.atkval(e,c)
 	return math.ceil(e:GetHandler():GetBattleTarget():GetBaseAttack()/2)
 end
 
-function c6132.atkcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetBattleTarget()~=nil
-end
 function c6132.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	if chk==0 then return c:GetFlagEffect(6132)==0 end
@@ -97,13 +93,12 @@ function c6132.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) and c:IsFaceup() then
 		local tg,val = Duel.GetMatchingGroup(Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,c):GetMaxGroup(Card.GetBaseAttack)
-		if val<=0 then return end
 	
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_SET_ATTACK_FINAL)
 		e1:SetReset(RESET_EVENT+0x1fe0000)
-		e1:SetValue(val)
+		e1:SetValue( math.max(val,0) )
 		c:RegisterEffect(e1)
 	end
 end
