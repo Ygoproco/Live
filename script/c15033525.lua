@@ -17,6 +17,7 @@ function c15033525.initial_effect(c)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e2:SetCountLimit(1,15033525)
+	e2:SetCondition(c15033525.damcon)
 	e2:SetCost(c15033525.damcost)
 	e2:SetTarget(c15033525.damtg)
 	e2:SetOperation(c15033525.damop)
@@ -50,6 +51,9 @@ function c15033525.spop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e1,tp)
 end
 
+function c15033525.damcon(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.GetCurrentPhase()==PHASE_MAIN1
+end
 function c15033525.damcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToGraveAsCost,tp,LOCATION_MZONE,0,1,e:GetHandler()) end
 	local g=Duel.GetMatchingGroup(Card.IsAbleToGraveAsCost,tp,LOCATION_MZONE,0,e:GetHandler())
