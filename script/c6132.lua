@@ -50,8 +50,8 @@ function c6132.initial_effect(c)
 	c:RegisterEffect(e6)
 end
 function c6132.cfilter(c,tp,rp)
-	return c:IsReason(REASON_BATTLE) and c:GetPreviousControler()==tp
-		or rp~=tp and c:IsReason(REASON_DESTROY) and c:GetPreviousControler()==tp and c:IsPreviousLocation(LOCATION_MZONE)
+	return (c:IsReason(REASON_BATTLE) and c:GetPreviousControler()==tp and c==Duel.GetAttackTarget())
+		or (rp~=tp and c:IsReason(REASON_DESTROY) and c:GetPreviousControler()==tp and c:IsPreviousLocation(LOCATION_MZONE))
 end
 function c6132.spcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
