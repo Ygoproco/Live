@@ -42,6 +42,7 @@ function c6132.initial_effect(c)
 	local e6=Effect.CreateEffect(c)
 	e6:SetCategory(CATEGORY_ATKCHANGE)
 	e6:SetType(EFFECT_TYPE_QUICK_O+EFFECT_TYPE_FIELD)
+	e6:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e6:SetRange(LOCATION_MZONE)
 	e6:SetCode(EVENT_PRE_DAMAGE_CALCULATE)
 	e6:SetCost(c6132.atkcost)
@@ -86,7 +87,7 @@ end
 
 function c6132.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
-	if chk==0 then return c:GetFlagEffect(6132)==0 end
+	if chk==0 then return c:GetFlagEffect(6132)==0 and (Duel.GetAttacker()==e:GetHandler() or Duel.GetAttackTarget()==e:GetHandler()) end
 	c:RegisterFlagEffect(6132,RESET_CHAIN,0,1)
 end
 function c6132.atkop(e,tp,eg,ep,ev,re,r,rp)
