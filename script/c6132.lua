@@ -1,4 +1,5 @@
 --Divine Serpent Geh
+--Scripted by Sahim & Kenpazaraki
 function c6132.initial_effect(c)
 	c:EnableReviveLimit()
 	--special summon
