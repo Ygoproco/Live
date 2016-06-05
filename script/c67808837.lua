@@ -74,7 +74,10 @@ end
 function c67808837.atkcon(e)
 	local ph=Duel.GetCurrentPhase()
 	local tp=Duel.GetTurnPlayer()
-	return tp==e:GetHandlerPlayer() and (ph==PHASE_BATTLE or ph==PHASE_DAMAGE or ph==PHASE_DAMAGE_CAL)
+	local bpc1=(ph==PHASE_BATTLE or ph==PHASE_DAMAGE or ph==PHASE_DAMAGE_CAL)
+	local bpc2=(ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE)
+	return tp==e:GetHandlerPlayer() and (bpc1 or bpc2)
+	--return tp==e:GetHandlerPlayer() and (ph==PHASE_BATTLE or ph==PHASE_DAMAGE or ph==PHASE_DAMAGE_CAL)
 end
 function c67808837.atkfil(c)
 	return c:IsFaceup() and c:IsSetCard(0x9f)
