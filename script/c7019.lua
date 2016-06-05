@@ -71,7 +71,7 @@ function c7019.spcon2(e,tp,eg,ep,ev,re,r,rp)
 	return at:GetControler()~=tp
 end
 function c7019.spcost2(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost()
+	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost() end
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
 function c7019.spfil2(c,e,tp)
@@ -99,4 +99,3 @@ function c7019.spop2(e,tp,eg,ep,ev,re,r,rp)
 	end
 	Duel.SpecialSummon(sg,0,tp,tp,false,false,POS_FACEUP)
 end
-
