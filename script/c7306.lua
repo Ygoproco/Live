@@ -22,15 +22,6 @@ function c7306.initial_effect(c)
 	e2:SetTarget(c7306.destg)
 	e2:SetOperation(c7306.desop)
 	c:RegisterEffect(e2)
-	--
-	local e3=Effect.CreateEffect(c)
-	e3:SetType(EFFECT_TYPE_FIELD)
-	e3:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
-	e3:SetCode(EFFECT_CHANGE_LEVEL)
-	e3:SetRange(LOCATION_MZONE)
-	e3:SetTarget(c7306.lvtg)
-	e3:SetValue(1)
-	c:RegisterEffect(e3)
 end
 
 function c7306.cttg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
@@ -46,6 +37,14 @@ function c7306.ctop(e,tp,eg,ep,ev,re,r,rp)
   if tc:IsRelateToEffect(e) then
 	tc:AddCounter(0x3b,1)
   end
+	--
+	local e3=Effect.CreateEffect(c)
+	e3:SetType(EFFECT_TYPE_FIELD)
+	e3:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
+	e3:SetCode(EFFECT_CHANGE_LEVEL)
+	e3:SetTarget(c7306.lvtg)
+	e3:SetValue(1)
+	Duel.RegisterEffect(e3,0)
 end
 function c7306.lvtg(e,c)
 	return c:GetCounter(0x3b)>0 and c:IsLevelAbove(1)
