@@ -19,19 +19,19 @@ end
 function c7361.spfilter(c,e,tp)
 	return c:IsSetCard(0xc8) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function c7361.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chkc then return chkc:IsLocation(e:GetLabel()) and chkc:IsControler(tp) and c7361.desfilter1(chkc) end
+function c7361.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(e:GetLabel()) and chkc:IsControler(tp) and chkc~=e:GetHandler() and c7361.desfilter1(chkc) end
 	if chk==0 then
 		local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 		if ft<-1 then return false end
 		local loc=LOCATION_ONFIELD
 		if ft==0 then loc=LOCATION_MZONE end
 		e:SetLabel(loc)
-		return Duel.IsExistingTarget(c7361.desfilter1,tp,loc,0,1,nil)
+		return Duel.IsExistingTarget(c7361.desfilter1,tp,loc,0,1,e:GetHandler())
 			and Duel.IsExistingMatchingCard(c7361.spfilter,tp,LOCATION_DECK,0,1,nil,e,tp)
 	end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-	local g=Duel.SelectTarget(tp,c7361.desfilter1,tp,e:GetLabel(),0,1,1,nil)
+	local g=Duel.SelectTarget(tp,c7361.desfilter1,tp,e:GetLabel(),0,1,1,e:GetHandler())
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
 end
