@@ -32,6 +32,7 @@ function c7354.spfil1(c,e,tp)
   return c:IsType(TYPE_XYZ) and c:IsAttribute(ATTRIBUTE_DARK) and c:GetOverlayCount()==0 and Duel.IsExistingMatchingCard(c7354.spfil2,tp,LOCATION_EXTRA,0,1,nil,e,tp,c,rk+1)
 end
 function c7354.spfil2(c,e,tp,mc,rk)
+	if c:GetOriginalCode()==6165656 and mc:GetCode()~=48995978 then return false end
   return c:GetRank()==rk and c:IsAttribute(ATTRIBUTE_DARK) and mc:IsCanBeXyzMaterial(c) and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false)
 end
 function c7354.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
