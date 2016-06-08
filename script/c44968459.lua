@@ -31,7 +31,9 @@ function c44968459.drcon(e,tp,eg,ep,ev,re,r,rp)
 	local ph=Duel.GetCurrentPhase()
 	--Preparation for 1.033.9.2 update
 	local bpc1=(ph==PHASE_BATTLE or (ph==PHASE_DAMAGE and not Duel.IsDamageCalculated()))
-	local bpc2=(ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE)
+	--This check will be operative as of 1.033.9.2
+	local bpc2=false
+	if PHASE_BATTLE_START then bpc2=(ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE) end
 	return (bpc1 or bpc2) and Duel.GetFieldGroupCount(tp,LOCATION_HAND,0)>Duel.GetFieldGroupCount(tp,0,LOCATION_HAND) and Duel.IsExistingMatchingCard(c44968459.drfil,tp,LOCATION_MZONE,0,1,nil)
 end
 function c44968459.target(e,tp,eg,ep,ev,re,r,rp,chk)

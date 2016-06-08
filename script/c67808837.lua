@@ -75,7 +75,9 @@ function c67808837.atkcon(e)
 	local ph=Duel.GetCurrentPhase()
 	local tp=Duel.GetTurnPlayer()
 	local bpc1=(ph==PHASE_BATTLE or ph==PHASE_DAMAGE or ph==PHASE_DAMAGE_CAL)
-	local bpc2=(ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE)
+	--This check will be operative as of 1.033.9.2
+	local bpc2=false
+	if PHASE_BATTLE_START then bpc2=(ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE) end
 	return tp==e:GetHandlerPlayer() and (bpc1 or bpc2)
 	--return tp==e:GetHandlerPlayer() and (ph==PHASE_BATTLE or ph==PHASE_DAMAGE or ph==PHASE_DAMAGE_CAL)
 end
