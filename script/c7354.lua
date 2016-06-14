@@ -29,7 +29,7 @@ function c7354.spcon(e,tp,eg,ep,ev,re,r,rp)
 end
 function c7354.spfil1(c,e,tp)
   local rk=c:GetRank()
-  return c:IsType(TYPE_XYZ) and c:IsAttribute(ATTRIBUTE_DARK) and c:GetOverlayCount()==0 and Duel.IsExistingMatchingCard(c7354.spfil2,tp,LOCATION_EXTRA,0,1,nil,e,tp,c,rk+1)
+  return c:IsFaceup() and c:IsType(TYPE_XYZ) and c:IsAttribute(ATTRIBUTE_DARK) and c:GetOverlayCount()==0 and Duel.IsExistingMatchingCard(c7354.spfil2,tp,LOCATION_EXTRA,0,1,nil,e,tp,c,rk+1)
 end
 function c7354.spfil2(c,e,tp,mc,rk)
 	if c:GetOriginalCode()==6165656 and mc:GetCode()~=48995978 then return false end
