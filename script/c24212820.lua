@@ -36,9 +36,11 @@ function c24212820.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoGrave(g,REASON_EFFECT)
 	end
 end
-
+function c24212820.filter(c)
+	return not c:IsStatus(STATUS_LEAVE_CONFIRMED)
+end
 function c24212820.spcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetAttacker():IsControler(1-tp) and Duel.GetAttackTarget()==nil
+	return Duel.GetAttacker():IsControler(1-tp) and Duel.GetAttackTarget()==nil and not Duel.IsExistingMatchingCard(c24212820.filter,tp,LOCATION_ONFIELD,0,1,nil)
 end
 function c24212820.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return not e:GetHandler():IsStatus(STATUS_CHAINING) and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
