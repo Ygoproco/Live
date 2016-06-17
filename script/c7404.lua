@@ -31,7 +31,7 @@ function c7404.initial_effect(c)
 end
 
 function c7404.damfil(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xc008) and c:IsAttackAbove(1)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xc008) and c:IsLevelBelow(4) and c:IsAttackAbove(1)
 end
 function c7404.damtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c7404.damfil(chkc) end
