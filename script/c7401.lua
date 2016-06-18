@@ -39,9 +39,18 @@ function c7401.damtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,PLAYER_ALL,1000)
 end
 function c7401.damop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.ChangeBattleDamage(tp,0)
+	local e1=Effect.CreateEffect(e:GetHandler())
+	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e1:SetCode(EVENT_PRE_BATTLE_DAMAGE)
+	e1:SetOperation(c7401.damrop)
+	e1:SetReset(RESET_PHASE+PHASE_DAMAGE)
+	Duel.RegisterEffect(e1,tp)
 	Duel.Damage(1-tp,1000,REASON_EFFECT,true)
 	Duel.Damage(tp,1000,REASON_EFFECT,true)
+	Duel.RDComplete()
+end
+function c7401.damrop(e,tp,eg,ep,ev,re,r,rp)
+	Duel.ChangeBattleDamage(tp,0)
 end
 
 function c7401.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
