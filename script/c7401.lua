@@ -47,7 +47,6 @@ function c7401.damop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e1,tp)
 	Duel.Damage(1-tp,1000,REASON_EFFECT,true)
 	Duel.Damage(tp,1000,REASON_EFFECT,true)
-	Duel.RDComplete()
 end
 function c7401.damrop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(tp,0)
