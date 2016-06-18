@@ -121,7 +121,7 @@ function c7374.spcfil(c,tp)
 	return c:IsPreviousSetCard(0xc1) and c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsPreviousPosition(POS_FACEUP) and c:GetPreviousControler()==tp and not c:IsReason(REASON_BATTLE)
 end
 function c7374.spcon(e,tp,eg,ep,ev,re,r,rp)
-	return not eg:IsContains(e:GetHandler()) and eg:IsExists(c7374.spcfil,1,nil,tp)
+	return eg and not eg:IsContains(e:GetHandler()) and eg:IsExists(c7374.spcfil,1,nil,tp)
 end
 function c7374.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():GetFlagEffect(7374+1)==0 end
