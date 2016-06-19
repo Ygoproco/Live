@@ -4,15 +4,6 @@ function c59822133.initial_effect(c)
 	--synchro summon
 	aux.AddSynchroProcedure(c,nil,aux.NonTuner(Card.IsSetCard,0xdd),1)
 	c:EnableReviveLimit()
-	--Limit summon
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_FIELD)
-	e1:SetCode(EFFECT_MAX_MZONE)
-	e1:SetRange(LOCATION_MZONE)
-	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e1:SetTargetRange(1,1)
-	e1:SetValue(c59822133.value)
-	c:RegisterEffect(e1)
 	--special summon limit
 	local e1b=Effect.CreateEffect(c)
 	e1b:SetType(EFFECT_TYPE_FIELD)
@@ -48,13 +39,7 @@ function c59822133.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 function c59822133.condition(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SYNCHRO
-end
-function c59822133.value(e,fp,rp,r)
-	if r~=LOCATION_REASON_TOFIELD then return 5 end
-	local limit=Duel.GetFieldGroupCount(rp,LOCATION_MZONE,0)+1
-	if limit>5 then limit=5 end
-	return limit>0 and limit or 5
+	return e:GetHandler():IsSummonType(SUMMON_TYPE_SYNCHRO)
 end
 function c59822133.negcon(e,tp,eg,ep,ev,re,r,rp)
 	local loc=Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_LOCATION)
