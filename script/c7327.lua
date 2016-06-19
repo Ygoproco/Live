@@ -25,22 +25,14 @@ function c7327.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 
-function c7327.atkfil(c,e)
-	return c:IsFaceup() and c:IsType(TYPE_DUAL) and (not e or c:IsRelateToEffect(e))
-end
 function c7327.atktg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then
-		if not eg:IsExists(c7327.atkfil,1,nil) then return false end
-		if e:GetHandler():IsStatus(STATUS_CHAINING) then return false end
-		e:GetHandler():SetStatus(STATUS_CHAINING,true)
-		return true
-	end
-	Duel.SetTargetCard(eg)
+	local tc=eg:GetFirst()
+	if chk==0 then return tc:IsType(TYPE_DUAL) and tc~=e:GetHandler() end
+	Duel.SetTargetCard(tc)
 end
 function c7327.atkop(e,tp,eg,ep,ev,re,r,rp)
-	local g=eg:Filter(c7327.atkfil,nil,e)
-	if g:GetCount()==1 then
-		local tc=g:GetFirst()
+	local tc=Duel.GetFirstTarget()
+	if tc:IsFaceup() and tc:IsRelateToEffect(e) then
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_UPDATE_ATTACK)
