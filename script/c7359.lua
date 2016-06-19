@@ -90,5 +90,5 @@ function c7359.retcon(e,tp,eg,ep,ev,re,r,rp)
 end
 function c7359.retop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=e:GetLabelObject()
-	Duel.SendtoHand(tc,nil,REASON_EFFECT)
+	Duel.ReturnToField(tc)
 end
