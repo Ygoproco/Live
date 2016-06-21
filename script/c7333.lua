@@ -25,7 +25,7 @@ function c7333.initial_effect(c)
 	e5:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
 	e5:SetCode(EFFECT_DESTROY_SUBSTITUTE)
 	e5:SetCondition(c7333.uncon)
-	e5:SetValue(c7333.repval)
+	e5:SetValue(1)
 	c:RegisterEffect(e5)
 	--eqlimit
 	local e6=Effect.CreateEffect(c)
@@ -89,7 +89,4 @@ end
 
 function c7333.eqlimit(e,c)
 	return true
-end
-function c7333.repval(e,re,r,rp)
-	return bit.band(r,rs)~=0
 end
