@@ -69,7 +69,7 @@ function c7406.negop(e,tp,eg,ep,ev,re,r,rp)
 	if rp==tp and re:IsHasType(EFFECT_TYPE_ACTIVATE) and re:IsActiveType(TYPE_SPELL) and Duel.IsChainNegatable(ev) then
 		Duel.Hint(HINT_CARD,0,7406)
 		if Duel.NegateEffect(ev) and re:GetHandler():IsRelateToEffect(re) then
-			Duel.Destroy(re,REASON_EFFECT)
+			Duel.Destroy(re:GetHandler(),REASON_EFFECT)
 		end
 	end
 end
@@ -102,6 +102,16 @@ function c7406.tdop(e,tp,eg,ep,ev,re,r,rp)
 	local g1=dg1:Select(tp,1,1,nil)
 	Duel.Hint(HINT_SELECTMSG,1-tp,aux.Stringid(7406,3))
 	local g2=dg2:Select(1-tp,1,1,nil)
-	Duel.SendtoDeck(g1,nil,0,REASON_EFFECT)
-	Duel.SendtoDeck(g2,nil,0,REASON_EFFECT)
+	local tc1=g1:GetFirst()
+	local tc2=g2:GetFirst()
+	if tc1 then
+		Duel.ShuffleDeck(tp)
+		Duel.MoveSequence(tc1,0)
+		Duel.ConfirmDecktop(tp,1)
+	end
+	if tc2 then
+		Duel.ShuffleDeck(1-tp)
+		Duel.MoveSequence(tc2,0)
+		Duel.ConfirmDecktop(1-tp,1)
+	end
 end
