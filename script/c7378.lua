@@ -14,15 +14,20 @@ end
 
 function c7378.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
-	local ops={aux.Stringid(7378,0),aux.Stringid(7378,1),aux.Stringid(7378,2),aux.Stringid(7378,3),aux.Stringid(7378,4)}
-	local opval={TYPE_RITUAL,TYPE_FUSION,TYPE_SYNCHRO,TYPE_XYZ,TYPE_PENDULUM}
+	local ops={1056,1057,1063,1073,1074}
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CARDTYPE)
 	local op=Duel.SelectOption(tp,table.unpack(ops))
-	e:SetLabel(opval[op])
+	e:SetLabel(op)
 end
 function c7378.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local tpe=e:GetLabel()
+	local lbl=e:GetLabel()
+	local tpe=0
+	if lbl==0 then tpe=TYPE_FUSION
+	elseif lbl==1 then tpe=TYPE_RITUAL
+	elseif lbl==2 then tpe=TYPE_SYNCHRO
+	elseif lbl==3 then tpe=TYPE_XYZ
+	else tpe=TYPE_PENDULUM end
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
