@@ -9,7 +9,7 @@ function c7363.initial_effect(c)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetCategory(CATEGORY_COUNTER)
 	e1:SetTarget(c7363.cttg)
-	e1:SetOperation(c7363.ctop)
+	e1:SetOperation(c7363.activate)
 	c:RegisterEffect(e1)
 	--
 	local e2=Effect.CreateEffect(c)
@@ -31,16 +31,18 @@ function c7363.cttg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingTarget(Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) and Duel.IsExistingMatchingCard(c7363.ctfil,tp,LOCATION_DECK,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
 	local g=Duel.SelectTarget(tp,Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
-	Duel.SetOperationInfo(0,CATEGORY_COUNTER,g,1,0x100e,0)
+	Duel.SetOperationInfo(0,CATEGORY_COUNTER,g,1,0xe,0)
 end
-function c7363.ctop(e,tp,eg,ep,ev,re,r,rp)
-	local tc=Duel.GetFirstTarget()
-	if tc:IsFaceup() and tc:IsRelateToEffect(e) then
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-		local g=Duel.SelectMatchingCard(tp,c7363.ctfil,tp,LOCATION_DECK,0,1,1,nil)
-		local gc=g:GetFirst()
-		if gc and Duel.SendtoGrave(gc,REASON_EFFECT)>0 then
-			tc:AddCounter(0x100e,gc:GetLevel())
+function c7363.activate(e,tp,eg,ep,ev,re,r,rp)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
+	local g=Duel.SelectMatchingCard(tp,c7363.ctfil,tp,LOCATION_DECK,0,1,1,nil)
+	if g:GetCount()>0 then
+		local sg=g:GetFirst()
+		if Duel.SendtoGrave(g,REASON_EFFECT)~=0 and sg:IsLocation(LOCATION_GRAVE) then
+			local tc=Duel.GetFirstTarget()
+			if tc:IsFaceup() and tc:IsRelateToEffect(e) then
+				tc:AddCounter(0xe,sg:GetLevel())
+			end
 		end
 	end
 end

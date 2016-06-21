@@ -12,8 +12,11 @@ function c7402.initial_effect(c)
 	c:RegisterEffect(e1)
 	--
 	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+	e2:SetDescription(aux.Stringid(7402,0))
+	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_SUMMON_SUCCESS)
+	e2:SetProperty(EFFECT_FLAG_DELAY)
+	e2:SetCountLimit(1,7402+EFFECT_COUNT_CODE_DUEL)
 	e2:SetOperation(c7402.regop)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
@@ -40,11 +43,10 @@ end
 function c7402.regop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(7402,0))
-	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
+	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EVENT_PHASE+PHASE_END)
-	e1:SetCountLimit(1,7402+EFFECT_COUNT_CODE_DUEL)
-	e1:SetTarget(c7402.thtg)
+	e1:SetCountLimit(1)
+	e1:SetCondition(c7402.thcon)
 	e1:SetOperation(c7402.thop)
 	e1:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e1,tp)
@@ -52,16 +54,16 @@ end
 function c7402.thfil(c)
 	return c:IsSetCard(0x8) and c:IsAbleToHand()
 end
-function c7402.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c7402.thfil,tp,LOCATION_GRAVE,0,1,nil) end
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,0,0)
+function c7402.thcon(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.IsExistingMatchingCard(c7402.thfil,tp,LOCATION_GRAVE,0,1,nil)
 end
 function c7402.thop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local g=Duel.SelectMatchingCard(tp,c7402.thfil,tp,LOCATION_GRAVE,0,1,1,nil)
-	if g:GetCount()>0 then
-		Duel.SendtoHand(g,nil,REASON_EFFECT)
-		Duel.ConfirmCards(1-tp,g)
+	local tc=g:GetFirst()
+	if tc and not tc:IsHasEffect(EFFECT_NECRO_VALLEY) then
+		Duel.SendtoHand(tc,nil,REASON_EFFECT)
+		Duel.ConfirmCards(1-tp,tc)
 	end
 end
 
