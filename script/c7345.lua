@@ -39,7 +39,7 @@ function c7345.rmtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c7345.rmfil,tp,0,LOCATION_MZONE,1,nil) end
 end
 function c7345.rmop(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.SelectMatchingCard(tp,c7345.rmfil,tp,0,LOCATION_MZONE,1,1,nil)
+	local g=Duel.GetMatchingGroup(c7345.rmfil,tp,0,LOCATION_MZONE,nil)
 	local tc=g:GetFirst()
 	while tc do
 		Duel.ChangePosition(tc,POS_FACEUP_DEFENCE)
