@@ -60,7 +60,7 @@ function c7344.spcon2(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsSummonType(SUMMON_TYPE_SYNCHRO) and bit.band(r,REASON_EFFECT+REASON_BATTLE)~=0
 end
 function c7344.spfil(c,e,tp)
-		return c:IsSetCard(0xeb) and not c:IsType(TYPE_SYNCHRO) and c:IsCanbeSpecialSummoned(e,0,tp,false,false)
+		return c:IsSetCard(0xeb) and not c:IsType(TYPE_SYNCHRO) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c7344.sptg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 		if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c7344.spfil(chkc,e,tp) end
