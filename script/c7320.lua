@@ -68,7 +68,7 @@ function c7320.spop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c7320.splimit(e,c,tp,sumtp,sumpos)
-	return c:IsLocation(LOCATION_EXTRA) and not c:IsType(TYPE_SYNCHRO) and not c:IsRace(RACE_MACHINE)
+	return not (c:IsRace(RACE_MACHINE) and c:IsType(TYPE_SYNCHRO)) and c:IsLocation(LOCATION_EXTRA)
 end
 
 function c7320.tkcost(e,tp,eg,ep,ev,re,r,rp,chk)
