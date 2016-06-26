@@ -117,7 +117,7 @@ function c65172015.rmcost(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c65172015.rmtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>=2
+	if chk==0 then return not Duel.IsPlayerAffectedByEffect(tp,59822133) and Duel.GetLocationCount(tp,LOCATION_MZONE)>=2
 		and Duel.IsExistingTarget(c65172015.rmfilter,tp,LOCATION_REMOVED,0,1,nil,e,tp,91998119)
 		and Duel.IsExistingTarget(c65172015.rmfilter,tp,LOCATION_REMOVED,0,1,nil,e,tp,1561110) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
@@ -128,6 +128,7 @@ function c65172015.rmtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g1,2,0,0)
 end
 function c65172015.rmop(e,tp,eg,ep,ev,re,r,rp)
+	if Duel.IsPlayerAffectedByEffect(tp,59822133) then return end
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(Card.IsRelateToEffect,nil,e)
 	if g:GetCount()>0 then
 		Duel.SpecialSummon(g,0,tp,tp,true,false,POS_FACEUP)
