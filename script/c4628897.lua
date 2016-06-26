@@ -29,9 +29,9 @@ function c4628897.initial_effect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e3:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_DAMAGE_STEP)
 	e3:SetCode(EVENT_LEAVE_FIELD)
-	e3:SetCondition(c4628897.summcnd)
-	e3:SetTarget(c4628897.summtg)
-	e3:SetOperation(c4628897.summop)
+	e3:SetCondition(c4628897.spcon)
+	e3:SetTarget(c4628897.sptg)
+	e3:SetOperation(c4628897.spop)
 	c:RegisterEffect(e3)
 end
 
@@ -52,26 +52,32 @@ function c4628897.disop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 
-function c4628897.summfilter(c,code,e,tp)
+function c4628897.spcon(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	return c:GetReasonPlayer()~=tp and c:IsReason(REASON_EFFECT)
+		and c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsPreviousPosition(POS_FACEUP)
+end
+function c4628897.spfilter(c,e,tp,code)
 	return c:IsCode(code) and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
 end
-function c4628897.summcnd(e,tp,eg,ep,ev,re,r,rp)
-	return rp~=tp and bit.band(r,REASON_EFFECT)~=0 and e:GetHandler():IsPreviousPosition(POS_FACEUP) and e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
+function c4628897.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return not Duel.IsPlayerAffectedByEffect(tp,59822133)
+		and Duel.GetLocationCount(tp,LOCATION_MZONE)>1
+		and Duel.IsExistingMatchingCard(c4628897.spfilter,tp,LOCATION_HAND+LOCATION_DECK,0,1,nil,e,tp,75347539)
+		and Duel.IsExistingMatchingCard(c4628897.spfilter,tp,LOCATION_HAND+LOCATION_DECK,0,1,nil,e,tp,42901635) end
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,2,tp,LOCATION_HAND+LOCATION_DECK)
 end
-function c4628897.summtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_HAND+LOCATION_DECK) 
-		and (c4628897.summfilter(chkc,75347539,e,tp) or c4628897.summfilter(chkc,42901635,e,tp)) end
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>1
-		and Duel.IsExistingTarget(c4628897.summfilter,tp,LOCATION_HAND+LOCATION_DECK,0,1,nil,75347539,e,tp)
-		and Duel.IsExistingTarget(c4628897.summfilter,tp,LOCATION_HAND+LOCATION_DECK,0,1,nil,42901635,e,tp) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g1=Duel.SelectTarget(tp,c4628897.summfilter,tp,LOCATION_HAND+LOCATION_DECK,0,1,1,nil,75347539,e,tp)
-	local g2=Duel.SelectTarget(tp,c4628897.summfilter,tp,LOCATION_HAND+LOCATION_DECK,0,1,1,nil,42901635,e,tp)
-	g1:Merge(g2)
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g1,g1:GetCount(),0,0)
+function c4628897.spop(e,tp,eg,ep,ev,re,r,rp)
+	if Duel.IsPlayerAffectedByEffect(tp,59822133)
+		or Duel.GetLocationCount(tp,LOCATION_MZONE)<2 then return end
+	local g1=Duel.GetMatchingGroup(c4628897.spfilter,tp,LOCATION_HAND+LOCATION_DECK,0,nil,e,tp,75347539)
+	local g2=Duel.GetMatchingGroup(c4628897.spfilter,tp,LOCATION_HAND+LOCATION_DECK,0,nil,e,tp,42901635)
+	if g1:GetCount()>0 and g2:GetCount()>0 then
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+		local sg1=g1:Select(tp,1,1,nil)
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+		local sg2=g2:Select(tp,1,1,nil)
+		sg1:Merge(sg2)
+		Duel.SpecialSummon(sg1,0,tp,tp,true,false,POS_FACEUP)
+	end
 end
-function c4628897.summop(e,tp,eg,ep,ev,re,r,rp)
-	local ex1,g=Duel.GetOperationInfo(0,CATEGORY_SPECIAL_SUMMON)
-	Duel.SpecialSummon(g,0,tp,tp,true,false,POS_FACEUP)
-end
-
