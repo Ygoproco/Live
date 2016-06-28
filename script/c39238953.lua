@@ -16,34 +16,43 @@ function c39238953.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.PayLPCost(tp,2000)
 end
 function c39238953.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return true end
-	
+	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToHand,tp,0,LOCATION_DECK,1,nil)
+		or Duel.IsPlayerCanSpecialSummon(tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,564)
-	local code=Duel.AnnounceCard(tp,TYPE_MONSTER)
-	e:SetLabel(code)
-end
-function c39238953.filter(c,code)
-	return c:IsType(TYPE_MONSTER) and c:IsCode(code) and c:IsAbleToHand()
+	local ac=Duel.AnnounceCard(tp,TYPE_MONSTER)
+	Duel.SetTargetParam(ac)
+	Duel.SetOperationInfo(0,CATEGORY_ANNOUNCE,nil,0,tp,ANNOUNCE_CARD)
 end
 function c39238953.activate(e,tp,eg,ep,ev,re,r,rp)
-	local code=e:GetLabel()
-	if Duel.IsExistingMatchingCard(c39238953.filter,tp,0,LOCATION_DECK,1,nil,code) then
-		local g=Duel.SelectMatchingCard(1-tp,c39238953.filter,tp,0,LOCATION_DECK,1,1,nil,code)
-		Duel.ConfirmCards(tp,g)
-		local op=0
-		if Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and g:GetFirst():IsCanBeSpecialSummoned(e,0,1-tp,true,false,POS_FACEUP_ATTACK,tp) then
-			if g:GetFirst():IsAbleToHand() then
-				op=Duel.SelectOption(1-tp,aux.Stringid(39238953,0),aux.Stringid(39238953,1))
-			else
-				op=1
-			end
-		else 
-			if not g:GetFirst():IsAbleToHand() then return end
+	local ac=Duel.GetChainInfo(0,CHAININFO_TARGET_PARAM)
+	local g=Duel.GetFieldGroup(tp,0,LOCATION_DECK)
+	if g:GetCount()<1 then return end
+	Duel.ConfirmCards(1-tp,g)
+	Duel.Hint(HINT_SELECTMSG,1-tp,526)
+	local sg=g:FilterSelect(1-tp,Card.IsCode,1,1,nil,ac)
+	local tc=sg:GetFirst()
+	if tc then
+		Duel.ConfirmCards(tp,sg)
+		local b1=tc:IsAbleToHand()
+		local b2=Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+			and tc:IsCanBeSpecialSummoned(e,0,tp,true,false,POS_FACEUP_ATTACK,tp)
+		local sel=0
+		if b1 and b2 then
+			Duel.Hint(HINT_SELECTMSG,1-tp,555)
+			sel=Duel.SelectOption(1-tp,aux.Stringid(39238953,0),aux.Stringid(39238953,1))+1
+		elseif b1 then
+			Duel.Hint(HINT_SELECTMSG,1-tp,555)
+			sel=Duel.SelectOption(1-tp,aux.Stringid(39238953,0))+1
+		elseif b2 then
+			Duel.Hint(HINT_SELECTMSG,1-tp,555)
+			sel=Duel.SelectOption(1-tp,aux.Stringid(39238953,1))+2
 		end
-		if op==0 then --add to hand
-			Duel.SendtoHand(g,tp,REASON_EFFECT)
-		else --summon
-			Duel.SpecialSummon(g,0,1-tp,tp,true,false,POS_FACEUP_ATTACK)
+		if sel==1 then
+			Duel.SendtoHand(sg,tp,REASON_EFFECT)
+			Duel.ConfirmCards(1-tp,sg)
+		elseif sel==2 then
+			Duel.SpecialSummon(sg,0,tp,tp,true,false,POS_FACEUP_ATTACK)
 		end
 	end
+	Duel.ShuffleDeck(1-tp)
 end
