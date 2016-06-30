@@ -32,7 +32,8 @@ function c7365.activate(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetOperatedGroup()
 	local ct=g:FilterCount(Card.IsLocation,nil,LOCATION_DECK+LOCATION_EXTRA)
 	if ct==3 then
-		Duel.ShuffleDeck(tp)
+		if g:FilterCount(Card.IsControler,nil,tp)>0 then Duel.ShuffleDeck(tp) end
+		if g:FilterCount(Card.IsControler,nil,1-tp)>0 then Duel.ShuffleDeck(1-tp) end
 		Duel.BreakEffect()
 		Duel.Draw(tp,1,REASON_EFFECT)
 	end
