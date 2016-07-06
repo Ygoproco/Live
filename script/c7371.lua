@@ -53,7 +53,7 @@ function c7371.lvfil(c,tp)
 	return c:IsFaceup() and c:IsSetCard(0xeb) and c:IsLevelAbove(1) and Duel.IsExistingMatchingCard(c7371.lvcfil,tp,LOCATION_DECK,0,1,nil,c:GetLevel())
 end
 function c7371.lvcfil(c,lv)
-	return c:IsSetCard(0xeb) and c:GetLevel()~=lv and c:IsAbleToGrave()
+	return c:IsSetCard(0xeb) and c:GetLevel()~=lv and c:IsAbleToGrave() and c:IsType(TYPE_MONSTER)
 end
 function c7371.lvtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c7371.lvfil(chkc,tp) end
