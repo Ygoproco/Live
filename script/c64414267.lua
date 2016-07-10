@@ -54,7 +54,7 @@ function c64414267.spfil(c,e,tp)
 end
 function c64414267.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1
-		and Duel.IsExistingMatchingCard(c64414267.filter,tp,LOCATION_EXTRA,0,1,nil,e,tp) end
+		and Duel.IsExistingMatchingCard(c64414267.spfil,tp,LOCATION_EXTRA,0,1,nil,e,tp) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
 function c64414267.spop(e,tp,eg,ep,ev,re,r,rp)
@@ -62,7 +62,7 @@ function c64414267.spop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsFacedown() or not c:IsRelateToEffect(e) or c:IsControler(1-tp) or c:IsImmuneToEffect(e) then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,c64414267.filter,tp,LOCATION_EXTRA,0,1,1,nil,e,tp)
+	local g=Duel.SelectMatchingCard(tp,c64414267.spfil,tp,LOCATION_EXTRA,0,1,1,nil,e,tp)
 	local sc=g:GetFirst()
 	if sc then
 		local mg=c:GetOverlayGroup()
