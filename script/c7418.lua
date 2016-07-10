@@ -66,7 +66,7 @@ function c7418.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	Duel.SetChainLimitTillChainEnd(c7418.chainlim)
 end
 function c7418.chainlim(e,rp,tp)
-	return tp==rp and e:IsActiveType(TYPE_SPELL+TYPE_TRAP)
+	return tp==rp or not e:IsActiveType(TYPE_SPELL+TYPE_TRAP)
 end
 
 function c7418.setfil(c)

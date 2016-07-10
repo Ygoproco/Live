@@ -30,7 +30,7 @@ function c7430.initial_effect(c)
 end
 
 function c7430.cfil(c)
-	return c:IsSetCard(0xee) and c:IsDiscardable()
+	return c:IsSetCard(0xef) and c:IsDiscardable()
 end
 function c7430.drcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -56,7 +56,7 @@ function c7430.cpcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.PayLPCost(tp,1000)
 end
 function c7430.fil(c)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSetCard(0xee) and c:IsAbleToDeck() and c:CheckActivateEffect(true,true,false)~=nil
+	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSetCard(0xef) and c:IsAbleToDeck() and c:CheckActivateEffect(true,true,false)~=nil
 end
 function c7430.cptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then
