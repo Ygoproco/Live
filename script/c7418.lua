@@ -36,7 +36,7 @@ function c7418.initial_effect(c)
 end
 
 function c7418.thcfil(c)
-	return c:IsSetCard(0x10ed) or c:IsSetCard(0x120e)
+	return c:IsSetCard(0x10ee) or c:IsSetCard(0x120e)
 end
 function c7418.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckReleaseGroup(tp,c7418.thcfil,1,e:GetHandler()) end
@@ -44,7 +44,7 @@ function c7418.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(sg,REASON_COST)
 end
 function c7418.thfil(c)
-	return c:IsType(TYPE_SPELL) and (c:IsSetCard(0x20ed) or c:IsSetCard(0x220e)) and c:IsAbleToHand()
+	return c:IsType(TYPE_SPELL) and (c:IsSetCard(0x20ee) or c:IsSetCard(0x220e)) and c:IsAbleToHand()
 end
 function c7418.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c7418.thfil(chkc) end
@@ -70,7 +70,7 @@ function c7418.chainlim(e,rp,tp)
 end
 
 function c7418.setfil(c)
-	return c:IsType(TYPE_SPELL) and (c:IsSetCard(0x20ed) or c:IsSetCard(0x220e)) and c:IsSSetable(false)
+	return c:IsType(TYPE_SPELL) and (c:IsSetCard(0x20ee) or c:IsSetCard(0x220e)) and c:IsSSetable(false)
 end
 function c7418.settg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0 and Duel.IsExistingMatchingCard(c7418.setfil,tp,LOCATION_DECK,0,1,nil) end

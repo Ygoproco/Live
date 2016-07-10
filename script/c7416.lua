@@ -41,10 +41,10 @@ function c7416.initial_effect(c)
 end
 
 function c7416.aafil(c)
-	return (c:IsSetCard(0x10ed) or c:IsSetCard(0x120e))
+	return (c:IsSetCard(0x10ee) or c:IsSetCard(0x120e))
 end
 function c7416.asfil(c)
-	return (c:IsSetCard(0x20ed) or c:IsSetCard(0x220e))
+	return (c:IsSetCard(0x20ee) or c:IsSetCard(0x220e))
 end
 
 function c7416.pcost(e,tp,eg,ep,ev,re,r,rp,chk)

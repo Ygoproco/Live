@@ -43,7 +43,7 @@ function c28016193.filter(c)
 	return c:IsFusionSetCard(0xe1)
 end
 function c28016193.exfilter(c)
-	return c:IsHasEffect(7339)
+	return c:IsHasEffect(77693536)
 end
 function c28016193.fscon(e,g,gc,chkfnf)
 	if g==nil then return true end

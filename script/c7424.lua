@@ -27,7 +27,7 @@ function c7424.initial_effect(c)
 end
 
 function c7424.rcfil(c)
-	return c:IsFaceup() and (c:IsSetCard(0x10ed) or c:IsSetCard(0x120e))
+	return c:IsFaceup() and (c:IsSetCard(0x10ee) or c:IsSetCard(0x120e))
 end
 function c7424.rctg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c7424.rcfil,tp,LOCATION_MZONE,0,1,nil) end
