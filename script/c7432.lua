@@ -46,7 +46,7 @@ function c7432.cpcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.PayLPCost(tp,1000)
 end
 function c7432.fil(c)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSetCard(0xee) and c:IsAbleToDeck() and c:CheckActivateEffect(true,true,false)~=nil
+	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSetCard(0xef) and c:IsAbleToDeck() and c:CheckActivateEffect(true,true,false)~=nil
 end
 function c7432.cptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then
