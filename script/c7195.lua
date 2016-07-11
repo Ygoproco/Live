@@ -65,7 +65,10 @@ function c7195.posop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.SelectMatchingCard(tp,c7195.posfil,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
 	if g:GetCount()==0 then return end
 	local tc=g:GetFirst()
-	Duel.ChangePosition(tc,POS_FACEUP_ATTACK+pud)
+	local pos=POS_FACEUP_ATTACK
+	local opt=Duel.SelectOption(tp,1156,1155)
+	if opt==1 then pos=pud end
+	Duel.ChangePosition(tc,pos)
 end
 
 function c7195.condition(e,tp,eg,ep,ev,re,r,rp)
@@ -82,7 +85,10 @@ function c7195.operation(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.SelectMatchingCard(tp,c7195.posfil,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
 	if g:GetCount()==0 then return end
 	local tc=g:GetFirst()
-	if Duel.ChangePosition(tc,POS_FACEUP_ATTACK+pud)>0 and Duel.SelectYesNo(tp,aux.Stringid(7195,2)) then
+	local pos=POS_FACEUP_ATTACK
+	local opt=Duel.SelectOption(tp,1156,1155)
+	if opt==1 then pos=pud end
+	if Duel.ChangePosition(tc,pos)>0 and Duel.SelectYesNo(tp,aux.Stringid(7195,2)) then
 		Duel.BreakEffect()
 		Duel.NegateAttack()
 	end
