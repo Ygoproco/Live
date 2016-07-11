@@ -30,10 +30,13 @@ function c4810828.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 
+function c4810828.negfil(c,tp)
+	return c:IsLocation(LOCATION_MZONE) and c:IsControler(tp)
+end
 function c4810828.negcon(e,tp,eg,ep,ev,re,r,rp)
 	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return false end
 	local g=Duel.GetChainInfo(ev,CHAININFO_TARGET_CARDS)
-	return g and g:IsExists(Card.IsLocation,1,nil,LOCATION_MZONE)
+	return g and g:IsExists(c4810828.negfil,1,nil,tp)
 		and Duel.IsChainNegatable(ev) and (re:IsActiveType(TYPE_MONSTER) or re:IsHasType(EFFECT_TYPE_ACTIVATE))
 end
 function c4810828.negcost(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -53,7 +56,7 @@ function c4810828.condition(e,tp,eg,ep,ev,re,r,rp)
 end
 function c4810828.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToHandAsCost() end
-	Duel.SendtoHand(g,nil,REASON_COST)
+	Duel.SendtoHand(e:GetHandler(),nil,REASON_COST)
 end
 function c4810828.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
