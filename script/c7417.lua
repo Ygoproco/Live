@@ -76,7 +76,7 @@ function c7417.pop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 
-function c7417.atkop2(e,tp,eg,ep,ev,re,r,rp)
+function c7417.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local gc=Duel.GetMatchingGroupCount(c7417.atkfil,tp,LOCATION_MZONE,0,nil)
 	if c:IsFacedown() or not c:IsRelateToEffect(e) then return end
