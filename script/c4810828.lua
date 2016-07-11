@@ -56,7 +56,7 @@ function c4810828.condition(e,tp,eg,ep,ev,re,r,rp)
 end
 function c4810828.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToHandAsCost() end
-	Duel.SendtoHand(g,nil,REASON_COST)
+	Duel.SendtoHand(e:GetHandler(),nil,REASON_COST)
 end
 function c4810828.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
