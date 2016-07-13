@@ -38,7 +38,7 @@ function c6137.initial_effect(c)
 end
 
 function c6137.ovfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x107b) and c:IsType(TYPE_XYZ)
+	return c:IsFaceup() and c:GetRank()==8 and c:IsSetCard(0x107b) and c:IsType(TYPE_XYZ)
 end
 
 function c6137.descost(e,tp,eg,ep,ev,re,r,rp,chk)
