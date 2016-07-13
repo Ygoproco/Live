@@ -55,7 +55,7 @@ end
 function c7100.operation(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_SZONE)<1 then return end
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRealteToEffect(e) then
+	if tc:IsRelateToEffect(e) then
 		Duel.SSet(tp,tc)
 		Duel.ConfirmCards(1-tp,tc)
 	end
