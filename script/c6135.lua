@@ -37,7 +37,7 @@ function c6135.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,0,0)
 end
 function c6135.fil(c)
-	return c:IsFaceup() and c:IsSetCard(0x8)
+	return c:IsFaceup() and c:IsSetCard(0xc008)
 end
 function c6135.afil(c)
 	return c:IsSetCard(0xc008) and c:IsType(TYPE_MONSTER)
@@ -56,7 +56,7 @@ function c6135.op(e,tp,eg,ep,ev,re,r,rp)
 			e1:SetType(EFFECT_TYPE_SINGLE)
 			e1:SetCode(EFFECT_UPDATE_ATTACK)
 			e1:SetValue(cnt*200)
-			e1:SetReset(RESET_EVENT+0x1fe0000)
+			e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
 			tc:RegisterEffect(e1)
 			tc=ag:GetNext()
 		end

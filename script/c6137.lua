@@ -38,7 +38,7 @@ function c6137.initial_effect(c)
 end
 
 function c6137.ovfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x107b) and c:IsType(TYPE_XYZ)
+	return c:IsFaceup() and c:GetRank()==8 and c:IsSetCard(0x107b) and c:IsType(TYPE_XYZ)
 end
 
 function c6137.descost(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -64,7 +64,7 @@ function c6137.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsSummonType(SUMMON_TYPE_XYZ) and c:IsReason(REASON_BATTLE+REASON_EFFECT) and c:GetReasonPlayer()~=tp
 end
 function c6137.spfilter(c,e,tp)
-	return c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsCode(18963306) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c6137.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c6137.spfilter(chkc,e,tp) end
