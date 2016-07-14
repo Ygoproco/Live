@@ -46,9 +46,11 @@ function c15936370.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c15936370.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
+	if not c:IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
-	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) and Duel.Destroy(tc,REASON_EFFECT)>0 then
-		Duel.BreakEffect()
+	if tc:IsRelateToEffect(e) and Duel.Destroy(tc,REASON_EFFECT)~=0 then
+		--Debug.Message("Enters here")
+		Duel.SendtoGrave(c,REASON_RULE)
 		Duel.MoveToField(c,tp,1-tp,LOCATION_SZONE,POS_FACEUP,true)
 	end
 end
