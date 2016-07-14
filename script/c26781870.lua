@@ -39,7 +39,7 @@ function c26781870.thfil(c)
 end
 function c26781870.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
-	if Duel.CheckEvent(EVENT_SPSUMMON_SUCCESS) and eg and eg:IsExists(c26781870.cfil,1,nil,tp) and Duel.SelectYesNo(tp,94) then
+	if Duel.CheckEvent(EVENT_SPSUMMON_SUCCESS) and eg and eg:IsExists(c26781870.cfil,1,nil,1-tp) and Duel.SelectYesNo(tp,94) then
 		e:SetCategory(CATEGORY_TOHAND)
 		e:GetHandler():RegisterFlagEffect(26781870,RESET_PHASE+PHASE_END,0,1)
 		e:SetLabel(1)
@@ -63,7 +63,7 @@ function c26781870.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:GetHandler():RegisterFlagEffect(26781870,RESET_PHASE+PHASE_END,0,1)
 end
 function c26781870.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return eg and eg:IsExists(c26781870.cfil,1,nil,tp) end
+	if chk==0 then return eg and eg:IsExists(c26781870.cfil,1,nil,1-tp) end
 	local g=Duel.GetMatchingGroup(c26781870.thfil,tp,0,LOCATION_MZONE,nil)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,g:GetCount(),0,0)
 end
