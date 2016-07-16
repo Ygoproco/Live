@@ -15,7 +15,7 @@ function c7436.initial_effect(c)
 end
 
 function c7436.cfil(c,mg)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xef) and (c:IsFaceup() or c:IsLocation(LOCATION_HAND)) and c:IsAbleToGraveAsCost() and mg:IsExists(nil,1,c)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xef) and (c:IsFaceup() or c:IsLocation(LOCATION_HAND)) and c:IsAbleToGraveAsCost() and (not mg:IsContains(c) or mg:GetCount()>1)
 end
 function c7436.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local mg=Duel.GetMatchingGroup(Card.IsDestructable,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,e:GetHandler())
