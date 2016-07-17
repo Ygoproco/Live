@@ -54,7 +54,7 @@ function c7408.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local sc=Duel.GetMatchingGroupCount(c7408.spfil,tp,LOCATION_HAND+LOCATION_DECK+LOCATION_GRAVE,0,nil,e,tp)
 	local tc=math.min(lc,sc)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DISCARD)
-	local cg=Duel.SelectMatchingCard(tp,Card.IsDiscardable,tp,LOCATION_HAND,0,1,rt,nil)
+	local cg=Duel.SelectMatchingCard(tp,Card.IsDiscardable,tp,LOCATION_HAND,0,1,tc,nil)
 	Duel.SendtoGrave(cg,REASON_COST+REASON_DISCARD)
 	e:SetLabel(cg:GetCount())
 end
