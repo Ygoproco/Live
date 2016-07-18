@@ -22,6 +22,7 @@ function c7436.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c7436.cfil,tp,LOCATION_HAND+LOCATION_MZONE,0,1,nil,mg) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 	local g=Duel.SelectMatchingCard(tp,c7436.cfil,tp,LOCATION_HAND+LOCATION_MZONE,0,1,1,nil,mg)
+	Duel.SendtoGrave(g,REASON_COST)
 end
 function c7436.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDestructable,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,e:GetHandler()) end
