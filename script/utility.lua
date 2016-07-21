@@ -1374,7 +1374,13 @@ function Auxiliary.PendCondition()
 				if og then
 					return og:IsExists(Auxiliary.PConditionFilter,1,nil,e,tp,lscale,rscale)
 				else
-					return Duel.IsExistingMatchingCard(Auxiliary.PConditionFilter,tp,LOCATION_HAND+LOCATION_EXTRA,0,1,nil,e,tp,lscale,rscale)
+					if Duel.IsPlayerAffectedByEffect(tp,29724053) then
+						--If the player is affected by Summon Gate's effect, Pendulum Summon is possible if there is a Pendulum Summonable monster in the hand or if the player can still summon from the Extra Deck
+						return Duel.IsExistingMatchingCard(Auxiliary.PConditionFilter,tp,LOCATION_HAND,0,1,nil,e,tp,lscale,rscale) or (c29724053[tp]>0 and Duel.IsExistingMatchingCard(Auxiliary.PConditionFilter,tp,LOCATION_HAND+LOCATION_EXTRA,0,1,nil,e,tp,lscale,rscale))
+					else
+						--If Summon Gate is not in play, everything proceeds as usual
+						return Duel.IsExistingMatchingCard(Auxiliary.PConditionFilter,tp,LOCATION_HAND+LOCATION_EXTRA,0,1,nil,e,tp,lscale,rscale)
+					end
 				end
 			end
 end
@@ -1391,9 +1397,38 @@ function Auxiliary.PendOperation()
 					local g=og:FilterSelect(tp,Auxiliary.PConditionFilter,1,ft,nil,e,tp,lscale,rscale)
 					sg:Merge(g)
 				else
-					Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-					local g=Duel.SelectMatchingCard(tp,Auxiliary.PConditionFilter,tp,LOCATION_HAND+LOCATION_EXTRA,0,1,ft,nil,e,tp,lscale,rscale)
-					sg:Merge(g)
+					if Duel.IsPlayerAffectedByEffect(tp,29724053) then
+						--If the player is affected by Summon Gate's effect...
+						local g=Duel.GetMatchingGroup(Auxiliary.PConditionFilter,tp,LOCATION_HAND+LOCATION_EXTRA,0,nil,e,tp,lscale,rscale)
+						if g:GetCount()==0 then return end
+						local xg=g:Filter(Card.IsLocation,nil,LOCATION_EXTRA) --Summonable cards in Extra
+						local hg=g:Filter(Card.IsLocation,nil,LOCATION_HAND) --Summonable cards in hand
+						if xg:GetCount()>0 and c29724053[tp]>0 and (hg:GetCount()==0 or Duel.SelectYesNo(tp,aux.Stringid(29724053,0))) then
+							--If there are monsters in the Extra Deck and the player can summon and wants to summon from the Extra Deck...
+							--NOTE: If there are no Pendulum Summonable monsters in the hand, the procedure allows to summon from the Extra without asking
+							local xct=math.min(ft,c29724053[tp])
+							Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+							local xsg=xg:Select(tp,1,xct,nil)
+							local rl=ft-xsg:GetCount() --Remaining locations
+							sg:Merge(xsg)
+							if hg:GetCount()>0 and rl>0 and Duel.SelectYesNo(tp,aux.Stringid(29724053,1)) then
+								--If there are summonable monsters in the hand as well and the user can and wants to continue to summon...
+								Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+								local hsg=hg:Select(tp,1,rl,nil)
+								sg:Merge(hsg)
+							end
+						else
+							--If there are no valid monsters in the Extra Deck, or the user wants to summon from hand only...
+							Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+							local hsg=hg:Select(tp,1,ft,nil)
+							sg:Merge(hsg)
+						end
+					else
+						--If Summon Gate is not in play, everything proceeds as usual
+						Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+						local g=Duel.SelectMatchingCard(tp,Auxiliary.PConditionFilter,tp,LOCATION_HAND+LOCATION_EXTRA,0,1,ft,nil,e,tp,lscale,rscale)
+						sg:Merge(g)
+					end
 				end
 				Duel.HintSelection(Group.FromCards(c))
 				Duel.HintSelection(Group.FromCards(rpz))
