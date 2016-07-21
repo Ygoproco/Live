@@ -8,8 +8,9 @@ function c7422.initial_effect(c)
 	e1:SetDescription(aux.Stringid(7422,0))
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetRange(LOCATION_PZONE)
+	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetCountLimit(1)
-	e1:SetCondition(c7422.sccon)
+	e1:SetTarget(c7422.sctg)
 	e1:SetOperation(c7422.scop)
 	c:RegisterEffect(e1)
 	--
@@ -39,23 +40,26 @@ function c7422.aafil(c)
 	return (c:IsSetCard(0x10ee) or c:IsSetCard(0x120e))
 end
 
-function c7422.sccon(e,tp,eg,ep,ev,re,r,rp)
+function c7422.sctg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return false end
 	local seq=e:GetHandler():GetSequence()
 	local tc=Duel.GetFieldCard(e:GetHandlerPlayer(),LOCATION_SZONE,13-seq)
-	return tc and c7422.aafil(tc)
+	if chk==0 then return tc and c7422.aafil(tc) end
+	Duel.SetTargetCard(tc)
 end
 function c7422.scop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if not c:IsRelateToEffect(e) then return end
+	local tc=Duel.GetFirstTarget()
+	if not c:IsRelateToEffect(e) or not tc:IsRelateToEffect(e) then return end
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_CHANGE_LSCALE)
 	e1:SetValue(9)
 	e1:SetReset(RESET_EVENT+0x1ff0000+RESET_PHASE+PHASE_END)
-	c:RegisterEffect(e1)
+	tc:RegisterEffect(e1)
 	local e2=e1:Clone()
 	e2:SetCode(EFFECT_CHANGE_RSCALE)
-	c:RegisterEffect(e2)
+	tc:RegisterEffect(e2)
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD)
 	e3:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
@@ -75,7 +79,8 @@ end
 function c7422.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) then return end
-	local mc=Duel.GetMatchingGroupCount(c7422.atkfil,tp,LOCATION_MZONE,0,nil)
+	local mg=Duel.GetMatchingGroup(c7422.atkfil,tp,LOCATION_MZONE,0,nil)
+	local mc=mg:GetClassCount(Card.GetCode)
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
@@ -88,7 +93,7 @@ function c7422.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return bit.band(r,REASON_EFFECT+REASON_BATTLE)~=0
 end
 function c7422.thfilter(c)
-	return c:IsType(TYPE_MONSTER) and c7422.aafil(c) and not c:IsCode(7422) and c:IsAbleToHand()
+	return c7422.aafil(c) and not c:IsCode(7422) and c:IsAbleToHand()
 end
 function c7422.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c7422.thfilter,tp,LOCATION_DECK,0,1,nil) end
