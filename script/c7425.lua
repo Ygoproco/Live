@@ -66,7 +66,7 @@ function c7425.rmop1(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,1-tp,HINTMSG_REMOVE)
 	local mg=g:FilterSelect(1-tp,Card.IsAbleToRemove,ct,ct,nil)
 	if mg:GetCount()>0 then
-		Duel.Remove(mg,nil,REASON_EFFECT)
+		Duel.Remove(mg,POS_FACEUP,REASON_EFFECT)
 	end
 end
 
