@@ -42,17 +42,29 @@ function c7425.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsFaceup() and tc:IsRelateToEffect(e) then
 		--
-		local e2=Effect.CreateEffect(e:GetHandler())
-		e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
-		e2:SetDescription(aux.Stringid(7425,0))
+		local e1=Effect.CreateEffect(c)
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetDescription(aux.Stringid(7425,0))
+		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+		e1:SetProperty(EFFECT_FLAG_CLIENT_HINT)
+		tc:RegisterEffect(e1)
+		tc:RegisterFlagEffect(7425,RESET_EVENT+0x1220000+RESET_PHASE+PHASE_END,0,1)
+		local e2=Effect.CreateEffect(c)
+		e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 		e2:SetCategory(CATEGORY_REMOVE)
 		e2:SetCode(EVENT_BATTLE_DESTROYING)
-		e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_CLIENT_HINT)
+		e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_DELAY)
+		e2:SetLabelObject(tc)
+		e2:SetCondition(c7425.rmcon1)
 		e2:SetTarget(c7425.rmtg1)
 		e2:SetOperation(c7425.rmop1)
-		e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-		tc:RegisterEffect(e2)
+		e2:SetReset(RESET_PHASE+PHASE_END)
+		Duel.RegisterEffect(e2,tp)
 	end
+end
+function c7425.rmcon1(e,tp,eg,ep,ev,re,r,rp)
+	local tc=e:GetLabelObject()
+	return eg:IsContains(tc) and tc:GetFlagEffect(7425)~=0
 end
 function c7425.rmtg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToRemove,tp,0,LOCATION_EXTRA,1,nil) end
