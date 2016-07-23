@@ -55,13 +55,12 @@ function c3966653.op(e,tp,eg,ep,ev,re,r,rp)
 	--spsummon limit
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
-	e2:SetRange(LOCATION_SZONE)
 	e2:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
 	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e2:SetTargetRange(0,1)
 	e2:SetTarget(c3966653.sumlimit)
 	e2:SetReset(RESET_PHASE+PHASE_END+RESET_OPPO_TURN)
-	c:RegisterEffect(e2)
+	Duel.RegisterEffect(e2,tp)
 end
 function c3966653.aclimit(e,re,tp)
 	return re:GetActivateLocation()==LOCATION_GRAVE
