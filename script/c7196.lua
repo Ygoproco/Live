@@ -29,7 +29,7 @@ function c7196.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	if chk==0 then return Duel.GetFieldGroupCount(tp,0,LOCATION_DECK)>0 and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and c:IsCanBeSpecialSummoned(e,0,tp,false,false) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CARDTYPE)
-	local op=Duel.SelectOption(1-tp,70,71,72)
+	local op=Duel.SelectOption(tp,70,71,72)
 	if op==0 then e:SetLabel(TYPE_MONSTER) elseif op==1 then e:SetLabel(TYPE_SPELL) else e:SetLabel(TYPE_TRAP) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,c,1,0,0)
 end
