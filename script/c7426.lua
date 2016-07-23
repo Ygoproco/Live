@@ -40,16 +40,14 @@ function c7426.initial_effect(c)
 end
 
 function c7426.aafil(c)
-	return (c:IsSetCard(0x10ee) or c:IsSetCard(0x120e))
+	return c:IsSetCard(0x10ee) or c:IsSetCard(0x120e)
 end
 
 function c7426.indtg(e,c)
 	return c7426.aafil(c)
 end
 function c7426.indct(e,re,r,rp)
-	if bit.band(r,REASON_BATTLE)~=0 then
-		return 1
-	else return 0 end
+	return bit.band(r,REASON_BATTLE)~=0
 end
 
 function c7426.filter(c)
