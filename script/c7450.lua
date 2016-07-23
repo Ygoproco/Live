@@ -51,7 +51,7 @@ function c7450.limop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e1,tp)
 end
 function c7450.aclimit(e,re,tp)
-	return re:IsActiveType(e:GetLabel())
+	return re:IsActiveType(e:GetLabel()) and not re:GetHandler():IsImmuneToEffect(e)
 end
 function c7450.accon(e)
 	local tp=e:GetHandlerPlayer()
