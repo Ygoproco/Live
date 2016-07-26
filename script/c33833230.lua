@@ -59,6 +59,10 @@ function c33833230.lcktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingTarget(Card.IsFacedown,tp,0,LOCATION_SZONE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEDOWN)
 	Duel.SelectTarget(tp,Card.IsFacedown,tp,0,LOCATION_SZONE,1,1,nil)
+	Duel.SetChainLimit(c33833230.chlimit)
+end
+function c33833230.chlimit(e,ep,tp)
+	return tp==ep
 end
 function c33833230.lckop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
