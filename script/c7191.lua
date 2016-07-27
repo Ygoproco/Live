@@ -66,7 +66,12 @@ function c7191.op(e,tp,eg,ep,ev,re,r,rp)
 	if tc and tc:IsLocation(LOCATION_GRAVE) and (tc:IsCanBeSpecialSummoned(e,0,tp,false,false,pud) or tc:IsCanBeSpecialSummoned(e,0,tp,false,false,pdd)) then
 		local mg=Duel.GetMatchingGroup(Card.IsReleasable,tp,LOCATION_MZONE,0,c)
 		local lv=tc:GetLevel()-c:GetOriginalLevel()
-		local mat=mg:SelectWithSumGreater(tp,Card.GetOriginalLevel,lv)
+		local mat=nil
+		if lv==0 then
+			mat=mg:Select(tp,1,1,nil)
+		else
+			mat=mg:SelectWithSumGreater(tp,Card.GetOriginalLevel,lv)
+		end
 		if mat:GetCount()==0 then return end
 		mat:AddCard(c)
 		if Duel.Release(mat,REASON_EFFECT)>0 then
