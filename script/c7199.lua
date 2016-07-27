@@ -72,34 +72,33 @@ function c7199.atkop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 
-function c7199.thcfil(c,e,mg)
-	return c:IsSetCard(0xed) and c:IsAbleToRemoveAsCost() and mg:IsExists(c7199.thfil,1,c,e)
+function c7199.cfilter(c,tp)
+	return c:IsSetCard(0xed) and c:IsAbleToRemoveAsCost()
+		and Duel.IsExistingTarget(c7199.thfilter,tp,LOCATION_GRAVE,0,1,c)
 end
-function c7199.thfil(c,e)
-	return c:IsCode(7196) and c:IsAbleToHand() and (not e or c:IsCanBeEffectTarget(e))
+function c7199.thfilter(c)
+	return c:IsCode(7196) and c:IsAbleToHand()
 end
 function c7199.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
-	local mg=Duel.GetFieldGroup(tp,LOCATION_GRAVE,0)
-	if chk==0 then
-		return c:IsAbleToRemoveAsCost() and mg:IsExists(c7199.thcfil,1,c,e,mg)
-	end
+	if chk==0 then return c:IsAbleToRemoveAsCost()
+		and Duel.IsExistingMatchingCard(c7199.cfilter,tp,LOCATION_GRAVE,0,1,c,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g=mg:FilterSelect(tp,c7199.thcfil,1,1,c,e,mg)
+	local g=Duel.SelectMatchingCard(tp,c7199.cfilter,tp,LOCATION_GRAVE,0,1,1,c,tp)
 	g:AddCard(c)
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
 end
 function c7199.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and c7199.thfil(chkc) end
-	if chk==0 then Duel.IsExistingTarget(c7199.thfil,tp,LOCATION_GRAVE,0,1,nil) end
+	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c7199.thfilter(chkc,tp) end
+	if chk==0 then return true end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectTarget(tp,c7199.thfil,tp,LOCATION_GRAVE,0,1,1,nil)
+	local g=Duel.SelectTarget(tp,c7199.thfilter,tp,LOCATION_GRAVE,0,1,1,nil,tp)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
 end
 function c7199.thop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
-		Duel.SendtoHand(tc,tp,REASON_EFFECT)
+		Duel.SendtoHand(tc,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,tc)
 	end
 end
