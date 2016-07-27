@@ -1,22 +1,23 @@
 --魔界大道具 「ニゲ馬車」
 --Abyss Stage Prop - Escape Stage Couch
---Scripted by Eerie Code
+--Scripted by Eerie Code & Sahim
 function c7426.initial_effect(c)
 	--
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	c:RegisterEffect(e1)
+	c:RegisterEffect(e1)	
 	--indes
 	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_FIELD)
-	e2:SetCode(EFFECT_INDESTRUCTABLE_COUNT)
-	e2:SetCountLimit(1)
+	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e2:SetCode(EFFECT_DESTROY_REPLACE)
 	e2:SetRange(LOCATION_SZONE)
-	e2:SetTargetRange(LOCATION_MZONE,0)
-	e2:SetTarget(c7426.indtg)
-	e2:SetValue(c7426.indct)
+	e2:SetTarget(c7426.reptg)
+	e2:SetValue(c7426.repval)
 	c:RegisterEffect(e2)
+	local g=Group.CreateGroup()
+	g:KeepAlive()
+	e2:SetLabelObject(g)	
 	--
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(7426,0))
@@ -41,14 +42,27 @@ function c7426.initial_effect(c)
 end
 
 function c7426.aafil(c)
-	return c:IsSetCard(0x10ee) or c:IsSetCard(0x120e)
+	return c:IsSetCard(0x10ec)
 end
 
-function c7426.indtg(e,c)
-	return c7426.aafil(c)
+function c7426.repfilter(c,tp)
+	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_MZONE)
+		and c7426.aafil(c) and c:IsReason(REASON_BATTLE) and c:GetFlagEffect(7426)==0
 end
-function c7426.indct(e,re,r,rp)
-	return bit.band(r,REASON_BATTLE)~=0
+function c7426.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return eg:IsExists(c7426.repfilter,1,nil,tp) end
+	local g=eg:Filter(c7426.repfilter,nil,tp)
+	local tc=g:GetFirst()
+	while tc do
+		tc:RegisterFlagEffect(7426,RESET_EVENT+0x1fc0000+RESET_PHASE+PHASE_END,EFFECT_FLAG_CLIENT_HINT,1,0,aux.Stringid(7426,0))
+		tc=g:GetNext()
+	end
+	e:GetLabelObject():Clear()
+	e:GetLabelObject():Merge(g)
+	return true
+end
+function c7426.repval(e,c)
+	return e:GetLabelObject():IsContains(c)
 end
 
 function c7426.filter(c)
