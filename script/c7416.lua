@@ -40,16 +40,9 @@ function c7416.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 
-function c7416.aafil(c)
-	return (c:IsSetCard(0x10ee) or c:IsSetCard(0x120e))
-end
-function c7416.asfil(c)
-	return (c:IsSetCard(0x20ee) or c:IsSetCard(0x220e))
-end
-
 function c7416.pcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.CheckReleaseGroup(tp,c7416.aafil,1,e:GetHandler()) end
-	local sg=Duel.SelectReleaseGroup(tp,c7416.aafil,1,1,e:GetHandler())
+	if chk==0 then return Duel.CheckReleaseGroup(tp,Card.IsSetCard,1,e:GetHandler(),0x10ec) end
+	local sg=Duel.SelectReleaseGroup(tp,Card.IsSetCard,1,1,e:GetHandler(),0x10ec)
 	local atk=sg:GetFirst():GetBaseAttack()
 	if atk<0 then atk=0 end
 	e:SetLabel(atk)
@@ -75,7 +68,7 @@ function c7416.pop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c7416.atkfil(c)
-	return c:IsFaceup() and c7416.aafil(c)
+	return c:IsFaceup() and c:IsSetCard(0x10ec)
 end
 function c7416.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
@@ -91,7 +84,7 @@ function c7416.atkop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c7416.setfil(c)
-	return c7416.asfil(c) and c:IsType(TYPE_SPELL) and c:IsSSetable(false)
+	return c:IsSetCard(0x20ec) and c:IsType(TYPE_SPELL) and c:IsSSetable(false)
 end
 function c7416.settg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c7416.setfil(chkc) end

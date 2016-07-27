@@ -20,7 +20,7 @@ function c7190.initial_effect(c)
 end
 
 function c7190.spfilter(c,e,tp)
-	return c:IsSetCard(0xed) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xee) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c7190.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c7190.spfilter(chkc,e,tp) end
@@ -32,7 +32,7 @@ function c7190.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_EQUIP,e:GetHandler(),1,0,0)
 end
 function c7190.eqlimit(e,c)
-	return e:GetLabelObject()==c and c:IsSetCard(0xed)
+	return e:GetLabelObject()==c and c:IsSetCard(0xee)
 end
 function c7190.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

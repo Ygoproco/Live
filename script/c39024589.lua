@@ -29,16 +29,12 @@ function c39024589.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 
-function c39024589.aafil(c)
-	return (c:IsSetCard(0x10ee) or c:IsSetCard(0x120e))
-end
-
 function c39024589.thcon(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
 	return tc:IsSummonType(SUMMON_TYPE_PENDULUM) and tc:IsControler(tp)
 end
 function c39024589.thfil(c)
-	return c:IsFaceup() and c:IsType(TYPE_PENDULUM) and c39024589.aafil(c) and (c:GetLevel()==1 or c:GetLevel()==8) and c:IsAbleToHand()
+	return c:IsFaceup() and c:IsType(TYPE_PENDULUM) and c:IsSetCard(0x10ec) and (c:GetLevel()==1 or c:GetLevel()==8) and c:IsAbleToHand()
 end
 function c39024589.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c39024589.thfil,tp,LOCATION_EXTRA,0,1,nil) end
@@ -57,14 +53,14 @@ end
 function c39024589.spcon(e,tp,eg,ep,ev,re,r,rp)
 	local tc1=Duel.GetFieldCard(tp,LOCATION_SZONE,6)
 	local tc2=Duel.GetFieldCard(tp,LOCATION_SZONE,7)
-	return tc1 and c39024589.aafil(tc1) and tc2 and c39024589.aafil(tc2)
+	return tc1 and tc1:IsSetCard(0x10ec) and tc2 and tc2:IsSetCard(0x10ec)
 end
 function c39024589.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsReleasable() end
 	Duel.Release(e:GetHandler(),REASON_COST)
 end
 function c39024589.spfil(c,e,tp)
-	return c39024589.aafil(c) and (c:GetLevel()==1 or c:GetLevel()==8) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and (c:IsFaceup() or c:IsLocation(LOCATION_HAND))
+	return c:IsSetCard(0x10ec) and (c:GetLevel()==1 or c:GetLevel()==8) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and (c:IsFaceup() or c:IsLocation(LOCATION_HAND))
 end
 function c39024589.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1 and Duel.IsExistingMatchingCard(c39024589.spfil,tp,LOCATION_EXTRA+LOCATION_HAND,0,1,nil,e,tp) end

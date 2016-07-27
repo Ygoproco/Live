@@ -13,7 +13,7 @@ function c7427.initial_effect(c)
 	c:RegisterEffect(e1)
 	--
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(7423,1))
+	e2:SetDescription(aux.Stringid(7427,1))
 	e2:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_DESTROYED)
@@ -25,10 +25,10 @@ function c7427.initial_effect(c)
 end
 
 function c7427.aafil(c)
-	return (c:IsSetCard(0x10ee) or c:IsSetCard(0x120e))
+	return c:IsSetCard(0x10ec)
 end
 function c7427.asfil(c)
-	return (c:IsSetCard(0x20ee) or c:IsSetCard(0x220e))
+	return c:IsSetCard(0x20ec)
 end
 
 function c7427.cfil(c)

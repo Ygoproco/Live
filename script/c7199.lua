@@ -49,7 +49,7 @@ function c7199.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(e:GetHandler(),REASON_COST)
 end
 function c7199.atkfil(c)
-	return c:IsFaceup() and c:IsSetCard(0xed)
+	return c:IsFaceup() and c:IsSetCard(0xee)
 end
 function c7199.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local mc=Duel.GetFieldGroupCount(tp,0,LOCATION_ONFIELD)
@@ -73,7 +73,7 @@ function c7199.atkop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c7199.cfilter(c,tp)
-	return c:IsSetCard(0xed) and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(0xee) and c:IsAbleToRemoveAsCost()
 		and Duel.IsExistingTarget(c7199.thfilter,tp,LOCATION_GRAVE,0,1,c)
 end
 function c7199.thfilter(c)

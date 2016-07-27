@@ -37,10 +37,10 @@ function c7421.initial_effect(c)
 end
 
 function c7421.aafil(c)
-	return (c:IsSetCard(0x10ee) or c:IsSetCard(0x120e))
+	return c:IsSetCard(0x10ec)
 end
 function c7421.asfil(c)
-	return (c:IsSetCard(0x20ee) or c:IsSetCard(0x220e))
+	return c:IsSetCard(0x20ec)
 end
 
 function c7421.pcon(e,tp,eg,ep,ev,re,r,rp)

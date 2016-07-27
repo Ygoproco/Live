@@ -39,15 +39,11 @@ function c7417.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 
-function c7417.aafil(c)
-	return (c:IsSetCard(0x10ee) or c:IsSetCard(0x120e))
-end
-
 function c7417.cfilter(c,tp)
-	return c7417.aafil(c) and Duel.IsExistingTarget(c7417.atkfil,tp,LOCATION_MZONE,0,1,c)
+	return c:IsSetCard(0x10ec) and Duel.IsExistingTarget(c7417.atkfil,tp,LOCATION_MZONE,0,1,c)
 end
 function c7417.atkfil(c)
-	return c:IsFaceup() and c7417.aafil(c)
+	return c:IsFaceup() and c:IsSetCard(0x10ec)
 end
 function c7417.pcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckReleaseGroup(tp,c7417.cfilter,1,e:GetHandler(),tp) end

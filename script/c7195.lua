@@ -34,7 +34,7 @@ function c7195.initial_effect(c)
 end
 
 function c7195.filter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xec) and c:IsAbleToHand()
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xed) and c:IsAbleToHand()
 end
 function c7195.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
@@ -49,7 +49,7 @@ end
 function c7195.posfil(c)
 	local pos=0
 	if POS_FACEDOWN_DEFENSE then pos=POS_FACEDOWN_DEFENSE else pos=POS_FACEDOWN_DEFENCE end
-	return c:IsSetCard(0xec) and c:IsPosition(pos)
+	return c:IsSetCard(0xed) and c:IsPosition(pos)
 end
 function c7195.postg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c7195.posfil,tp,LOCATION_MZONE,0,1,nil) end

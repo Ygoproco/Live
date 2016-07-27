@@ -29,7 +29,7 @@ function c7191.initial_effect(c)
 end
 
 function c7191.cfil(c,e,tp,mg,hl)
-	if c:IsSetCard(0xec) and c:IsType(TYPE_MONSTER) and c:IsAbleToGraveAsCost() then
+	if c:IsSetCard(0xed) and c:IsType(TYPE_MONSTER) and c:IsAbleToGraveAsCost() then
 		local lv=c:GetLevel()-hl
 		return mg:CheckWithSumGreater(Card.GetOriginalLevel,lv)
 	else return false
@@ -84,7 +84,7 @@ function c7191.op(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c7191.spcfil(c)
-	return c:IsSetCard(0x10ec)
+	return c:IsSetCard(0x10ed)
 end
 function c7191.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c7191.spcfil,1,e:GetHandler())
