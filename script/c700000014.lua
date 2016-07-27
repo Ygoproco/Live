@@ -2,7 +2,7 @@
 --Abyss Actor - Funky Comedian
 function c700000014.initial_effect(c)
 	--Pendulum Summon
-	aux.AddPendulumProcedure(c)
+	aux.EnablePendulumAttribute(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -30,17 +30,15 @@ function c700000014.initial_effect(c)
 	e4:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e4)
 end
-function c700000014.cfilter(c,tp)
-	return c:IsType(TYPE_PENDULUM) and c:IsSetCard(0x120e) and c:IsAbleToDeckOrExtraAsCost() 
-		and Duel.IsExistingTarget(Card.IsFaceup,tp,LOCATION_MZONE,0,1,c)
+
+function c700000014.cfilter(c)
+	return c:IsType(TYPE_PENDULUM) and c:IsSetCard(0x1511)-- and c:IsAbleToExtraAsCost()
 end
 function c700000014.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c700000014.cfilter,tp,LOCATION_MZONE,0,1,nil,tp) end
-	local g=Duel.SelectMatchingCard(tp,c700000014.cfilter,tp,LOCATION_MZONE,0,1,1,nil,tp)
-	local atk=g:GetFirst():GetAttack()
-	if atk<0 then atk=0 end
-	e:SetLabel(atk)
-	Duel.PSendtoExtra(g,nil,REASON_COST)
+	if chk==0 then return Duel.IsExistingMatchingCard(c700000014.cfilter,tp,LOCATION_MZONE,0,1,nil) end
+	local g=Duel.SelectMatchingCard(tp,c700000014.cfilter,tp,LOCATION_MZONE,0,1,1,nil)
+	e:SetLabel(g:GetFirst():GetAttack())
+	Duel.SendToExtra(g,POS_FACEUP,REASON_EFFECT+REASON_COST)
 end
 function c700000014.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE) and chkc:IsFaceup() end
@@ -50,22 +48,22 @@ function c700000014.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c700000014.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsFaceup() and tc:IsRelateToEffect(e) then
+	if tc:IsFaceup() and tc:IsRelateToEffect(e) then
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_UPDATE_ATTACK)
 		e1:SetValue(e:GetLabel())
-		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+		e1:SetReset(RESET_EVENT+0x1ff0000+RESET_PHASE+PHASE_END)
 		tc:RegisterEffect(e1)
 	end
 end
+
 function c700000014.atkfil(c)
-	return c:IsFaceup() and c:IsSetCard(0x120e)
+	return c:IsFaceup() and c:IsSetCard(0x1511)
 end
 function c700000014.atkop2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local gc=Duel.GetMatchingGroupCount(c700000014.atkfil,tp,LOCATION_MZONE,0,nil)
-	if c:IsFacedown() or not c:IsRelateToEffect(e) then return end
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)

@@ -2,7 +2,7 @@
 --Amorphage Irritum
 function c69072185.initial_effect(c)
 	--Pendulum Summon
-	aux.AddPendulumProcedure(c)
+	aux.EnablePendulumAttribute(c)
 	--Activate
 	local e9=Effect.CreateEffect(c)
 	e9:SetType(EFFECT_TYPE_ACTIVATE)

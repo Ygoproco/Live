@@ -2,7 +2,7 @@
 --Amorphage Lux
 function c70917315.initial_effect(c)
 	--Pendulum Summon
-	aux.AddPendulumProcedure(c)
+	aux.EnablePendulumAttribute(c)
 	--Activate
 	local e9=Effect.CreateEffect(c)
 	e9:SetType(EFFECT_TYPE_ACTIVATE)
