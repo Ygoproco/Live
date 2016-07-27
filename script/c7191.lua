@@ -18,7 +18,7 @@ function c7191.initial_effect(c)
 	e2:SetDescription(aux.Stringid(7191,1))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
-	e2:SetCode(EVENT_CHANGE_POS)
+	e2:SetCode(EVENT_FLIP)
 	e2:SetRange(LOCATION_GRAVE)
 	e2:SetProperty(EFFECT_FLAG_DELAY)
 	e2:SetCountLimit(1,7191+1)
@@ -79,7 +79,7 @@ function c7191.op(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c7191.spcfil(c)
-	return c:IsSetCard(0x10ec) and bit.band(c:GetPreviousPosition(),POS_FACEDOWN)~=0 and bit.band(c:GetPosition(),POS_FACEUP)~=0
+	return c:IsSetCard(0x10ec)
 end
 function c7191.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c7191.spcfil,1,e:GetHandler())
