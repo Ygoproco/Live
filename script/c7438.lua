@@ -14,7 +14,7 @@ function c7438.initial_effect(c)
 	e1:SetCost(c7438.thcost)
 	e1:SetTarget(c7438.thtg)
 	e1:SetOperation(c7438.thop)
-	c:RegisterEffect(e2)
+	c:RegisterEffect(e1)
 	--copy card
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(7438,1))
