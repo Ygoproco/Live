@@ -3,11 +3,6 @@
 function c70917315.initial_effect(c)
 	--Pendulum Summon
 	aux.EnablePendulumAttribute(c)
-	--Activate
-	local e9=Effect.CreateEffect(c)
-	e9:SetType(EFFECT_TYPE_ACTIVATE)
-	e9:SetCode(EVENT_FREE_CHAIN)
-	c:RegisterEffect(e9)
 	--destroy
 	local e4=Effect.CreateEffect(c)
 	e4:SetDescription(aux.Stringid(70917315,0))
