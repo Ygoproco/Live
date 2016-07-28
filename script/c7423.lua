@@ -25,7 +25,7 @@ function c7423.initial_effect(c)
 end
 
 function c7423.aafil(c)
-	return (c:IsSetCard(0x10ee) or c:IsSetCard(0x120e))
+	return c:IsSetCard(0x10ec)
 end
 
 function c7423.filter(c)

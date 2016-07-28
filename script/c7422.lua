@@ -37,7 +37,7 @@ function c7422.initial_effect(c)
 end
 
 function c7422.aafil(c)
-	return (c:IsSetCard(0x10ee) or c:IsSetCard(0x120e))
+	return c:IsSetCard(0x10ec)
 end
 
 function c7422.sctg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

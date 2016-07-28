@@ -46,7 +46,7 @@ end
 function c7196.descon(e,tp,eg,ep,ev,re,r,rp)
 	if not re then return false end
 	local rc=re:GetHandler()
-	return rc:IsSetCard(0xed)
+	return rc:IsSetCard(0xee)
 end
 function c7196.desfilter(c)
 	return c:IsDestructable() and c:IsType(TYPE_SPELL+TYPE_TRAP)

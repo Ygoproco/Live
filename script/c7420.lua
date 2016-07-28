@@ -27,7 +27,7 @@ function c7420.initial_effect(c)
 end
 
 function c7420.aafil(c)
-	return (c:IsSetCard(0x10ee) or c:IsSetCard(0x120e))
+	return c:IsSetCard(0x10ec)
 end
 
 function c7420.spcon(e,tp,eg,ep,ev,re,r,rp)

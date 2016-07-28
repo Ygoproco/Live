@@ -28,7 +28,7 @@ function c7198.initial_effect(c)
 end
 
 function c7198.thfil(c)
-	return c:IsSetCard(0x10ed) and c:IsAbleToHand()
+	return c:IsSetCard(0x10ee) and c:IsAbleToHand()
 end
 function c7198.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c7198.thfil,tp,LOCATION_DECK,0,1,nil) end

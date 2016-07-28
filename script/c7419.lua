@@ -46,7 +46,7 @@ function c7419.initial_effect(c)
 end
 
 function c7419.aafil(c)
-	return (c:IsSetCard(0x10ee) or c:IsSetCard(0x120e))
+	return c:IsSetCard(0x10ec)
 end
 
 function c7419.filter(c,tp)

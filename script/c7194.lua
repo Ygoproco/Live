@@ -33,7 +33,7 @@ function c7194.initial_effect(c)
 end
 
 function c7194.drcfil(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xec) and c:IsDiscardable()
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xed) and c:IsDiscardable()
 end
 function c7194.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c7194.drcfil,tp,LOCATION_HAND,0,1,nil) and Duel.IsPlayerCanDraw(tp,2) end
