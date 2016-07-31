@@ -51,7 +51,7 @@ function c86013171.tgcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.PayLPCost(tp,500)
 end
 function c86013171.tgfil(c)
-  return c:IsSetCard(0xd2) and c:IsType(TYPE_MONSTER)
+  return c:IsSetCard(0xd2) and c:IsType(TYPE_MONSTER) and c:IsFaceup()
 end
 function c86013171.tgtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
   if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and c86013171.tgfil(chkc) end
