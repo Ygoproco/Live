@@ -51,14 +51,15 @@ function c11050415.activate(e,tp,eg,ep,ev,re,r,rp)
 				token:RegisterEffect(e3)
 			end
 			Duel.SpecialSummonComplete()
+			local e1=Effect.CreateEffect(c)
+			e1:SetType(EFFECT_TYPE_FIELD)
+			e1:SetCode(EFFECT_CANNOT_SELECT_BATTLE_TARGET)
+			e1:SetTargetRange(0,LOCATION_MZONE)
+			e1:SetValue(c11050415.atlimit)
+			e1:SetReset(RESET_PHASE+PHASE_END)
+			Duel.RegisterEffect(e1,tp)
 		end
-		local e1=Effect.CreateEffect(c)
-		e1:SetType(EFFECT_TYPE_FIELD)
-		e1:SetCode(EFFECT_CANNOT_SELECT_BATTLE_TARGET)
-		e1:SetTargetRange(0,LOCATION_MZONE)
-		e1:SetValue(c11050415.atlimit)
-		e1:SetReset(RESET_PHASE+PHASE_END)
-		Duel.RegisterEffect(e1,tp)
+
 	end
 end
 function c11050415.splimit(e,c)
