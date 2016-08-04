@@ -92,11 +92,6 @@ function c85004150.desop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(c85004150.desfilter,tp,0,LOCATION_MZONE,nil)
 	if g:GetCount()>0 then
 		local tg=g:GetMaxGroup(Card.GetDefence)
-		if tg:GetCount()>1 then
-			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-			local sg=tg:Select(tp,1,1,nil)
-			Duel.HintSelection(sg)
-			Duel.Destroy(sg,REASON_EFFECT)
-		else Duel.Destroy(tg,REASON_EFFECT) end
+		Duel.Destroy(tg,REASON_EFFECT)
 	end
 end

@@ -23,10 +23,10 @@ function c35058588.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c35058588.fil1(c)
-	return c:IsFaceup() and c:IsSetCard(0xe3) and c:IsAttackAbove(1)
+	return c:IsFaceup() and c:IsSetCard(0xe3)
 end
 function c35058588.fil2(c)
-	return c:IsFaceup() and c:IsAttackAbove(1)
+	return c:IsFaceup()
 end
 function c35058588.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end

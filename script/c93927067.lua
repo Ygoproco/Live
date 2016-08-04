@@ -36,7 +36,8 @@ function c93927067.spcon(e,c)
 end
 
 function c93927067.atkcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():IsFaceup() and e:GetHandler():IsRelateToBattle()
+	local c=e:GetHandler()
+	return c:IsFaceup() and c:IsRelateToBattle() and c:GetBattleTarget():GetPreviousControler()~=c:GetControler()
 end
 function c93927067.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

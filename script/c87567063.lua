@@ -15,7 +15,12 @@ end
 
 function c87567063.condition(e,tp,eg,ep,ev,re,r,rp)
 	local ph=Duel.GetCurrentPhase()
-	return ph==PHASE_BATTLE or (ph==PHASE_DAMAGE and not Duel.IsDamageCalculated())
+	--return ph==PHASE_BATTLE or (ph==PHASE_DAMAGE and not Duel.IsDamageCalculated())
+	local bpc1=(ph==PHASE_BATTLE or (ph==PHASE_DAMAGE and not Duel.IsDamageCalculated()))
+	--This check will be operative as of 1.033.9.2
+	local bpc2=false
+	if PHASE_BATTLE_START then bpc2=(ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE) end
+    return (bpc1 or bpc2)
 end
 function c87567063.filter(c)
 	return c:IsControlerCanBeChanged()

@@ -1,5 +1,4 @@
---Scripted by Eerie Code
---Blue-Eyes Twin Burst Dragon
+--青眼の双爆裂龍
 function c2129638.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()
@@ -20,9 +19,11 @@ function c2129638.initial_effect(c)
 	e2:SetCondition(c2129638.spcon)
 	e2:SetOperation(c2129638.spop)
 	c:RegisterEffect(e2)
-	--battle indestructable
+	--indes
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
+	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e3:SetRange(LOCATION_MZONE)
 	e3:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
 	e3:SetValue(1)
 	c:RegisterEffect(e3)
@@ -43,63 +44,56 @@ function c2129638.initial_effect(c)
 	c:RegisterEffect(e5)
 	local e6=e5:Clone()
 	e6:SetCode(EFFECT_CANNOT_ATTACK)
-	e6:SetCondition(c2129638.atkcon2)
+	e6:SetCondition(c2129638.atkcon)
 	c:RegisterEffect(e6)
-	--Banish
+	--remove
 	local e7=Effect.CreateEffect(c)
 	e7:SetDescription(aux.Stringid(2129638,0))
-	e7:SetCategory(CATEGORY_TOHAND)
+	e7:SetCategory(CATEGORY_REMOVE)
 	e7:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e7:SetCode(EVENT_DAMAGE_STEP_END)
-	e7:SetCondition(c2129638.retcon)
-	e7:SetTarget(c2129638.rettg)
-	e7:SetOperation(c2129638.retop)
+	e7:SetCondition(c2129638.rmcon)
+	e7:SetTarget(c2129638.rmtg)
+	e7:SetOperation(c2129638.rmop)
 	c:RegisterEffect(e7)
 end
-
 function c2129638.splimit(e,se,sp,st)
 	return bit.band(st,SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION
 end
-function c2129638.spfilter1(c,tp,fc)
-	return c:IsCode(89631139) and c:IsCanBeFusionMaterial(fc) and c:IsAbleToGraveAsCost() and Duel.IsExistingMatchingCard(c2129638.spfilter2,tp,LOCATION_MZONE,0,1,c,fc)
-end
-function c2129638.spfilter2(c,fc)
-	return c:IsCode(89631139) and c:IsCanBeFusionMaterial(fc) and c:IsAbleToGraveAsCost()
+function c2129638.spfilter(c,fc)
+	return c:IsFusionCode(89631139) and c:IsCanBeFusionMaterial(fc) and c:IsAbleToGraveAsCost()
 end
 function c2129638.spcon(e,c)
 	if c==nil then return true end
 	local tp=c:GetControler()
-	return Duel.GetLocationCount(tp,LOCATION_MZONE)>-2 and Duel.IsExistingMatchingCard(c2129638.spfilter1,tp,LOCATION_MZONE,0,1,nil,tp,c)
+	return Duel.GetLocationCount(tp,LOCATION_MZONE)>-2
+		and Duel.IsExistingMatchingCard(c2129638.spfilter,tp,LOCATION_MZONE,0,2,nil,c)
 end
 function c2129638.spop(e,tp,eg,ep,ev,re,r,rp,c)
-	local g1=Duel.SelectMatchingCard(tp,c2129638.spfilter1,tp,LOCATION_MZONE,0,1,1,nil,tp,c)
-	local g2=Duel.SelectMatchingCard(tp,c2129638.spfilter2,tp,LOCATION_MZONE,0,1,1,g1:GetFirst(),c)
-	g1:Merge(g2)
-	c:SetMaterial(g1)
-	Duel.SendtoGrave(g1,REASON_COST+REASON_FUSION+REASON_MATERIAL)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
+	local g=Duel.SelectMatchingCard(tp,c2129638.spfilter,tp,LOCATION_MZONE,0,2,2,nil,c)
+	c:SetMaterial(g)
+	Duel.SendtoGrave(g,REASON_COST)
 end
-
 function c2129638.dircon(e)
 	return e:GetHandler():GetAttackAnnouncedCount()>0
 end
-function c2129638.atkcon2(e)
+function c2129638.atkcon(e)
 	return e:GetHandler():IsDirectAttacked()
 end
-
-function c2129638.retcon(e,tp,eg,ep,ev,re,r,rp)
-	if not e:GetHandler():IsRelateToBattle() then return false end
-	local t=nil
-	if ev==0 then t=Duel.GetAttackTarget()
-	else t=Duel.GetAttacker() end
-	e:SetLabelObject(t)
-	return t and t:IsRelateToBattle()
+function c2129638.rmcon(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	local bc=c:GetBattleTarget()
+	e:SetLabelObject(bc)
+	return c==Duel.GetAttacker() and bc and c:IsStatus(STATUS_OPPO_BATTLE) and bc:IsOnField() and bc:IsRelateToBattle()
 end
-function c2129638.rettg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return true end
+function c2129638.rmtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return e:GetLabelObject():IsAbleToRemove() end
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,e:GetLabelObject(),1,0,0)
 end
-function c2129638.retop(e,tp,eg,ep,ev,re,r,rp)
-	if e:GetLabelObject():IsRelateToBattle() then
-		Duel.Remove(e:GetLabelObject(),nil,REASON_EFFECT)
+function c2129638.rmop(e,tp,eg,ep,ev,re,r,rp)
+	local bc=e:GetLabelObject()
+	if bc:IsRelateToBattle() then
+		Duel.Remove(bc,POS_FACEUP,REASON_EFFECT)
 	end
 end

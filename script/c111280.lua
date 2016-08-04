@@ -12,6 +12,7 @@ function c111280.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 c111280.dark_magician_list=true
+c111280.dark_magician_girl_list=true
 function c111280.cfilter(c)
 	return c:IsFaceup() and c:IsCode(46986414,38033121)
 end
@@ -79,8 +80,7 @@ function c111280.activate(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c111280.chainop(e,tp,eg,ep,ev,re,r,rp)
-	local rc=re:GetHandler()
-	if re:IsHasType(EFFECT_TYPE_ACTIVATE) and ep~=tp then
+	if ep==tp and re and re:IsActiveType(TYPE_SPELL+TYPE_TRAP) then
 		Duel.SetChainLimit(c111280.chainlm)
 	end
 end

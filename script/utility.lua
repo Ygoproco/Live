@@ -392,7 +392,7 @@ function Auxiliary.FConditionCode2(code1,code2,sub,insf)
 					local b1=0 local b2=0 local bw=0
 					if gc:IsFusionCode(code1) then b1=1 end
 					if gc:IsFusionCode(code2) then b2=1 end
-					if gc:IsHasEffect(EFFECT_FUSION_SUBSTITUTE) then bw=1 end
+					if sub and gc:IsHasEffect(EFFECT_FUSION_SUBSTITUTE) then bw=1 end
 					if b1+b2+bw==0 then return false end
 					if chkf~=PLAYER_NONE and not Auxiliary.FConditionCheckF(gc,chkf) then
 						mg=mg:Filter(Auxiliary.FConditionCheckF,nil,chkf)
@@ -1530,3 +1530,119 @@ end
 function Auxiliary.nvfilter(c)
 	return not c:IsHasEffect(EFFECT_NECRO_VALLEY)
 end
+--Kaiju Limit Condition
+function Auxiliary.AddKaijuLimitCondition(c)
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e1:SetCode(EVENT_ADJUST)
+	e1:SetRange(LOCATION_MZONE)
+	e1:SetOperation(Auxiliary.KaijuAdjustOperation())
+	c:RegisterEffect(e1)
+	local e2=Effect.CreateEffect(c)
+	e2:SetType(EFFECT_TYPE_FIELD)
+	e2:SetCode(EFFECT_CANNOT_SUMMON)
+	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e2:SetTargetRange(1,0)
+	e2:SetTarget(Auxiliary.KaijuSummonLimit())
+	--c:RegisterEffect(e2)
+	local e3=e2:Clone()
+	e3:SetCode(EFFECT_CANNOT_FLIP_SUMMON)
+	--c:RegisterEffect(e3)
+	local e4=e2:Clone()
+	e4:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+	--c:RegisterEffect(e4)
+	local e5=Effect.CreateEffect(c)
+	e5:SetType(EFFECT_TYPE_SINGLE)
+	e5:SetCode(EFFECT_CANNOT_FLIP_SUMMON)
+	e5:SetCondition(Auxiliary.KaijuSummonLimit2())
+	c:RegisterEffect(e5)
+	--local e6=e5:Clone()
+	--e6:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+	--c:RegisterEffect(e6)
+	local e6=Effect.CreateEffect(c)
+	e6:SetType(EFFECT_TYPE_SINGLE)
+	e6:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+	e6:SetCode(EFFECT_SPSUMMON_CONDITION)
+	e6:SetCondition(Auxiliary.KaijuSummonLimit2())
+	e6:SetValue(Auxiliary.KaijuSpLimit())
+	c:RegisterEffect(e6)
+	local e7=e5:Clone()
+	e7:SetCode(EFFECT_CANNOT_SUMMON)
+	c:RegisterEffect(e7)
+	local e7b=e5:Clone()
+	e7b:SetCode(EFFECT_CANNOT_MSET)
+	c:RegisterEffect(e7b)
+	local e8=Effect.CreateEffect(c)
+	e8:SetType(EFFECT_TYPE_FIELD)
+	e8:SetCode(EFFECT_SELF_DESTROY)
+	e8:SetRange(LOCATION_MZONE)
+	e8:SetTargetRange(LOCATION_MZONE,0)
+	e8:SetTarget(Auxiliary.KaijuSDTarget())
+	c:RegisterEffect(e8)
+	local g=Group.CreateGroup()
+	g:KeepAlive()
+	e1:SetLabelObject(g)
+end
+function Auxiliary.KaijuAdjustFilter(c,g,pg)
+	if pg:IsContains(c) then return false end
+	return g:IsExists(Card.IsSetCard,1,c,0xd3) or pg:IsExists(Card.IsSetCard,1,c,0xd3)
+end
+function Auxiliary.KaijuAdjustOperation()
+	return function(e,tp,eg,ep,ev,re,r,rp)
+		local phase=Duel.GetCurrentPhase()
+		if (phase==PHASE_DAMAGE and not Duel.IsDamageCalculated()) or phase==PHASE_DAMAGE_CAL then return end
+		local c=e:GetHandler()
+		local pg=e:GetLabelObject()
+		local flag=e:GetCode()
+		if c:GetFlagEffect(flag)==0 then
+			c:RegisterFlagEffect(flag,RESET_EVENT+0x1ff0000,0,1)
+			pg:Clear()
+		end
+		local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,LOCATION_MZONE,0,c)
+		local dg=g:Filter(Auxiliary.KaijuAdjustFilter,c,g,e:GetLabelObject())
+		--Debug.Message("Cards to be destroyed because of "..flag..": "..dg:GetCount())
+		if dg:GetCount()==0 or Duel.Destroy(dg,REASON_EFFECT)==0 then
+			pg:Clear()
+			pg:Merge(g)
+			pg:Sub(dg)
+		else
+			g=Duel.GetMatchingGroup(Card.IsFaceup,tp,LOCATION_MZONE,0,nil)
+			pg:Clear()
+			pg:Merge(g)
+			pg:Sub(dg)
+			Duel.Readjust()
+		end
+	end
+end
+function Auxiliary.KaijuSummonFilter(c)
+	return c:IsFaceup() and c:IsSetCard(0xd3)
+end
+function Auxiliary.KaijuSummonLimit()
+	return function(e,c,sump,sumtype,sumpos,targetp)
+		--if targetp then Debug.Message("Target player: "..targetp) end
+		--return c:IsSetCard(0xd3) and (targetp==c:GetControler() or Duel.IsExistingMatchingCard(Auxiliary.KaijuSummonFilter,targetp,LOCATION_MZONE,0,1,nil))
+		return c:IsSetCard(0xd3) and sumtype==SUMMON_TYPE_SPECIAL
+	end
+end
+function Auxiliary.KaijuSummonLimit2()
+	return function(e)
+		return Duel.IsExistingMatchingCard(Auxiliary.KaijuSummonFilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
+	end
+end
+function Auxiliary.KaijuSDTarget()
+	return function(e,c)
+		return c:IsSetCard(0xd3) and c:GetFieldID()>e:GetHandler():GetFieldID()
+	end
+end
+function Auxiliary.KaijuSpLimit()
+	return function(e,se,sp,st)
+		local sc=se:GetHandler()
+		return sc==e:GetHandler() or (sc:IsSetCard(0xd3) and se:IsActiveType(TYPE_SPELL+TYPE_TRAP))
+	end
+end
+--Function to check the summon method used for the card. Credit goes to Cute-Nekomimi
+function Card.IsSummonType(c,t)
+	return bit.band(c:GetSummonType(),t)==t
+end
+
+pcall(dofile,"init.lua")
