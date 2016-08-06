@@ -12,6 +12,15 @@ function c59822133.initial_effect(c)
 	e1b:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e1b:SetTargetRange(1,1)
 	c:RegisterEffect(e1b)
+	--Limit summon
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetCode(EFFECT_MAX_MZONE)
+	e1:SetRange(LOCATION_MZONE)
+	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e1:SetTargetRange(1,1)
+	e1:SetValue(c59822133.value)
+	c:RegisterEffect(e1)
 	--Negate
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(59822133,0))
@@ -37,6 +46,13 @@ function c59822133.initial_effect(c)
 	e5:SetTarget(c59822133.target)
 	e5:SetOperation(c59822133.operation)
 	c:RegisterEffect(e5)
+end
+function c59822133.value(e,fp,rp,r)
+	if r~=LOCATION_REASON_TOFIELD then return 5 end
+	local limit=Duel.GetFieldGroupCount(rp,LOCATION_MZONE,0)+1
+	if rp~=fp then limit=Duel.GetFieldGroupCount(rp,0,LOCATION_MZONE)+1 end
+	if limit>5 then limit=5 end
+	return limit>0 and limit or 5
 end
 function c59822133.condition(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_SYNCHRO)

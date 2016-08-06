@@ -142,4 +142,16 @@ function c62829077.activate(e,tp,eg,ep,ev,re,r,rp)
 		local xyz=xyzg:Select(tp,1,1,nil):GetFirst()
 		Duel.XyzSummon(tp,xyz,g)
 	end
+	local e1=Effect.CreateEffect(e:GetHandler())
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_OATH)
+	e1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+	e1:SetReset(RESET_PHASE+PHASE_END)
+	e1:SetTargetRange(1,0)
+	e1:SetTarget(c62829077.splimit2)
+	Duel.RegisterEffect(e1,tp)
 end
+function c62829077.splimit2(e,c,sump,sumtype,sumpos,targetp,se)
+	return e:GetHandler()~=se:GetHandler()
+end
+

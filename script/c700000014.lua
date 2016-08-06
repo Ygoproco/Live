@@ -2,12 +2,7 @@
 --Abyss Actor - Funky Comedian
 function c700000014.initial_effect(c)
 	--Pendulum Summon
-	aux.AddPendulumProcedure(c)
-	--Activate
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_ACTIVATE)
-	e1:SetCode(EVENT_FREE_CHAIN)
-	c:RegisterEffect(e1)
+	aux.EnablePendulumAttribute(c)
 	--Increase ATK (P)
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_ATKCHANGE)
@@ -30,17 +25,16 @@ function c700000014.initial_effect(c)
 	e4:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e4)
 end
-function c700000014.cfilter(c,tp)
-	return c:IsType(TYPE_PENDULUM) and c:IsSetCard(0x120e) and c:IsAbleToDeckOrExtraAsCost() 
-		and Duel.IsExistingTarget(Card.IsFaceup,tp,LOCATION_MZONE,0,1,c)
+function c700000014.cfilter(c)
+	return c:IsType(TYPE_PENDULUM) and c:IsSetCard(0x120e) and c:IsAbleToDeckOrExtraAsCost()
 end
 function c700000014.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c700000014.cfilter,tp,LOCATION_MZONE,0,1,nil,tp) end
-	local g=Duel.SelectMatchingCard(tp,c700000014.cfilter,tp,LOCATION_MZONE,0,1,1,nil,tp)
+	if chk==0 then return Duel.IsExistingMatchingCard(c700000014.cfilter,tp,LOCATION_MZONE,0,1,nil) end
+	local g=Duel.SelectMatchingCard(tp,c700000014.cfilter,tp,LOCATION_MZONE,0,1,1,nil)
 	local atk=g:GetFirst():GetAttack()
 	if atk<0 then atk=0 end
 	e:SetLabel(atk)
-	Duel.PSendtoExtra(g,nil,REASON_COST)
+	Duel.SendToExtra(g,POS_FACEUP,REASON_COST)
 end
 function c700000014.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE) and chkc:IsFaceup() end

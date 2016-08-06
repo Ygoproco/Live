@@ -18,11 +18,11 @@ function c7418.initial_effect(c)
 	--
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
-	e2:SetCode(EVENT_SUMMON_SUCCESS)
+	e2:SetCode(EVENT_SUMMON)
 	e2:SetOperation(c7418.sumsuc)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
-	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
+	e3:SetCode(EVENT_SPSUMMON)
 	c:RegisterEffect(e3)
 	--
 	local e4=Effect.CreateEffect(c)
@@ -36,7 +36,7 @@ function c7418.initial_effect(c)
 end
 
 function c7418.thcfil(c)
-	return c:IsSetCard(0x10ed) or c:IsSetCard(0x120e)
+	return c:IsSetCard(0x10ec)
 end
 function c7418.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckReleaseGroup(tp,c7418.thcfil,1,e:GetHandler()) end
@@ -44,7 +44,7 @@ function c7418.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(sg,REASON_COST)
 end
 function c7418.thfil(c)
-	return c:IsType(TYPE_SPELL) and (c:IsSetCard(0x20ed) or c:IsSetCard(0x220e)) and c:IsAbleToHand()
+	return c:IsType(TYPE_SPELL) and c:IsSetCard(0x20ec) and c:IsAbleToHand()
 end
 function c7418.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c7418.thfil(chkc) end
@@ -66,11 +66,11 @@ function c7418.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	Duel.SetChainLimitTillChainEnd(c7418.chainlim)
 end
 function c7418.chainlim(e,rp,tp)
-	return tp==rp and e:IsActiveType(TYPE_SPELL+TYPE_TRAP)
+	return tp==rp or e:IsActiveType(TYPE_MONSTER)
 end
 
 function c7418.setfil(c)
-	return c:IsType(TYPE_SPELL) and (c:IsSetCard(0x20ed) or c:IsSetCard(0x220e)) and c:IsSSetable(false)
+	return c:IsType(TYPE_SPELL) and c:IsSetCard(0x20ec) and c:IsSSetable(false)
 end
 function c7418.settg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0 and Duel.IsExistingMatchingCard(c7418.setfil,tp,LOCATION_DECK,0,1,nil) end

@@ -2,12 +2,7 @@
 --Abyss Actor - Big Star
 function c700000013.initial_effect(c)
 	--Pendulum Summon
-	aux.AddPendulumProcedure(c)
-	--Activate
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_ACTIVATE)
-	e1:SetCode(EVENT_FREE_CHAIN)
-	c:RegisterEffect(e1)
+	aux.EnablePendulumAttribute(c)
 	--Recover
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_TOHAND)
@@ -35,7 +30,7 @@ end
 function c700000013.rvcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c700000013.cfilter,tp,LOCATION_MZONE,0,1,nil) end
 	local g=Duel.SelectMatchingCard(tp,c700000013.cfilter,tp,LOCATION_MZONE,0,1,1,nil)
-	Duel.PSendtoExtra(g,nil,REASON_COST)
+	Duel.SendToExtra(g,POS_FACEUP,REASON_COST)
 end
 function c700000013.thfilter(c)
 	return c:IsType(TYPE_SPELL) and c:IsSetCard(0x220e) and c:IsAbleToHand()
@@ -60,7 +55,7 @@ function c700000013.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c700000013.thop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectMatchingCard(tp,c700000013.thfilter,tp,LOCATION_DECK,0,1,1,nil)
+	local g=Duel.SelectMatchingCard(tp,c700000013.thfil,tp,LOCATION_DECK,0,1,1,nil)
 	local tc=g:GetFirst()
 	if tc then
 		Duel.SendtoHand(tc,nil,REASON_EFFECT)

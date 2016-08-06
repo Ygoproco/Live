@@ -4,7 +4,13 @@
 function c28016193.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()
-	aux.AddFusionProcFunRep(c,aux.FilterBoolFunction(Card.IsFusionSetCard,0xe1),2,true)
+	local e0=Effect.CreateEffect(c)
+	e0:SetType(EFFECT_TYPE_SINGLE)
+	e0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+	e0:SetCode(EFFECT_FUSION_MATERIAL)
+	e0:SetCondition(c28016193.fscon)
+	e0:SetOperation(c28016193.fsop)
+	c:RegisterEffect(e0)
 	--pierce
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
@@ -32,6 +38,59 @@ function c28016193.initial_effect(c)
 	e3:SetOperation(c28016193.desop)
 	c:RegisterEffect(e3)
 end
+
+function c28016193.filter(c)
+	return c:IsFusionSetCard(0xe1)
+end
+function c28016193.exfilter(c)
+	return c:IsHasEffect(77693536)
+end
+function c28016193.fscon(e,g,gc,chkfnf)
+	if g==nil then return true end
+	local f=c28016193.filter
+	local cc=2
+	local chkf=bit.band(chkfnf,0xff)
+	local exg=Duel.GetMatchingGroup(c28016193.exfilter,e:GetHandlerPlayer(),LOCATION_SZONE,0,nil)
+	exg:Merge(g)
+	local mg=exg:Filter(Card.IsCanBeFusionMaterial,nil,e:GetHandler(),true)
+		if gc then
+			if not gc:IsCanBeFusionMaterial(e:GetHandler(),true) then return false end
+			return f(gc) and mg:IsExists(f,cc-1,gc) end
+		local g1=mg:Filter(f,nil)
+		if chkf~=PLAYER_NONE then
+			return g1:FilterCount(Card.IsOnField,nil)~=0 and g1:GetCount()>=cc
+		else return g1:GetCount()>=cc end
+	end
+function c28016193.fsop(e,tp,eg,ep,ev,re,r,rp,gc,chkfnf)
+	local f=c28016193.filter
+	local cc=2
+	local chkf=bit.band(chkfnf,0xff)
+	local exg=Duel.GetMatchingGroup(c28016193.exfilter,tp,LOCATION_SZONE,0,nil)
+	exg:Merge(eg)
+	local g=exg:Filter(Card.IsCanBeFusionMaterial,nil,e:GetHandler(),true)
+	if gc then
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FMATERIAL)
+		local g1=g:FilterSelect(tp,f,cc-1,cc-1,gc)
+		Duel.SetFusionMaterial(g1)
+		return
+	end
+	local sg=g:Filter(f,nil)
+	if chkf==PLAYER_NONE or sg:GetCount()==cc then
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FMATERIAL)
+		local g1=sg:Select(tp,cc,cc,nil)
+		Duel.SetFusionMaterial(g1)
+		return
+	end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FMATERIAL)
+	local g1=sg:FilterSelect(tp,Auxiliary.FConditionCheckF,1,1,nil,chkf)
+	if cc>1 then
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FMATERIAL)
+		local g2=sg:Select(tp,cc-1,cc-1,g1:GetFirst())
+		g1:Merge(g2)
+	end
+	Duel.SetFusionMaterial(g1)
+end
+
 function c28016193.damcon(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp and eg and eg:GetFirst():GetBattleTarget() and eg:GetFirst():GetBattleTarget():IsDefencePos() and eg:GetFirst():IsSetCard(0xe1)
 end

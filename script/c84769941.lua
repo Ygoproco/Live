@@ -3,11 +3,12 @@
 function c84769941.initial_effect(c)
 	c:EnableReviveLimit()
 	aux.AddKaijuLimitCondition(c)
+	--
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_SPSUMMON_PROC)
 	e2:SetRange(LOCATION_HAND)
-	e2:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_SPSUM_PARAM)
+	e2:SetProperty(EFFECT_FLAG_UNCOPYABLE)
 	e2:SetTargetRange(POS_FACEUP,0)
 	e2:SetCondition(c84769941.spcon2)
 	c:RegisterEffect(e2)

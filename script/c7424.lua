@@ -19,6 +19,7 @@ function c7424.initial_effect(c)
 	e2:SetCategory(CATEGORY_DRAW)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_DESTROYED)
+	e2:SetProperty(EFFECT_FLAG_DELAY)
 	e2:SetCountLimit(1,7424+1)
 	e2:SetCondition(c7424.drcon)
 	e2:SetTarget(c7424.drtg)
@@ -27,7 +28,7 @@ function c7424.initial_effect(c)
 end
 
 function c7424.rcfil(c)
-	return c:IsFaceup() and (c:IsSetCard(0x10ed) or c:IsSetCard(0x120e))
+	return c:IsFaceup() and c:IsSetCard(0x10ec)
 end
 function c7424.rctg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c7424.rcfil,tp,LOCATION_MZONE,0,1,nil) end

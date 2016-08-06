@@ -2,12 +2,7 @@
 --Amorphage Olga
 function c79794767.initial_effect(c)
 	--Pendulum Summon
-	aux.AddPendulumProcedure(c)
-	--Activate
-	local e9=Effect.CreateEffect(c)
-	e9:SetType(EFFECT_TYPE_ACTIVATE)
-	e9:SetCode(EVENT_FREE_CHAIN)
-	c:RegisterEffect(e9)
+	aux.EnablePendulumAttribute(c)
 	--destroy
 	local e4=Effect.CreateEffect(c)
 	e4:SetDescription(aux.Stringid(79794767,0))
