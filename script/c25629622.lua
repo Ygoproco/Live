@@ -18,11 +18,11 @@ function c25629622.initial_effect(c)
 	--
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
-	e2:SetCode(EVENT_SUMMON)
+	e2:SetCode(EVENT_SUMMON_SUCCESS)
 	e2:SetOperation(c25629622.sumsuc)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
-	e3:SetCode(EVENT_SPSUMMON)
+	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e3)
 	--
 	local e4=Effect.CreateEffect(c)
