@@ -40,43 +40,28 @@ end
 function c50179591.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if tc:IsFaceup() and tc:IsRelateToEffect(e) then
-		--
+	if tc:IsRelateToEffect(e) then
+		tc:RegisterFlagEffect(50179591,RESET_EVENT+0x1220000+RESET_PHASE+PHASE_END,EFFECT_FLAG_CLIENT_HINT,1,0,aux.Stringid(50179591,0))
 		local e1=Effect.CreateEffect(c)
-		e1:SetType(EFFECT_TYPE_SINGLE)
-		e1:SetDescription(aux.Stringid(50179591,0))
-		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-		e1:SetProperty(EFFECT_FLAG_CLIENT_HINT)
-		tc:RegisterEffect(e1)
-		tc:RegisterFlagEffect(50179591,RESET_EVENT+0x1220000+RESET_PHASE+PHASE_END,0,1)
-		local e2=Effect.CreateEffect(c)
-		e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
-		e2:SetCategory(CATEGORY_REMOVE)
-		e2:SetCode(EVENT_BATTLE_DESTROYING)
-		e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_DELAY)
-		e2:SetLabelObject(tc)
-		e2:SetCondition(c50179591.rmcon1)
-		e2:SetTarget(c50179591.rmtg1)
-		e2:SetOperation(c50179591.rmop1)
-		e2:SetReset(RESET_PHASE+PHASE_END)
-		Duel.RegisterEffect(e2,tp)
+		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+		e1:SetCode(EVENT_BATTLE_DESTROYING)
+		e1:SetLabelObject(tc)
+		e1:SetCondition(c50179591.rmcon1)
+		e1:SetOperation(c50179591.rmop1)
+		e1:SetReset(RESET_PHASE+PHASE_END)
+		Duel.RegisterEffect(e1,tp)
 	end
 end
 function c50179591.rmcon1(e,tp,eg,ep,ev,re,r,rp)
 	local tc=e:GetLabelObject()
 	return eg:IsContains(tc) and tc:GetFlagEffect(50179591)~=0
 end
-function c50179591.rmtg1(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToRemove,tp,0,LOCATION_EXTRA,1,nil) end
-	Duel.SetOperationInfo(0,CATEGORY_REMOVE,nil,3,0,0)
-end
 function c50179591.rmop1(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.GetFieldGroup(tp,0,LOCATION_EXTRA)
-	if g:GetCount()==0 then return end
-	local ct=3
-	if g:GetCount()<3 then ct=g:GetCount() end
+	local g=Duel.GetMatchingGroup(Card.IsAbleToRemove,tp,0,LOCATION_EXTRA,nil)
+	if g:GetCount()<3 then return end
+	Duel.Hint(HINT_CARD,0,50179591)
 	Duel.Hint(HINT_SELECTMSG,1-tp,HINTMSG_REMOVE)
-	local mg=g:FilterSelect(1-tp,Card.IsAbleToRemove,ct,ct,nil)
+	local mg=g:Select(1-tp,3,3,nil)
 	if mg:GetCount()>0 then
 		Duel.Remove(mg,POS_FACEUP,REASON_EFFECT)
 	end
