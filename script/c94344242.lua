@@ -79,7 +79,7 @@ function c94344242.efop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c94344242.deffil(c)
-	return c:IsFaceup() and c:IsDefenceAbove(1)
+	return c:IsFaceup()
 end
 function c94344242.defcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_XYZ
