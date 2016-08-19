@@ -46,7 +46,7 @@ function c30757127.afil(c)
 end
 function c30757127.op(e,tp,eg,ep,ev,re,r,rp)
 	local ag=Duel.GetMatchingGroup(c30757127.fil,tp,LOCATION_MZONE,0,nil)
-	if ag:GetCount()==0 then return end
+	--if ag:GetCount()==0 then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 	local g=Duel.SelectMatchingCard(tp,c30757127.cfil,tp,LOCATION_HAND+LOCATION_DECK,0,1,1,nil)
 	if g:GetCount()>0 and Duel.SendtoGrave(g,REASON_EFFECT)>0 then
