@@ -1,3 +1,5 @@
+**This repository has been moved to https://github.com/Ygoproco/Live2016**
+
 # Live
 Instant update files for Ygopro Percy. Files in this repository will override existing files in Ygopro.
 
